@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const reservationPostValidation = z.object({
+export const postReservationBodyValidation = z.object({
   hostName: z.string(),
   hostEmail: z.string().email(),
   hostPhone: z.string(),

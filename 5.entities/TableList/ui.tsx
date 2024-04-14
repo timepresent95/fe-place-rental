@@ -10,7 +10,7 @@ import { TableColumns, TableData } from "./model";
 
 interface Props<T extends TableData> {
   columns: TableColumns<T>;
-  datas: T;
+  datas: T[];
 }
 
 function TableList<T extends TableData>({ columns, datas }: Props<T>) {
@@ -24,11 +24,13 @@ function TableList<T extends TableData>({ columns, datas }: Props<T>) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
-          {columns.map(({ accessKey, columnName }) => (
-            <TableCell key={accessKey}>{datas[accessKey]}</TableCell>
-          ))}
-        </TableRow>
+        {datas.map((data, index) => (
+          <TableRow key={index}>
+            {columns.map(({ accessKey }) => (
+              <TableCell key={accessKey}>{data[accessKey]}</TableCell>
+            ))}
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );
