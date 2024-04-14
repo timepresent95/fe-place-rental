@@ -11,7 +11,7 @@
     "prefix": ""
   },
   "aliases": {
-    "utils": "@/6.shared/lib/utils",
+    "utils": "@/6.shared/lib/tailwindMerge",
     "components": "@/6.shared/ui/shardcn/components",
     "ui": "@/6.shared/ui/shardcn/ui"
   }
