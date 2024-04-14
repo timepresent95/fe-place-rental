@@ -1,6 +1,4 @@
-import { HttpHandler } from "msw";
 import { setupServer } from "msw/node";
-
-const handlers: HttpHandler[] = [];
+import handlers from "./handler";
 
 export const server = setupServer(...handlers);
