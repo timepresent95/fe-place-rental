@@ -7,14 +7,13 @@ import {
   TableRow,
 } from "@/6.shared/ui/shardcn/ui/table";
 import { TableColumns, TableData } from "./model";
-import { cn } from "@/6.shared/lib/tailwindMerge";
 
 interface Props<T extends TableData> {
   columns: TableColumns<T>;
   datas: T;
 }
 
-function TableView<T extends TableData>({ columns, datas }: Props<T>) {
+function TableList<T extends TableData>({ columns, datas }: Props<T>) {
   return (
     <Table>
       <TableHeader>
@@ -34,3 +33,7 @@ function TableView<T extends TableData>({ columns, datas }: Props<T>) {
     </Table>
   );
 }
+
+TableList.displayName = "TableList";
+
+export default TableList;
