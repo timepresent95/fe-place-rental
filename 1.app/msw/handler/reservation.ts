@@ -34,13 +34,10 @@ export default (() => {
 
   const listAPI = http.get(apiEndpoint.list, ({ request }) => {
     const url = new URL(request.url);
-    console.log(url, url.searchParams.get(PAGINATION_QUERY_KEY));
-    const pageIndex = Number(url.searchParams.get(PAGINATION_QUERY_KEY) ?? 1);
+    const offset = Number(url.searchParams.get("offset") ?? 1);
     const pageSize = Number(
-      url.searchParams.get(PAGE_SIZE_QUERY_KEY) ?? DEFAULT_PAGE_SIZE
+      url.searchParams.get("pageSize") ?? DEFAULT_PAGE_SIZE
     );
-
-    const offset = pageSize * (pageIndex - 1);
 
     return HttpResponse.json({
       id: mockDatas.id,

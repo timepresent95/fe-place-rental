@@ -10,13 +10,6 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export interface Props {
-  total: number;
-  pageSize: number;
-  pageQuery: string;
-  pagerCount?: number;
-}
-
 type PaginationButton =
   | {
       type: "number";
@@ -64,11 +57,23 @@ function createVisiblePageIndexes(
   return ret;
 }
 
-function Pagination({ total, pageSize, pageQuery, pagerCount = 6 }: Props) {
+export interface Props {
+  total: number;
+  pageSize: number;
+  pagenationQuery: string;
+  pagerCount?: number;
+}
+
+function Pagination({
+  total,
+  pageSize,
+  pagenationQuery,
+  pagerCount = 6,
+}: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { replace } = useRouter();
-  const currentIndex = Number(searchParams.get(pageQuery)) || 1;
+  const currentIndex = Number(searchParams.get(pagenationQuery)) || 1;
   const endPageIndex = Math.ceil(total / pageSize);
   const visiblePageIndexes = createVisiblePageIndexes(
     currentIndex,
@@ -78,7 +83,7 @@ function Pagination({ total, pageSize, pageQuery, pagerCount = 6 }: Props) {
 
   const replacePageURL = (pageNumber: number) => {
     const params = new URLSearchParams(searchParams);
-    params.set(pageQuery, pageNumber.toString());
+    params.set(pagenationQuery, pageNumber.toString());
     replace(`${pathname}?${params.toString()}`);
   };
 

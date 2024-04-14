@@ -3,6 +3,7 @@ import { TableColumns } from "@/5.entities/TableList/model";
 import { getListReservation } from "@/5.entities/reservation/api";
 import { ReservationTableData } from "./model";
 import { formatReservationTableData } from "./lib";
+import { Suspense } from "react";
 
 export const PAGINATION_QUERY_KEY = "page-index";
 export const PAGE_SIZE_QUERY_KEY = "page-size";
@@ -43,13 +44,16 @@ async function ReservationPage({ searchParams }: Props) {
 
   return (
     <main className="px-4">
-      <TableView
-        columns={columns}
-        datas={reservationTable.datas}
-        pageSize={reservationTable.pageSize}
-        total={reservationTable.total}
-        pagenationQuery={PAGINATION_QUERY_KEY}
-      />
+      {/* Suspense Fallback 구현해야 함 */}
+      <Suspense fallback={<div />}>
+        <TableView
+          columns={columns}
+          datas={reservationTable.datas}
+          pageSize={reservationTable.pageSize}
+          total={reservationTable.total}
+          pagenationQuery={PAGINATION_QUERY_KEY}
+        />
+      </Suspense>
     </main>
   );
 }
