@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 import { cn } from "@/6.shared/lib/tailwindMerge";
-import { MapPin, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import Link from "next/link";
 import TooltipWrapper from "@/5.entities/TooltipWrapper/ui";
 import { GithubIcon, TistoryIcon } from "@/6.shared/ui/Icon";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, Suspense } from "react";
+import MainLogo from "./MainLogo";
+import RightNavigationDrawer from "./LeftNavigation";
 
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -13,19 +15,6 @@ export const metadata: Metadata = {
   title: "Place Rental",
   description: "Place Rental Service",
 };
-
-function MainLogo() {
-  return (
-    <div className="flex">
-      <div className="w-7 rounded-full h-7 flex justify-center items-center border border-indigo-700 outline outline-white">
-        <MapPin className="text-white" size={20} />
-      </div>
-      <span className="text-lg font-bold ml-2 text-white pb-1">
-        place rental
-      </span>
-    </div>
-  );
-}
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
@@ -35,6 +24,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           "flex flex-col min-h-[130vh] bg-background font-sans antialiased",
           NotoSans.variable
         )}>
+        <RightNavigationDrawer />
         <header
           className="py-5 bg-indigo-700 mb-8"
           style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)" }}>
