@@ -43,7 +43,7 @@ async function ReservationPage({ searchParams }: Props) {
   const reservationTable = formatReservationTableData(response.data);
 
   return (
-    <main className="px-4">
+    <main className="px-4 container">
       {/* Suspense Fallback 구현해야 함 */}
       <Suspense fallback={<div />}>
         <TableView
