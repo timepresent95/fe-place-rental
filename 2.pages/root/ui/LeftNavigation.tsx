@@ -24,14 +24,14 @@ function RightNavigationDrawer() {
         className="absolute left-0 -translate-x-full top-24 border-y border-l rounded-s border-slate py-3 px-1 shadow">
         {hide ? <ChevronLeft /> : <ChevronRight />}
       </button>
-      {RouterConfig.map(({ name, path }) => (
+      {RouterConfig.map(({ pageName, path }) => (
         <Link
           key={path}
           href={path}
           className={clsx("font-bold text-xl block hover:text-indigo-500", {
             "text-indigo-700": path === currentPath,
           })}>
-          {name}
+          {pageName}
         </Link>
       ))}
     </div>

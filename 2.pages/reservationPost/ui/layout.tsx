@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react";
 export default async function ReservationListLayout({
   children,
 }: PropsWithChildren) {
-  const pageName = RouterConfig.find((v) => v.path === "/reservation/list");
+  const pageName = RouterConfig.find((v) => v.path === "/reservation/post");
   if (pageName === undefined) {
     //TODO: 등록되지 않은 경로에 대한 에러
     throw new Error("등록되지 않은 에러입니다.");
