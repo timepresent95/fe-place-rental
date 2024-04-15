@@ -11,28 +11,36 @@ import { TableColumns, TableData } from "./model";
 interface Props<T extends TableData> {
   columns: TableColumns<T>;
   datas: T[];
+  pageSize: number;
 }
 
-function TableList<T extends TableData>({ columns, datas }: Props<T>) {
+function TableList<T extends TableData>({
+  columns,
+  datas,
+  pageSize,
+}: Props<T>) {
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          {columns.map(({ accessKey, columnName }) => (
-            <TableHead key={accessKey}>{columnName}</TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {datas.map((data, index) => (
-          <TableRow key={index}>
-            {columns.map(({ accessKey }) => (
-              <TableCell key={accessKey}>{data[accessKey]}</TableCell>
+    <>
+      <Table>
+        <TableHeader>
+          <TableRow className="h-10">
+            {columns.map(({ accessKey, columnName }) => (
+              <TableHead key={accessKey}>{columnName}</TableHead>
             ))}
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {datas.map((data, index) => (
+            <TableRow key={index} className="h-10">
+              {columns.map(({ accessKey }) => (
+                <TableCell key={accessKey}>{data[accessKey]}</TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <div style={{ minHeight: `calc(2.5rem*${pageSize - datas.length})` }} />
+    </>
   );
 }
 

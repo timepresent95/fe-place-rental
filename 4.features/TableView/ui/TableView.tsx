@@ -7,7 +7,7 @@ interface Props<T extends TableData> {
   datas: T[];
   pageSize: number;
   total: number;
-  pagenationQuery: string;
+  paginationQueryKey: string;
 }
 
 function TableView<T extends TableData>({
@@ -15,7 +15,7 @@ function TableView<T extends TableData>({
   datas,
   pageSize,
   total,
-  pagenationQuery,
+  paginationQueryKey,
 }: Props<T>) {
   return (
     <div>
@@ -23,7 +23,7 @@ function TableView<T extends TableData>({
       <Pagination
         total={total}
         pageSize={pageSize}
-        pagenationQuery={pagenationQuery}
+        paginationQueryKey={paginationQueryKey}
         className="mt-4"
       />
     </div>

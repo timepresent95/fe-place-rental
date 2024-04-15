@@ -61,7 +61,7 @@ function createVisiblePageIndexes(
 export interface Props {
   total: number;
   pageSize: number;
-  pagenationQuery: string;
+  paginationQueryKey: string;
   pagerCount?: number;
   className?: string;
 }
@@ -69,14 +69,14 @@ export interface Props {
 function Pagination({
   total,
   pageSize,
-  pagenationQuery,
+  paginationQueryKey,
   pagerCount = 6,
   className = "",
 }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { replace } = useRouter();
-  const currentIndex = Number(searchParams.get(pagenationQuery)) || 1;
+  const currentIndex = Number(searchParams.get(paginationQueryKey)) || 1;
   const endPageIndex = Math.ceil(total / pageSize);
   const visiblePageIndexes = createVisiblePageIndexes(
     currentIndex,
@@ -86,7 +86,7 @@ function Pagination({
 
   const replacePageURL = (pageNumber: number) => {
     const params = new URLSearchParams(searchParams);
-    params.set(pagenationQuery, pageNumber.toString());
+    params.set(paginationQueryKey, pageNumber.toString());
     replace(`${pathname}?${params.toString()}`);
   };
 
