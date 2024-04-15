@@ -1,12 +1,12 @@
 import TableView from "@/4.features/TableView/ui";
 import { TableColumns } from "@/5.entities/TableList/model";
 import { getListReservation } from "@/5.entities/reservation/api";
-import { ReservationTableData } from "./model";
-import { formatReservationTableData } from "./lib";
+import { ReservationTableData } from "../model";
+import { DEFAULT_PAGE_SIZE, formatReservationTableData } from "../lib";
 import { Suspense } from "react";
 
-export const PAGINATION_QUERY_KEY = "page-index";
-export const PAGE_SIZE_QUERY_KEY = "page-size";
+const PAGINATION_QUERY_KEY = "page-index";
+const PAGE_SIZE_QUERY_KEY = "page-size";
 
 const columns: TableColumns<ReservationTableData> = [
   { accessKey: "applicatorName", columnName: "신청자" },
@@ -21,8 +21,6 @@ interface Props {
     [PAGE_SIZE_QUERY_KEY]: string;
   };
 }
-
-export const DEFAULT_PAGE_SIZE = 10;
 
 async function ReservationPage({ searchParams }: Props) {
   const pageIndex = Number(searchParams?.[PAGINATION_QUERY_KEY] ?? 1);
@@ -43,7 +41,7 @@ async function ReservationPage({ searchParams }: Props) {
   const reservationTable = formatReservationTableData(response.data);
 
   return (
-    <main className="px-4 container">
+    <>
       {/* Suspense Fallback 구현해야 함 */}
       <Suspense fallback={<div />}>
         <TableView
@@ -54,7 +52,7 @@ async function ReservationPage({ searchParams }: Props) {
           pagenationQuery={PAGINATION_QUERY_KEY}
         />
       </Suspense>
-    </main>
+    </>
   );
 }
 

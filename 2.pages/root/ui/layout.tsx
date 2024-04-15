@@ -5,6 +5,7 @@ import { MapPin, Mail } from "lucide-react";
 import Link from "next/link";
 import TooltipWrapper from "@/5.entities/TooltipWrapper/ui";
 import { GithubIcon, TistoryIcon } from "@/6.shared/ui/Icon";
+import { PropsWithChildren } from "react";
 
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -26,11 +27,7 @@ function MainLogo() {
   );
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body

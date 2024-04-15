@@ -2,6 +2,8 @@ import { ListReservationResponse } from "@/5.entities/reservation/model";
 import { ReservationTableData, ReservationTalbe } from "./model";
 import dayjs from "@/6.shared/lib/dayjs";
 
+export const DEFAULT_PAGE_SIZE = 10;
+
 export function formatReservationTableData(
   reservationList: ListReservationResponse
 ): ReservationTalbe {
