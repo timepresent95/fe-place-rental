@@ -1,3 +1,5 @@
-import ReservationLayout from "@/2.pages/reservation/ui/layout";
+import { PropsWithChildren } from "react";
 
-export default ReservationLayout;
+export default function layout({ children }: PropsWithChildren) {
+  return <>{children}</>;
+}

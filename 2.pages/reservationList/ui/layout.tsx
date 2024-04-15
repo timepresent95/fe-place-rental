@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 
-export default async function ReservationLayout({
+export default async function ReservationListLayout({
   children,
 }: PropsWithChildren) {
   return (

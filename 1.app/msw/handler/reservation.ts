@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 
 import { apiEndpoint } from "@/5.entities/reservation/api";
 import { Reservation } from "@/5.entities/reservation/model";
-import { DEFAULT_PAGE_SIZE } from "@/2.pages/reservation/lib";
+import { DEFAULT_PAGE_SIZE } from "@/2.pages/reservationList/lib";
 
 function createMockReservation(): Reservation {
   const capacity = faker.number.int({ min: 3, max: 30 });

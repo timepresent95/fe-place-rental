@@ -14,7 +14,7 @@ interface Props {
   };
 }
 
-function ReservationPage({ searchParams }: Props) {
+function ReservationListPage({ searchParams }: Props) {
   const paginationQuery = searchParams?.[PAGINATION_QUERY_KEY];
   const pageSizeQuery = searchParams?.[PAGE_SIZE_QUERY_KEY];
 
@@ -24,7 +24,7 @@ function ReservationPage({ searchParams }: Props) {
 
   if (paginationQuery === undefined || pageSizeQuery === undefined) {
     redirect(
-      `/reservation?${PAGINATION_QUERY_KEY}=${pageIndex}&${PAGE_SIZE_QUERY_KEY}=${pageSize}`
+      `/reservation/list?${PAGINATION_QUERY_KEY}=${pageIndex}&${PAGE_SIZE_QUERY_KEY}=${pageSize}`
     );
   }
 
@@ -39,4 +39,4 @@ function ReservationPage({ searchParams }: Props) {
   );
 }
 
-export { ReservationPage };
+export { ReservationListPage as ReservationPage };
