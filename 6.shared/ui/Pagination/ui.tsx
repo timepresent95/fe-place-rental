@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/6.shared/lib/tailwindMerge";
 import clsx from "clsx";
 import {
   ChevronLeft,
@@ -62,6 +63,7 @@ export interface Props {
   pageSize: number;
   pagenationQuery: string;
   pagerCount?: number;
+  className?: string;
 }
 
 function Pagination({
@@ -69,6 +71,7 @@ function Pagination({
   pageSize,
   pagenationQuery,
   pagerCount = 6,
+  className = "",
 }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -104,47 +107,53 @@ function Pagination({
   }
 
   return (
-    <div className="flex items-center">
-      {currentIndex !== 1 && (
-        <button onClick={() => replacePageURL(currentIndex - 1)}>
-          <ChevronLeft size={16} className="mx-auto" />
-        </button>
-      )}
-      {visiblePageIndexes.map((pageIndex, i) =>
-        pageIndex.type === "number" ? (
-          <button
-            key={i}
-            onClick={() => replacePageURL(pageIndex.index)}
-            className={clsx("w-6", {
-              "text-blue-700 font-bold": pageIndex.index === currentIndex,
-              "hover:text-blue-500": pageIndex.index !== currentIndex,
-            })}>
-            {pageIndex.index}
-          </button>
-        ) : (
-          <button key={i} className="w-6 group">
-            <Ellipsis size={16} className="group-hover:hidden" />
-            {pageIndex.type === "left" ? (
-              <ChevronsLeft
-                size={16}
-                onClick={onClickSkipPrev}
-                className="hidden group-hover:block group-hover:text-blue-500"
-              />
-            ) : (
-              <ChevronsRight
-                size={16}
-                onClick={onClickSkipNext}
-                className="hidden group-hover:block group-hover:text-blue-500"
-              />
-            )}
-          </button>
-        )
-      )}
-      {currentIndex < endPageIndex && (
-        <button onClick={() => replacePageURL(currentIndex + 1)}>
-          <ChevronRight size={16} className="mx-auto" />
-        </button>
-      )}
+    <div className={cn("flex items-center", className)}>
+      <button
+        disabled={currentIndex === 1}
+        onClick={() => replacePageURL(currentIndex - 1)}
+        className={clsx({ "opacity-0 cursor-default": currentIndex === 1 })}>
+        <ChevronLeft size={16} className="mx-auto" />
+      </button>
+      <div className="mx-auto">
+        {visiblePageIndexes.map((pageIndex, i) =>
+          pageIndex.type === "number" ? (
+            <button
+              key={i}
+              onClick={() => replacePageURL(pageIndex.index)}
+              className={clsx("w-6", {
+                "text-blue-700 font-bold": pageIndex.index === currentIndex,
+                "hover:text-blue-500": pageIndex.index !== currentIndex,
+              })}>
+              {pageIndex.index}
+            </button>
+          ) : (
+            <button key={i} className="w-6 group">
+              <Ellipsis size={16} className="group-hover:hidden" />
+              {pageIndex.type === "left" ? (
+                <ChevronsLeft
+                  size={16}
+                  onClick={onClickSkipPrev}
+                  className="hidden group-hover:block group-hover:text-blue-500"
+                />
+              ) : (
+                <ChevronsRight
+                  size={16}
+                  onClick={onClickSkipNext}
+                  className="hidden group-hover:block group-hover:text-blue-500"
+                />
+              )}
+            </button>
+          )
+        )}
+      </div>
+      <button
+        disabled={currentIndex >= endPageIndex}
+        onClick={() => replacePageURL(currentIndex + 1)}
+        className={clsx({
+          "opacity-0 cursor-default": currentIndex >= endPageIndex,
+        })}>
+        <ChevronRight size={16} className="mx-auto" />
+      </button>
     </div>
   );
 }

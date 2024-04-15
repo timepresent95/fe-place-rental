@@ -19,11 +19,12 @@ function TableView<T extends TableData>({
 }: Props<T>) {
   return (
     <div>
-      <TableListUI columns={columns} datas={datas} />
+      <TableListUI columns={columns} datas={datas} pageSize={pageSize} />
       <Pagination
         total={total}
         pageSize={pageSize}
         pagenationQuery={pagenationQuery}
+        className="mt-4"
       />
     </div>
   );
