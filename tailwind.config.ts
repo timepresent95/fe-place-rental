@@ -8,7 +8,7 @@ const config = {
     "./1.app/**/*.{ts,tsx}",
     "./2.pages/**/*.{ts,tsx}",
     "./3.widgets/**/*.{ts,tsx}",
-    "./4.featires/**/*.{ts,tsx}",
+    "./4.features/**/*.{ts,tsx}",
     "./5.entities/**/*.{ts,tsx}",
     "./6.shared/**/*.{ts,tsx}",
   ],
