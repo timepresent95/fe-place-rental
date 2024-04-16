@@ -27,16 +27,16 @@ const FORM_LABEL: {
   };
 } = {
   applicantName: {
-    label: "신청인 이름",
+    label: "신청자 이름",
     placeholder: "단체인 경우 단체명",
   },
   contactEmail: {
     label: "연락처 (이메일)",
-    placeholder: "이메일을 입력해주세요",
+    placeholder: "place@rental.com",
   },
   contactPhone: {
     label: "연락처 (전화)",
-    placeholder: "전화번호를 입력해주세요",
+    placeholder: "010-1234-5678",
   },
   purpose: { label: "사용 목적", placeholder: "최소 20자 이상 작성해주세요" },
   expectedParticipants: { label: "참석 예상 인원" },
@@ -61,7 +61,7 @@ function ReservationFormField() {
   return (
     <Form {...form}>
       <form
-        className="px-4"
+        className="px-4 space-y-1"
         onSubmit={form.handleSubmit((data) => console.log(data))}>
         <FormField
           control={form.control}
@@ -76,8 +76,7 @@ function ReservationFormField() {
                     placeholder="예약일을 선택해주세요"
                   />
                 </FormControl>
-                <FormDescription />
-                <FormMessage />
+                <FormMessage errorDisplayMode="transparent" />
               </FormItem>
             );
           }}
@@ -107,8 +106,7 @@ function ReservationFormField() {
                     </Button>
                   </div>
                 </FormControl>
-                <FormDescription />
-                <FormMessage />
+                <FormMessage errorDisplayMode="transparent" />
               </FormItem>
             );
           }}
@@ -126,8 +124,7 @@ function ReservationFormField() {
                     placeholder={FORM_LABEL[field.name].placeholder}
                   />
                 </FormControl>
-                <FormDescription />
-                <FormMessage />
+                <FormMessage errorDisplayMode="transparent" />
               </FormItem>
             );
           }}
@@ -145,8 +142,7 @@ function ReservationFormField() {
                     placeholder={FORM_LABEL[field.name].placeholder}
                   />
                 </FormControl>
-                <FormDescription />
-                <FormMessage />
+                <FormMessage errorDisplayMode="transparent" />
               </FormItem>
             );
           }}
@@ -164,13 +160,11 @@ function ReservationFormField() {
                     placeholder={FORM_LABEL[field.name].placeholder}
                   />
                 </FormControl>
-                <FormDescription />
-                <FormMessage />
+                <FormMessage errorDisplayMode="transparent" />
               </FormItem>
             );
           }}
         />
-
         <FormField
           control={form.control}
           name="expectedParticipants"
@@ -189,8 +183,7 @@ function ReservationFormField() {
                     className="h-8"
                   />
                 </FormControl>
-                <FormDescription />
-                <FormMessage />
+                <FormMessage errorDisplayMode="transparent" />
               </FormItem>
             );
           }}
@@ -209,8 +202,7 @@ function ReservationFormField() {
                     placeholder={FORM_LABEL[field.name].placeholder}
                   />
                 </FormControl>
-                <FormDescription />
-                <FormMessage />
+                <FormMessage errorDisplayMode="transparent" />
               </FormItem>
             );
           }}
