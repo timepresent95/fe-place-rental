@@ -19,14 +19,28 @@ import { Input } from "@/6.shared/ui/shardcn/ui/input";
 import { Textarea } from "@/6.shared/ui/shardcn/ui/textarea";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 
-const FORM_LABEL: { [key in keyof PostReservationRequestBody]: string } = {
-  applicantName: "신청인 이름",
-  contactEmail: "연락처 (이메일)",
-  contactPhone: "연락처 (핸드폰)",
-  purpose: "사용 목적",
-  expectedParticipants: "참석 예상 인원",
-  useDate: "사용 예정일",
-  isPublic: "공개 여부",
+const FORM_LABEL: {
+  [key in keyof PostReservationRequestBody]: {
+    label: string;
+    placeholder?: string;
+  };
+} = {
+  applicantName: {
+    label: "신청인 이름",
+    placeholder: "단체인 경우 단체명",
+  },
+  contactEmail: {
+    label: "연락처 (이메일)",
+    placeholder: "이메일을 입력해주세요",
+  },
+  contactPhone: {
+    label: "연락처 (전화)",
+    placeholder: "전화번호를 입력해주세요",
+  },
+  purpose: { label: "사용 목적", placeholder: "최소 20자 이상 작성해주세요" },
+  expectedParticipants: { label: "참석 예상 인원" },
+  useDate: { label: "사용 예정일" },
+  isPublic: { label: "공개 여부" },
 };
 
 function ReservationFormField() {
@@ -54,10 +68,11 @@ function ReservationFormField() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>{FORM_LABEL.useDate}</FormLabel>
+                <FormLabel>{FORM_LABEL[field.name].label}</FormLabel>
                 <FormControl>
                   <DatePicker
                     onChange={(day) => day && form.setValue(field.name, day)}
+                    placeholder="예약일을 선택해주세요"
                   />
                 </FormControl>
                 <FormDescription />
@@ -72,7 +87,7 @@ function ReservationFormField() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>{FORM_LABEL.isPublic}</FormLabel>
+                <FormLabel>{FORM_LABEL[field.name].label}</FormLabel>
                 <FormControl>
                   <div className="flex space-x-4">
                     <Button
@@ -103,9 +118,12 @@ function ReservationFormField() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>{FORM_LABEL.applicantName}</FormLabel>
+                <FormLabel>{FORM_LABEL[field.name].label}</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    {...field}
+                    placeholder={FORM_LABEL[field.name].placeholder}
+                  />
                 </FormControl>
                 <FormDescription />
                 <FormMessage />
@@ -119,9 +137,12 @@ function ReservationFormField() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>{FORM_LABEL.contactEmail}</FormLabel>
+                <FormLabel>{FORM_LABEL[field.name].label}</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    {...field}
+                    placeholder={FORM_LABEL[field.name].placeholder}
+                  />
                 </FormControl>
                 <FormDescription />
                 <FormMessage />
@@ -135,9 +156,12 @@ function ReservationFormField() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>{FORM_LABEL.contactPhone}</FormLabel>
+                <FormLabel>{FORM_LABEL[field.name].label}</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    {...field}
+                    placeholder={FORM_LABEL[field.name].placeholder}
+                  />
                 </FormControl>
                 <FormDescription />
                 <FormMessage />
@@ -151,9 +175,13 @@ function ReservationFormField() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>{FORM_LABEL.purpose}</FormLabel>
+                <FormLabel>{FORM_LABEL[field.name].label}</FormLabel>
                 <FormControl>
-                  <Textarea {...field} />
+                  <Textarea
+                    className="resize-none"
+                    {...field}
+                    placeholder={FORM_LABEL[field.name].placeholder}
+                  />
                 </FormControl>
                 <FormDescription />
                 <FormMessage />
@@ -167,7 +195,7 @@ function ReservationFormField() {
           render={({ field }) => {
             return (
               <FormItem>
-                <FormLabel>{FORM_LABEL.expectedParticipants}</FormLabel>
+                <FormLabel>{FORM_LABEL[field.name].label}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
