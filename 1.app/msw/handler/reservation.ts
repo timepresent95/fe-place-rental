@@ -9,9 +9,9 @@ function createMockReservation(): Reservation {
   const capacity = faker.number.int({ min: 3, max: 30 });
   return {
     id: faker.string.uuid(),
-    hostName: faker.person.fullName(),
-    hostEmail: faker.internet.email(),
-    hostPhone: faker.phone.number(),
+    applicantName: faker.person.fullName(),
+    applicantEmail: faker.internet.email(),
+    applicantPhone: faker.phone.number(),
     attendees: faker.number.int({ max: capacity }),
     capacity,
     groupDescribtion: faker.lorem.paragraph(),

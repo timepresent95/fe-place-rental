@@ -10,7 +10,7 @@ export function formatReservationTableData(
   const datas: ReservationTableData[] = reservationList.reservations.map(
     (v) => ({
       id: v.id,
-      applicatorName: v.hostName,
+      applicatorName: v.applicantName,
       applicateStatus: v.isApproved ? "승인" : "거절",
       participantStatus: `${v.attendees}/${v.capacity}`,
       reservationDate: dayjs(v.useDate).format("YYYY-MM-DD"),
