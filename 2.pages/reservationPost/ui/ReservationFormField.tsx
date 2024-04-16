@@ -18,6 +18,7 @@ import {
 import { Input } from "@/6.shared/ui/shardcn/ui/input";
 import { Textarea } from "@/6.shared/ui/shardcn/ui/textarea";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
+import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
 
 const FORM_LABEL: {
   [key in keyof PostReservationRequestBody]: {
@@ -169,18 +170,23 @@ function ReservationFormField() {
             );
           }}
         />
+
         <FormField
           control={form.control}
-          name="purpose"
+          name="expectedParticipants"
           render={({ field }) => {
             return (
               <FormItem>
                 <FormLabel>{FORM_LABEL[field.name].label}</FormLabel>
                 <FormControl>
-                  <Textarea
-                    className="resize-none"
-                    {...field}
-                    placeholder={FORM_LABEL[field.name].placeholder}
+                  <NumberStepper
+                    min={3}
+                    max={50}
+                    initValue={form.getValues(field.name)}
+                    onChange={(v) => {
+                      form.setValue(field.name, v);
+                    }}
+                    className="h-8"
                   />
                 </FormControl>
                 <FormDescription />
@@ -191,20 +197,16 @@ function ReservationFormField() {
         />
         <FormField
           control={form.control}
-          name="expectedParticipants"
+          name="purpose"
           render={({ field }) => {
             return (
               <FormItem>
                 <FormLabel>{FORM_LABEL[field.name].label}</FormLabel>
                 <FormControl>
-                  <Input
+                  <Textarea
+                    className="resize-none h-32"
                     {...field}
-                    onChange={(e) => {
-                      form.setValue(
-                        field.name,
-                        parseInt(e.currentTarget.value)
-                      );
-                    }}
+                    placeholder={FORM_LABEL[field.name].placeholder}
                   />
                 </FormControl>
                 <FormDescription />

@@ -10,9 +10,10 @@ import { Calendar } from "../ui/calendar";
 
 interface Props {
   onChange?: (day?: Date) => void;
+  placeholder?: string;
 }
 
-function DatePicker({ onChange }: Props) {
+function DatePicker({ onChange, placeholder = "Pick a Date" }: Props) {
   const [date, setDate] = useState<Date | undefined>(undefined);
 
   function changeDate(day: Date | undefined) {
@@ -30,7 +31,7 @@ function DatePicker({ onChange }: Props) {
             !date && "text-muted-foreground"
           )}>
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? dayjs(date).format("YYYY-MM-DD") : <span>Pick a date</span>}
+          {date ? dayjs(date).format("YYYY-MM-DD") : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
