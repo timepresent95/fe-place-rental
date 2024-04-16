@@ -32,100 +32,33 @@ const FORM_LABEL: { [key in keyof PostReservationRequestBody]: string } = {
 function ReservationFormField() {
   const form = useForm<PostReservationRequestBody>({
     resolver: zodResolver(postReservationBodyValidation),
+    defaultValues: {
+      applicantName: "",
+      contactEmail: "",
+      contactPhone: "",
+      purpose: "",
+      expectedParticipants: 3,
+      useDate: undefined,
+      isPublic: true,
+    },
   });
 
   return (
-    <form className="px-4">
-      <Form {...form}>
+    <Form {...form}>
+      <form
+        className="px-4"
+        onSubmit={form.handleSubmit((data) => console.log(data))}>
         <FormField
           control={form.control}
           name="useDate"
-          render={() => {
+          render={({ field }) => {
             return (
               <FormItem>
                 <FormLabel>{FORM_LABEL.useDate}</FormLabel>
                 <FormControl>
-                  <DatePicker />
-                </FormControl>
-                <FormDescription />
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-        <FormField
-          control={form.control}
-          name="applicantName"
-          render={() => {
-            return (
-              <FormItem>
-                <FormLabel>{FORM_LABEL.applicantName}</FormLabel>
-                <FormControl>
-                  <Input />
-                </FormControl>
-                <FormDescription />
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-        <FormField
-          control={form.control}
-          name="contactEmail"
-          render={() => {
-            return (
-              <FormItem>
-                <FormLabel>{FORM_LABEL.contactEmail}</FormLabel>
-                <FormControl>
-                  <Input />
-                </FormControl>
-                <FormDescription />
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-        <FormField
-          control={form.control}
-          name="contactPhone"
-          render={() => {
-            return (
-              <FormItem>
-                <FormLabel>{FORM_LABEL.contactPhone}</FormLabel>
-                <FormControl>
-                  <Input />
-                </FormControl>
-                <FormDescription />
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-        <FormField
-          control={form.control}
-          name="purpose"
-          render={() => {
-            return (
-              <FormItem>
-                <FormLabel>{FORM_LABEL.purpose}</FormLabel>
-                <FormControl>
-                  <Textarea />
-                </FormControl>
-                <FormDescription />
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-        <FormField
-          control={form.control}
-          name="expectedParticipants"
-          render={() => {
-            return (
-              <FormItem>
-                <FormLabel>{FORM_LABEL.expectedParticipants}</FormLabel>
-                <FormControl>
-                  <Input />
+                  <DatePicker
+                    onChange={(day) => day && form.setValue(field.name, day)}
+                  />
                 </FormControl>
                 <FormDescription />
                 <FormMessage />
@@ -136,14 +69,26 @@ function ReservationFormField() {
         <FormField
           control={form.control}
           name="isPublic"
-          render={() => {
+          render={({ field }) => {
             return (
               <FormItem>
                 <FormLabel>{FORM_LABEL.isPublic}</FormLabel>
                 <FormControl>
-                  <div>
-                    <Button type="button">비공개</Button>
-                    <Button type="button">공개</Button>
+                  <div className="flex space-x-4">
+                    <Button
+                      className="w-full"
+                      variant={field.value ? "outline" : "default"}
+                      onClick={() => form.setValue(field.name, false)}
+                      type="button">
+                      비공개
+                    </Button>
+                    <Button
+                      className="w-full"
+                      variant={field.value ? "default" : "outline"}
+                      onClick={() => form.setValue(field.name, true)}
+                      type="button">
+                      공개
+                    </Button>
                   </div>
                 </FormControl>
                 <FormDescription />
@@ -152,8 +97,99 @@ function ReservationFormField() {
             );
           }}
         />
-      </Form>
-    </form>
+        <FormField
+          control={form.control}
+          name="applicantName"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>{FORM_LABEL.applicantName}</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+        <FormField
+          control={form.control}
+          name="contactEmail"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>{FORM_LABEL.contactEmail}</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+        <FormField
+          control={form.control}
+          name="contactPhone"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>{FORM_LABEL.contactPhone}</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+        <FormField
+          control={form.control}
+          name="purpose"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>{FORM_LABEL.purpose}</FormLabel>
+                <FormControl>
+                  <Textarea {...field} />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+        <FormField
+          control={form.control}
+          name="expectedParticipants"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>{FORM_LABEL.expectedParticipants}</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    onChange={(e) => {
+                      form.setValue(
+                        field.name,
+                        parseInt(e.currentTarget.value)
+                      );
+                    }}
+                  />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            );
+          }}
+        />
+        <Button className="mt-8 min-w-36 ml-auto block" type="submit">
+          신청
+        </Button>
+      </form>
+    </Form>
   );
 }
 
