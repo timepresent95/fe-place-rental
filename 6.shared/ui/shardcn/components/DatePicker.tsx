@@ -8,8 +8,17 @@ import { useState } from "react";
 import dayjs from "@/6.shared/lib/dayjs";
 import { Calendar } from "../ui/calendar";
 
-function DatePicker() {
-  const [date, setDate] = useState<Date>();
+interface Props {
+  onChange?: (day?: Date) => void;
+}
+
+function DatePicker({ onChange }: Props) {
+  const [date, setDate] = useState<Date | undefined>(undefined);
+
+  function changeDate(day: Date | undefined) {
+    onChange && onChange(day);
+    setDate(day);
+  }
 
   return (
     <Popover>
@@ -17,7 +26,7 @@ function DatePicker() {
         <Button
           variant={"outline"}
           className={cn(
-            "w-[280px] justify-start text-left font-normal",
+            "min-w-[280px] w-full justify-start text-left font-normal",
             !date && "text-muted-foreground"
           )}>
           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -28,7 +37,7 @@ function DatePicker() {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={changeDate}
           initialFocus
         />
       </PopoverContent>
