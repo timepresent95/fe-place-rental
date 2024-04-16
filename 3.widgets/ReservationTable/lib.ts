@@ -12,7 +12,7 @@ export function formatReservationTableData(
       id: v.id,
       applicatorName: v.applicantName,
       applicateStatus: v.isApproved ? "승인" : "거절",
-      participantStatus: `${v.attendees}/${v.capacity}`,
+      participantStatus: `${v.attendees}/${v.expectedParticipants}`,
       reservationDate: dayjs(v.useDate).format("YYYY-MM-DD"),
     })
   );

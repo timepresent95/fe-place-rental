@@ -2,9 +2,10 @@ import { z } from "zod";
 
 export const postReservationBodyValidation = z.object({
   applicantName: z.string(),
-  applicantEmail: z.string().email(),
-  applicantPhone: z.string(),
-  groupDescribtion: z.string(),
-  capacity: z.number(),
+  contactEmail: z.string().email(),
+  contactPhone: z.string(),
+  purpose: z.string(),
+  expectedParticipants: z.number(),
   useDate: z.date(),
+  isPublic: z.boolean(),
 });

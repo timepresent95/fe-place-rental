@@ -10,14 +10,15 @@ function createMockReservation(): Reservation {
   return {
     id: faker.string.uuid(),
     applicantName: faker.person.fullName(),
-    applicantEmail: faker.internet.email(),
-    applicantPhone: faker.phone.number(),
+    contactEmail: faker.internet.email(),
+    contactPhone: faker.phone.number(),
     attendees: faker.number.int({ max: capacity }),
-    capacity,
-    groupDescribtion: faker.lorem.paragraph(),
+    expectedParticipants: capacity,
+    purpose: faker.lorem.paragraph(),
     useDate: faker.date.future(),
     applicationDate: faker.date.recent(),
     isApproved: faker.datatype.boolean(),
+    isPublic: faker.datatype.boolean(),
   };
 }
 
