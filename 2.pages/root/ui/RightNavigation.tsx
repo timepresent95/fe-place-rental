@@ -21,7 +21,7 @@ function RightNavigationDrawer() {
       )}>
       <button
         onClick={() => setHide(!hide)}
-        className="absolute left-0 -translate-x-full top-24 border-y border-l rounded-s border-slate py-3 px-1 shadow">
+        className="absolute left-0 -translate-x-full bg-white top-24 border-y border-l rounded-s border-slate py-3 px-1 shadow">
         {hide ? <ChevronLeft /> : <ChevronRight />}
       </button>
       {RouterConfig.map(({ pageName, path }) => (

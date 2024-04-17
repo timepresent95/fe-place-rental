@@ -7,7 +7,7 @@ import TooltipWrapper from "@/5.entities/TooltipWrapper/ui";
 import { GithubIcon, TistoryIcon } from "@/6.shared/ui/Icon";
 import { PropsWithChildren, Suspense } from "react";
 import MainLogo from "./MainLogo";
-import RightNavigationDrawer from "./LeftNavigation";
+import RightNavigation from "./RightNavigation";
 
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           "flex flex-col min-h-[130vh] bg-background font-sans antialiased",
           NotoSans.variable
         )}>
-        <RightNavigationDrawer />
+        <RightNavigation />
         <header
           className="py-5 bg-indigo-700 mb-8"
           style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)" }}>
