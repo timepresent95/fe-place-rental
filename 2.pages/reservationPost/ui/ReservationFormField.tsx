@@ -20,6 +20,7 @@ import { Textarea } from "@/6.shared/ui/shardcn/ui/textarea";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
 import { postReservation } from "@/5.entities/reservation/api";
+import { useRouter } from "next/navigation";
 
 const FORM_LABEL: {
   [key in keyof PostReservationRequestBody]: {
@@ -45,7 +46,11 @@ const FORM_LABEL: {
   isPublic: { label: "공개 여부" },
 };
 
+//TODO: 예약 가능 날짜와 관련된 로직 추가해야 함
+// 이미 예약이 완료된 날, 지나간 날은 예약이 불가능
 function ReservationFormField() {
+  const router = useRouter();
+
   const form = useForm<PostReservationRequestBody>({
     resolver: zodResolver(postReservationBodyValidation),
     defaultValues: {
@@ -63,9 +68,16 @@ function ReservationFormField() {
     <Form {...form}>
       <form
         className="px-4 space-y-1"
-        onSubmit={form.handleSubmit(
-          async (data) => await postReservation(data)
-        )}>
+        onSubmit={form.handleSubmit(async (data) => {
+          try {
+            //TODO: 해당 요청을 진행중인 경우를 처리하기 위해 useForm, useTransition 등의 로직을 사용해야함 (진행중 표시 필요)
+            await postReservation(data);
+            router.push("/reservation/success");
+          } catch (err) {
+            //XXX: 여기로 들어오면 안됨
+            console.error(err);
+          }
+        })}>
         <FormField
           control={form.control}
           name="useDate"
