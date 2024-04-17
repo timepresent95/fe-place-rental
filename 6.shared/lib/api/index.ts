@@ -1,4 +1,5 @@
-import { assertValue } from "./assertValue";
+import { assertValue } from "../assertValue";
+import { mswAction } from "./mswAction";
 
 export type ApiResult<T> =
   | {
@@ -18,6 +19,12 @@ export async function fetchAPI<T>(
   handleError?: (error: unknown) => ApiResult<T>
 ): Promise<ApiResult<T>> {
   try {
+    if (
+      process.env.NEXT_PUBLIC_MOCKING === "true" &&
+      typeof window !== "undefined"
+    ) {
+      return await mswAction(url, reqInit);
+    }
     const res = await fetch(url, reqInit);
 
     if (!res.ok) {
