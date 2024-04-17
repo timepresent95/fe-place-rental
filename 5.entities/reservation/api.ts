@@ -19,14 +19,21 @@ export async function getListReservation(
     url.searchParams.set(key, value.toString());
   }
 
-  return fetchAPI(url.toString(), { method: "get" });
+  return fetchAPI(url.toString(), {
+    method: "get",
+    next: { tags: ["reservation-list"], revalidate: 30 },
+  });
 }
 
 export async function postReservation(
   body: PostReservationRequestBody
 ): Promise<ApiResult<PostReservationResponse>> {
-  return fetchAPI(apiEndpoint.post, {
-    method: "post",
-    body: JSON.stringify(body),
-  });
+  return fetchAPI(
+    apiEndpoint.post,
+    {
+      method: "post",
+      body: JSON.stringify(body),
+    },
+    "reservation-list"
+  );
 }

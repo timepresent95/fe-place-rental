@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { assertValue } from "../assertValue";
 import { mswAction } from "./mswAction";
 
@@ -16,6 +17,7 @@ export const baseUrl = assertValue(
 export async function fetchAPI<T>(
   url: string,
   reqInit?: RequestInit,
+  tag?: string,
   handleError?: (error: unknown) => ApiResult<T>
 ): Promise<ApiResult<T>> {
   try {
@@ -23,7 +25,7 @@ export async function fetchAPI<T>(
       process.env.NEXT_PUBLIC_MOCKING === "true" &&
       typeof window !== "undefined"
     ) {
-      return await mswAction(url, reqInit);
+      return await mswAction(url, reqInit, tag);
     }
     const res = await fetch(url, reqInit);
 
@@ -33,6 +35,10 @@ export async function fetchAPI<T>(
     }
 
     const data: T = await res.json();
+
+    if (typeof window === "undefined" && tag) {
+      revalidateTag(tag);
+    }
     return {
       status: "success",
       data,

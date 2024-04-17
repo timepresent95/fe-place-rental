@@ -32,6 +32,7 @@ export default ((): HttpHandler[] => {
   const mockDatas = {
     id: faker.string.uuid(),
     reservations: Array.from({ length }).map(() => createMockReservation()),
+    total: length,
   };
 
   const listAPI = http.get(apiEndpoint.list, ({ request }) => {
@@ -44,7 +45,7 @@ export default ((): HttpHandler[] => {
     return HttpResponse.json<ListReservationResponse>({
       id: mockDatas.id,
       reservations: mockDatas.reservations.slice(offset, offset + pageSize),
-      total: mockDatas.reservations.length,
+      total: mockDatas.total,
       pageSize,
       offset,
     });
@@ -60,6 +61,7 @@ export default ((): HttpHandler[] => {
       isApproved: false,
     };
     mockDatas.reservations.push(newReservation);
+    mockDatas.total++;
     return HttpResponse.json<PostReservationResponse>(newReservation);
   });
 
