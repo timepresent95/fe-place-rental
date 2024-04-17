@@ -19,6 +19,7 @@ import { Input } from "@/6.shared/ui/shardcn/ui/input";
 import { Textarea } from "@/6.shared/ui/shardcn/ui/textarea";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
+import { postReservation } from "@/5.entities/reservation/api";
 
 const FORM_LABEL: {
   [key in keyof PostReservationRequestBody]: {
@@ -62,7 +63,9 @@ function ReservationFormField() {
     <Form {...form}>
       <form
         className="px-4 space-y-1"
-        onSubmit={form.handleSubmit((data) => console.log(data))}>
+        onSubmit={form.handleSubmit(
+          async (data) => await postReservation(data)
+        )}>
         <FormField
           control={form.control}
           name="useDate"

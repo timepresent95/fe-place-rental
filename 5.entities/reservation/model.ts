@@ -5,11 +5,6 @@ export type PostReservationRequestBody = z.infer<
   typeof postReservationBodyValidation
 >;
 
-export type ListReservationRequestParams = {
-  pageSize: number;
-  offset: number;
-};
-
 export type Reservation = PostReservationRequestBody & {
   id: string;
   attendees: number;
@@ -17,6 +12,12 @@ export type Reservation = PostReservationRequestBody & {
   isApproved: boolean;
 };
 
+export type PostReservationResponse = Reservation;
+
+export type ListReservationRequestParams = {
+  pageSize: number;
+  offset: number;
+};
 export interface ListReservationResponse {
   id: string;
   reservations: Reservation[];

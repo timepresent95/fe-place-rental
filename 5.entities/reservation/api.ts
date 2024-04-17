@@ -1,8 +1,14 @@
 import { ApiResult, baseUrl, fetchAPI } from "@/6.shared/lib/api";
-import { ListReservationRequestParams, ListReservationResponse } from "./model";
+import {
+  ListReservationRequestParams,
+  ListReservationResponse,
+  PostReservationRequestBody,
+  PostReservationResponse,
+} from "./model";
 
 export const apiEndpoint = {
   list: baseUrl + "/reservations",
+  post: baseUrl + "/reservation",
 };
 
 export async function getListReservation(
@@ -14,4 +20,13 @@ export async function getListReservation(
   }
 
   return fetchAPI(url.toString(), { method: "get" });
+}
+
+export async function postReservation(
+  body: PostReservationRequestBody
+): Promise<ApiResult<PostReservationResponse>> {
+  return fetchAPI(apiEndpoint.post, {
+    method: "post",
+    body: JSON.stringify(body),
+  });
 }
