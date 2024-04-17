@@ -1,3 +1,3 @@
-import { ReservationPage } from "@/2.pages/reservationList/ui/page";
+import ReservationListPage from "@/2.pages/reservationList/ui/page";
 
-export default ReservationPage;
+export default ReservationListPage;

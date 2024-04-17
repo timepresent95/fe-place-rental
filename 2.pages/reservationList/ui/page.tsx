@@ -39,4 +39,6 @@ function ReservationListPage({ searchParams }: Props) {
   );
 }
 
-export { ReservationListPage as ReservationPage };
+ReservationListPage.displayName = "ReservationListPage";
+
+export default ReservationListPage;
