@@ -1,8 +1,13 @@
-import { HttpResponse, http } from "msw";
+import { HttpHandler, HttpResponse, http } from "msw";
 import { faker } from "@faker-js/faker";
 
 import { apiEndpoint } from "@/5.entities/reservation/api";
-import { Reservation } from "@/5.entities/reservation/model";
+import {
+  ListReservationResponse,
+  PostReservationRequestBody,
+  PostReservationResponse,
+  Reservation,
+} from "@/5.entities/reservation/model";
 import { DEFAULT_PAGE_SIZE } from "@/2.pages/reservationList/lib";
 
 function createMockReservation(): Reservation {
@@ -22,7 +27,7 @@ function createMockReservation(): Reservation {
   };
 }
 
-export default (() => {
+export default ((): HttpHandler[] => {
   const length = faker.number.int({ min: 11, max: 50 });
   const mockDatas = {
     id: faker.string.uuid(),
@@ -36,7 +41,7 @@ export default (() => {
       url.searchParams.get("pageSize") ?? DEFAULT_PAGE_SIZE
     );
 
-    return HttpResponse.json({
+    return HttpResponse.json<ListReservationResponse>({
       id: mockDatas.id,
       reservations: mockDatas.reservations.slice(offset, offset + pageSize),
       total: mockDatas.reservations.length,
@@ -45,5 +50,18 @@ export default (() => {
     });
   });
 
-  return [listAPI];
+  const postAPI = http.post(apiEndpoint.post, async ({ request }) => {
+    const body = (await request.json()) as PostReservationRequestBody;
+    const newReservation: PostReservationResponse = {
+      ...body,
+      id: faker.string.uuid(),
+      attendees: 1,
+      applicationDate: new Date(),
+      isApproved: false,
+    };
+    mockDatas.reservations.push(newReservation);
+    return HttpResponse.json<PostReservationResponse>(newReservation);
+  });
+
+  return [postAPI, listAPI];
 })();
