@@ -5,9 +5,9 @@ import { Mail } from "lucide-react";
 import Link from "next/link";
 import TooltipWrapper from "@/5.entities/TooltipWrapper/ui";
 import { GithubIcon, TistoryIcon } from "@/6.shared/ui/Icon";
-import { PropsWithChildren, Suspense } from "react";
-import MainLogo from "./MainLogo";
+import { PropsWithChildren } from "react";
 import RightNavigation from "./RightNavigation";
+import MainLogo from "@/6.shared/ui/Icon/MainLogo";
 
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
