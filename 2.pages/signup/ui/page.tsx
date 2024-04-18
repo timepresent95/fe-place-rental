@@ -3,13 +3,14 @@ import { signupFormItems } from "../lib";
 import { Input } from "@/6.shared/ui/shardcn/ui/input";
 import { Label } from "@/6.shared/ui/shardcn/ui/label";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
+import signupAction from "../api/signupAction";
 
 //TODO: 아이디 중복 체크 기능 추가
 function signupPage() {
   return (
     <main className="container">
       <h1 className="text-center font-extrabold text-2xl">회원 가입</h1>
-      <form className="w-80 mx-auto mt-4">
+      <form className="w-80 mx-auto mt-4" action={signupAction}>
         <div className="space-y-3 ">
           <div className="flex gap-4">
             <div className="flex-none basis-24">

@@ -16,3 +16,13 @@ export const signupFormItems: FormItem[] = [
   { accessKey: "email", label: "이메일", name: "email" },
   { accessKey: "phone", label: "전화번호", name: "phone" },
 ];
+
+export function extractSignupBody(formData: FormData): PostSignupRequestBody {
+  return signupFormItems.reduce((acc, cur) => {
+    acc[cur.accessKey] = assertValue(
+      formData.get(cur.name),
+      "올바르지 않은 입력입니다"
+    ) as string;
+    return acc;
+  }, {} as PostSignupRequestBody);
+}
