@@ -1,4 +1,3 @@
-import dayjs from "@/6.shared/lib/dayjs";
 import { FACILITY_ID_QUERY_KEY } from "../lib";
 import ReservationGuide from "./ReservationGuide";
 import ReservationFormField from "./ReservationFormField";
