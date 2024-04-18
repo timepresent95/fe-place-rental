@@ -8,6 +8,7 @@ import { GithubIcon, TistoryIcon } from "@/6.shared/ui/Icon";
 import { PropsWithChildren } from "react";
 import RightNavigation from "./RightNavigation";
 import MainLogo from "@/6.shared/ui/Icon/MainLogo";
+import { Button } from "@/6.shared/ui/shardcn/ui/button";
 
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -28,9 +29,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <header
           className="py-5 bg-indigo-700 mb-8"
           style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)" }}>
-          <div className="container px-4">
+          <div className="container px-4 flex justify-between items-center">
             <Link href="/">
               <MainLogo />
+            </Link>
+            <Link href="/signup">
+              <Button variant="outline">회원 가입</Button>
             </Link>
           </div>
         </header>
