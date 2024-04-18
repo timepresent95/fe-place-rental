@@ -11,6 +11,8 @@ export const apiEndpoint = {
   post: baseUrl + "/reservation",
 };
 
+const RESERVATION_REVALIDTE_TAG = "reservation-list";
+
 export async function getListReservation(
   req: ListReservationRequestParams
 ): Promise<ApiResult<ListReservationResponse>> {
@@ -21,7 +23,7 @@ export async function getListReservation(
 
   return fetchAPI(url.toString(), {
     method: "get",
-    next: { tags: ["reservation-list"], revalidate: 30 },
+    next: { tags: [RESERVATION_REVALIDTE_TAG], revalidate: 30 },
   });
 }
 
@@ -34,6 +36,6 @@ export async function postReservation(
       method: "post",
       body: JSON.stringify(body),
     },
-    "reservation-list"
+    RESERVATION_REVALIDTE_TAG
   );
 }
