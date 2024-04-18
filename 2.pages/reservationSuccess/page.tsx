@@ -5,7 +5,7 @@ function ReservationSuccessPage() {
   return (
     <main className="px-4 container">
       <div className="mt-40 flex flex-col items-center">
-        <div className="bg-indigo-700 w-44 p-2 flex justify-center rounded">
+        <div className="bg-indigo-700 w-44 p-4 flex justify-center rounded-xl">
           <Link href="/">
             <MainLogo />
           </Link>
