@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const signUpBodyValidation = z.object({
+export const loginBodyValidation = z.object({
   id: z.string().min(8, "아이디는 8자 이상으로 작성해주세요"),
   password: z
     .string()
@@ -8,6 +8,9 @@ export const signUpBodyValidation = z.object({
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()-_+=])[^\s]{8,}$/,
       "대문자 소문자 숫자 특수문자를 포함하여 8자 이상으로 작성해주세요"
     ),
+});
+
+export const signupBodyValidation = loginBodyValidation.extend({
   firstName: z.string().trim().min(1, "이름을 입력해주세요"),
   familyName: z.string().trim().min(1, "성을 입력해주세요"),
   email: z.string().email("올바른 형식의 메일을 입력해주세요"),

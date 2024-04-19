@@ -33,9 +33,14 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <Link href="/">
               <MainLogo />
             </Link>
-            <Link href="/signup">
-              <Button variant="outline">회원 가입</Button>
-            </Link>
+            <div className="space-x-2">
+              <Link href="/signup">
+                <Button variant="outline">회원 가입</Button>
+              </Link>
+              <Link href="/login">
+                <Button variant="outline">로그인</Button>
+              </Link>
+            </div>
           </div>
         </header>
         {children}
