@@ -5,16 +5,16 @@ function SignupSuccessPage() {
   return (
     <main className="px-4 container">
       <div className="mt-40 flex flex-col items-center">
-        <div className="bg-indigo-700 w-44 p-4 flex justify-center rounded-xl">
-          <Link href="/">
+        <Link href="/">
+          <div className="bg-indigo-700 w-44 p-4 flex justify-center rounded-xl">
             <MainLogo />
-          </Link>
-        </div>
+          </div>
+        </Link>
         <p className="text-2xl font-bold mt-10">회원 가입이 완료되었습니다.</p>
         <Link
-          href="/reservation/list"
+          href="/login"
           className="text-indigo-700 text-lg font-semibold mt-4">
-          예약 목록으로 가기
+          로그인 화면으로 이동
         </Link>
       </div>
     </main>

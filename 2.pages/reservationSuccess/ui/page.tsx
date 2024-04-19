@@ -5,11 +5,11 @@ function ReservationSuccessPage() {
   return (
     <main className="px-4 container">
       <div className="mt-40 flex flex-col items-center">
-        <div className="bg-indigo-700 w-44 p-4 flex justify-center rounded-xl">
-          <Link href="/">
+        <Link href="/">
+          <div className="bg-indigo-700 w-44 p-4 flex justify-center rounded-xl">
             <MainLogo />
-          </Link>
-        </div>
+          </div>
+        </Link>
         <p className="text-2xl font-bold mt-10">
           대관 예약 신청이 완료되었습니다.
         </p>

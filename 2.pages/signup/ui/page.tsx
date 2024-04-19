@@ -11,7 +11,7 @@ function signupPage() {
     <main className="container">
       <h1 className="text-center font-extrabold text-2xl">회원 가입</h1>
       <form className="w-80 mx-auto mt-4" action={signupAction}>
-        <div className="space-y-3 ">
+        <div className="space-y-3">
           <div className="flex gap-4">
             <div className="flex-none basis-24">
               <Label
