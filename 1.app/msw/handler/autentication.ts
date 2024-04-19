@@ -9,7 +9,10 @@ import {
   PostSignupResponse,
   UserInfo,
 } from "@/5.entities/authentication/model";
-import { unauthenticatedResponse } from "./HttpResponseError";
+import {
+  unauthenticatedIdResponse,
+  unauthenticatedPasswordResponse,
+} from "./DetailErrorResponse";
 
 function createMockUserInfo(payload: PostSignupRequestBody): UserInfo {
   return {
@@ -38,12 +41,14 @@ export default ((): HttpHandler[] => {
 
   const loginAPI = http.post(apiEndpoint.login, async ({ request }) => {
     const body = (await request.json()) as PostLoginRequestBody;
-    const targetUser = mockUserInfos.find(
-      (v) => v.id === body.id && v.password === body.password
-    );
+    const targetUser = mockUserInfos.find((v) => v.id === body.id);
 
     if (targetUser === undefined) {
-      return unauthenticatedResponse;
+      return unauthenticatedIdResponse;
+    }
+
+    if (targetUser.password !== body.password) {
+      return unauthenticatedPasswordResponse;
     }
 
     return HttpResponse.json<PostLoginResponse>(targetUser);

@@ -15,10 +15,19 @@ export default async function loginAction(
     return redirect("/");
   }
 
-  const { statusCode } = result.error;
-  if (statusCode === 401) {
-    return "아이디 또는 비밀번호를 알수 없습니다.";
+  const { detailCode } = result.error;
+  if (detailCode === 40100) {
+    return "인증되지 않은 사용자 입니다.";
   }
 
-  throw result.error;
+  if (detailCode === 40101) {
+    return "아이디를 알수 없습니다.";
+  }
+
+  if (detailCode === 40102) {
+    return "비밀번호가 잘못되었습니다.";
+  }
+
+  //XXX: 단순히 에러를 던지는것보다 좋은 방식이 필요함
+  throw new Error("unkown error");
 }

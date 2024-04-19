@@ -1,5 +1,5 @@
 "use client";
 
-import RootError from "@/2.pages/root/ui/ErrorPage";
+import GlobalErrorPage from "@/2.pages/root/ui/GlobalErrorPage";
 
-export default RootError;
+export default GlobalErrorPage;

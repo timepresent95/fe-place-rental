@@ -1,7 +1,7 @@
 import { revalidateTag } from "next/cache";
 import { assertValue } from "../assertValue";
 import { mswAction } from "./mswAction";
-import { NetworkError, createNetworkError } from "./Error/NetworkError";
+import { CustomErrorResponse } from "./customResponse";
 
 export interface FormInfo<T extends Record<string, any>> {
   accessKey: Extract<keyof T, string>;
@@ -15,7 +15,7 @@ export type ApiResult<T> =
       status: "success";
       data: T;
     }
-  | { status: "error"; error: NetworkError };
+  | { status: "error"; error: CustomErrorResponse };
 
 export const baseUrl = assertValue(
   process.env.NEXT_PUBLIC_API_URL,
@@ -34,12 +34,14 @@ export async function fetchAPI<T>(
     ) {
       return await mswAction(url, reqInit, tag);
     }
+
     const res = await fetch(url, reqInit);
 
     if (!res.ok) {
+      const error: CustomErrorResponse = await res.json();
       return {
         status: "error",
-        error: createNetworkError(res.status),
+        error,
       };
     }
 
@@ -48,6 +50,7 @@ export async function fetchAPI<T>(
     if (typeof window === "undefined" && tag) {
       revalidateTag(tag);
     }
+
     return {
       status: "success",
       data,
@@ -56,7 +59,12 @@ export async function fetchAPI<T>(
     //TODO: 여기서 에러가 발생할 경우에 대해 고민해보기
     return {
       status: "error",
-      error: new NetworkError("unkown error", 520),
+      error: {
+        isError: true,
+        message: "unkown error",
+        status: 520,
+        detailCode: 52000,
+      },
     };
   }
 }

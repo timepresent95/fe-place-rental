@@ -6,8 +6,10 @@ import { Label } from "@/6.shared/ui/shardcn/ui/label";
 import loginAction from "../api/loginAction";
 import { useFormState, useFormStatus } from "react-dom";
 
+//TODO: 입력 validation 추가
 function LoginPage() {
   const [errorMessage, dispatch] = useFormState(loginAction, undefined);
+
   return (
     <form className="w-80 mx-auto mt-4" action={dispatch}>
       <div className="space-y-4">
