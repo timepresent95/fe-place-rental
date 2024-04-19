@@ -1,13 +1,21 @@
 import { revalidateTag } from "next/cache";
 import { assertValue } from "../assertValue";
 import { mswAction } from "./mswAction";
+import { NetworkError, createNetworkError } from "./Error/NetworkError";
+
+export interface FormInfo<T extends Record<string, any>> {
+  accessKey: Extract<keyof T, string>;
+  label: string;
+  name: string;
+  placeholder?: string;
+}
 
 export type ApiResult<T> =
   | {
       status: "success";
       data: T;
     }
-  | { status: "error"; message: string };
+  | { status: "error"; error: NetworkError };
 
 export const baseUrl = assertValue(
   process.env.NEXT_PUBLIC_API_URL,
@@ -17,8 +25,7 @@ export const baseUrl = assertValue(
 export async function fetchAPI<T>(
   url: string,
   reqInit?: RequestInit,
-  tag?: string,
-  handleError?: (error: unknown) => ApiResult<T>
+  tag?: string
 ): Promise<ApiResult<T>> {
   try {
     if (
@@ -30,8 +37,10 @@ export async function fetchAPI<T>(
     const res = await fetch(url, reqInit);
 
     if (!res.ok) {
-      //TODO: 서버 에러 관련 로직 추가
-      throw new Error(res.statusText);
+      return {
+        status: "error",
+        error: createNetworkError(res.status),
+      };
     }
 
     const data: T = await res.json();
@@ -44,15 +53,10 @@ export async function fetchAPI<T>(
       data,
     };
   } catch (error: unknown) {
-    if (handleError) {
-      return handleError(error);
-    }
-    console.error(error);
-
-    //TODO: 서버 에러 관련 로직 추가
+    //TODO: 여기서 에러가 발생할 경우에 대해 고민해보기
     return {
       status: "error",
-      message: "server error",
+      error: new NetworkError("unkown error", 520),
     };
   }
 }
