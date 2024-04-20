@@ -6,6 +6,8 @@ import { cookies } from "next/headers";
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
+const EXPIRE_DURATION = 7 * 24 * 60 * 60 * 1000;
+
 type JwtPayload = { userId: UserInfo["uid"]; expiresAt: Date };
 
 export async function encrypt(payload: JwtPayload) {
@@ -28,7 +30,7 @@ export async function decrypt(session: string | undefined = "") {
 }
 
 export async function createSession(userId: UserInfo["uid"]) {
-  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  const expiresAt = new Date(Date.now() + EXPIRE_DURATION);
   const session = await encrypt({ userId, expiresAt });
 
   cookies().set("session", session, {
@@ -48,7 +50,7 @@ export async function updateSession() {
     return null;
   }
 
-  const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  const expires = new Date(Date.now() + EXPIRE_DURATION);
   cookies().set("session", session, {
     httpOnly: true,
     secure: true,
