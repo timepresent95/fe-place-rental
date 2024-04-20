@@ -9,6 +9,8 @@ import { PropsWithChildren } from "react";
 import RightNavigation from "./RightNavigation";
 import MainLogo from "@/6.shared/ui/Icon/MainLogo";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
+import { cookies } from "next/headers";
+import logoutAction from "../api/logoutAction";
 
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -18,6 +20,8 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
+  const isAuthenticated = cookies().get("session")?.value;
+
   return (
     <html lang="en">
       <body
@@ -33,14 +37,22 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <Link href="/">
               <MainLogo />
             </Link>
-            <div className="space-x-2">
-              <Link href="/signup">
-                <Button variant="outline">회원 가입</Button>
-              </Link>
-              <Link href="/login">
-                <Button variant="outline">로그인</Button>
-              </Link>
-            </div>
+            {isAuthenticated ? (
+              <div>
+                <form action={logoutAction}>
+                  <Button variant="outline">로그 아웃</Button>
+                </form>
+              </div>
+            ) : (
+              <div className="space-x-2">
+                <Link href="/signup">
+                  <Button variant="outline">회원 가입</Button>
+                </Link>
+                <Link href="/login">
+                  <Button variant="outline">로그인</Button>
+                </Link>
+              </div>
+            )}
           </div>
         </header>
         {children}
