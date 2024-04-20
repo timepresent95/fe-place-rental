@@ -44,11 +44,11 @@ export default ((): HttpHandler[] => {
     const targetUser = mockUserInfos.find((v) => v.id === body.id);
 
     if (targetUser === undefined) {
-      return unauthenticatedIdResponse;
+      return unauthenticatedIdResponse();
     }
 
     if (targetUser.password !== body.password) {
-      return unauthenticatedPasswordResponse;
+      return unauthenticatedPasswordResponse();
     }
 
     return HttpResponse.json<PostLoginResponse>(targetUser);
