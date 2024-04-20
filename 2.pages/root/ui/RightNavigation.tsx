@@ -1,6 +1,6 @@
 "use client";
 
-import RouterConfig from "@/6.shared/lib/RouterConfig";
+import { routerInfos } from "@/6.shared/lib/RouterConfig";
 import clsx from "clsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -24,16 +24,18 @@ function RightNavigationDrawer() {
         className="absolute left-0 -translate-x-full bg-white top-24 border-y border-l rounded-s border-slate py-3 px-1 shadow">
         {hide ? <ChevronLeft /> : <ChevronRight />}
       </button>
-      {RouterConfig.map(({ pageName, path }) => (
-        <Link
-          key={path}
-          href={path}
-          className={clsx("font-bold text-xl block hover:text-indigo-500", {
-            "text-indigo-700": path === currentPath,
-          })}>
-          {pageName}
-        </Link>
-      ))}
+      {routerInfos.map(({ pageName, path, hideAtNavigation }) =>
+        hideAtNavigation ? null : (
+          <Link
+            key={path}
+            href={path}
+            className={clsx("font-bold text-xl block hover:text-indigo-500", {
+              "text-indigo-700": path === currentPath,
+            })}>
+            {pageName}
+          </Link>
+        )
+      )}
     </div>
   );
 }

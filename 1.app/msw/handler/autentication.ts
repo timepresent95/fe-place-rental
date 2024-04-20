@@ -12,7 +12,7 @@ import {
 import {
   unauthenticatedIdResponse,
   unauthenticatedPasswordResponse,
-} from "./DetailErrorResponse";
+} from "../lib/DetailErrorResponse";
 
 function createMockUserInfo(payload: PostSignupRequestBody): UserInfo {
   return {

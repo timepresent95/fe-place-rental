@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { extractLoginBody } from "../lib";
 import { postLogin } from "@/5.entities/authentication/api";
+import { createSession } from "@/6.shared/lib/session";
 
 //TODO: prevState는 어디에 사용하는것인지 알아보기
 export default async function loginAction(
@@ -11,7 +12,9 @@ export default async function loginAction(
 ) {
   const signupBody = extractLoginBody(formData);
   const result = await postLogin(signupBody);
+
   if (result.status === "success") {
+    createSession(result.data.uid);
     return redirect("/");
   }
 
