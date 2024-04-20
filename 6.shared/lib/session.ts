@@ -8,6 +8,7 @@ const encodedKey = new TextEncoder().encode(secretKey);
 
 const EXPIRE_DURATION = 7 * 24 * 60 * 60 * 1000;
 
+//TODO: registered claims 적용해야 함
 type JwtPayload = { userId: UserInfo["uid"]; expiresAt: Date };
 
 export async function encrypt(payload: JwtPayload) {
@@ -18,14 +19,20 @@ export async function encrypt(payload: JwtPayload) {
     .sign(encodedKey);
 }
 
-export async function decrypt(session: string | undefined = "") {
+type DecryptResult =
+  | { status: "success"; data: JwtPayload }
+  | { status: "error"; error: unknown };
+
+export async function decrypt(
+  session: string | undefined = ""
+): Promise<DecryptResult> {
   try {
-    const { payload } = await jwtVerify(session, encodedKey, {
+    const { payload } = await jwtVerify<JwtPayload>(session, encodedKey, {
       algorithms: ["HS256"],
     });
-    return payload;
+    return { status: "success", data: payload };
   } catch (error) {
-    console.log("Failed to verify session");
+    return { status: "error", error };
   }
 }
 
