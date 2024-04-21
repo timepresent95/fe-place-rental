@@ -8,7 +8,7 @@ export default async function signupAction(formData: FormData) {
   const signupBody = extractSignupBody(formData);
   const result = await postSignup(signupBody);
   if (result.status === "error") {
-    return;
+    throw result.error;
   }
 
   redirect("/signup/success");

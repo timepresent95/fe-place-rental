@@ -21,6 +21,7 @@ async function ReservationPostPage({ searchParams }: Props) {
   };
 
   const result = await getMy();
+  //TODO: 로그인되지 않은 상태와 로그인 되었을때 생긴 에러 구분
   if (result.status === "success") {
     defaultValues.applicantName =
       result.data.familyName + result.data.firstName;

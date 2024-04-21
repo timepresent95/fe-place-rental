@@ -29,6 +29,5 @@ export default async function loginAction(
     return "비밀번호가 잘못되었습니다.";
   }
 
-  //XXX: 단순히 에러를 던지는것보다 좋은 방식이 필요함
-  throw new Error("unkown error");
+  throw result.error;
 }
