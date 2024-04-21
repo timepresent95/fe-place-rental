@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { DefaultValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { PostReservationRequestBody } from "@/5.entities/reservation/model";
@@ -47,20 +47,17 @@ const FORM_LABEL: {
 
 //TODO: 예약 가능 날짜와 관련된 로직 추가해야 함
 // 이미 예약이 완료된 날, 지나간 날은 예약이 불가능
-function ReservationFormField() {
+
+interface Props {
+  defaultValues: DefaultValues<PostReservationRequestBody>;
+}
+
+function ReservationFormField({ defaultValues }: Props) {
   const router = useRouter();
 
   const form = useForm<PostReservationRequestBody>({
     resolver: zodResolver(postReservationBodyValidation),
-    defaultValues: {
-      applicantName: "",
-      contactEmail: "",
-      contactPhone: "",
-      purpose: "",
-      expectedParticipants: 3,
-      useDate: undefined,
-      isPublic: true,
-    },
+    defaultValues: defaultValues,
   });
 
   return (
