@@ -2,8 +2,8 @@ import "server-only";
 
 import { cookies } from "next/headers";
 
-export async function createSession(cookie: string) {
-  cookies().set("session", cookie, {
+export function createSession(token: string) {
+  cookies().set("session", token, {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
