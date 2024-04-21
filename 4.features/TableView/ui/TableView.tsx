@@ -8,6 +8,7 @@ interface Props<T extends TableData> {
   pageSize: number;
   total: number;
   paginationQueryKey: string;
+  emptyMessage?: string;
 }
 
 function TableView<T extends TableData>({
@@ -16,10 +17,16 @@ function TableView<T extends TableData>({
   pageSize,
   total,
   paginationQueryKey,
+  emptyMessage = "테이블에 데이터가 존재하지 않습니다.",
 }: Props<T>) {
   return (
     <div>
-      <TableListUI columns={columns} datas={datas} pageSize={pageSize} />
+      <TableListUI
+        columns={columns}
+        datas={datas}
+        pageSize={pageSize}
+        emptyMessage={emptyMessage}
+      />
       {total === 0 ? null : (
         <Pagination
           total={total}

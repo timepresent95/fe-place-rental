@@ -12,12 +12,14 @@ interface Props<T extends TableData> {
   columns: TableColumns<T>;
   datas: T[];
   pageSize: number;
+  emptyMessage?: string;
 }
 
 function TableList<T extends TableData>({
   columns,
   datas,
   pageSize,
+  emptyMessage = "테이블에 데이터가 존재하지 않습니다.",
 }: Props<T>) {
   return (
     <>
@@ -39,7 +41,11 @@ function TableList<T extends TableData>({
           ))}
         </TableBody>
       </Table>
-      <div style={{ minHeight: `calc(2.5rem*${pageSize - datas.length})` }} />
+      <div
+        className="flex h-full items-center justify-center text-muted-foreground"
+        style={{ minHeight: `calc(2.5rem*${pageSize - datas.length})` }}>
+        {datas.length === 0 ? <span>{emptyMessage}</span> : null}
+      </div>
     </>
   );
 }
