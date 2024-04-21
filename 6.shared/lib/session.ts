@@ -1,4 +1,5 @@
 import "server-only";
+
 import { SignJWT, jwtVerify } from "jose";
 import { UserInfo } from "@/5.entities/authentication/model";
 import { cookies } from "next/headers";
@@ -9,7 +10,7 @@ const encodedKey = new TextEncoder().encode(secretKey);
 const EXPIRE_DURATION = 7 * 24 * 60 * 60 * 1000;
 
 //TODO: registered claims 적용해야 함
-type JwtPayload = { userId: UserInfo["uid"]; expiresAt: Date };
+type JwtPayload = { uid: UserInfo["uid"]; expiresAt: Date };
 
 export async function encrypt(payload: JwtPayload) {
   return new SignJWT(payload)
@@ -38,7 +39,7 @@ export async function decrypt(
 
 export async function createSession(userId: UserInfo["uid"]) {
   const expiresAt = new Date(Date.now() + EXPIRE_DURATION);
-  const session = await encrypt({ userId, expiresAt });
+  const session = await encrypt({ uid: userId, expiresAt });
 
   cookies().set("session", session, {
     httpOnly: true,
