@@ -27,3 +27,16 @@ export interface ListReservationResponse {
   pageSize: number;
   offset: number;
 }
+
+export type MyReservationRequestQuery = {
+  pageSize: number;
+  offset: number;
+};
+
+export interface MyReservationResponse {
+  id: string;
+  reservations: Reservation[];
+  total: number;
+  pageSize: number;
+  offset: number;
+}

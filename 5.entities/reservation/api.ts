@@ -2,6 +2,8 @@ import { ApiResult, baseUrl, fetchAPI } from "@/6.shared/lib/api";
 import {
   ListReservationRequestQuery,
   ListReservationResponse,
+  MyReservationRequestQuery,
+  MyReservationResponse,
   PostReservationRequestBody,
   PostReservationResponse,
 } from "./model";
@@ -9,6 +11,7 @@ import {
 export const apiEndpoint = {
   list: baseUrl + "/reservations",
   post: baseUrl + "/reservation",
+  my: baseUrl + "/my/reservation",
 };
 
 const RESERVATION_REVALIDTE_TAG = "reservation-list";
@@ -38,4 +41,18 @@ export async function postReservation(
     },
     RESERVATION_REVALIDTE_TAG
   );
+}
+
+export async function getMyReservation(
+  req: MyReservationRequestQuery
+): Promise<ApiResult<MyReservationResponse>> {
+  const url = new URL(apiEndpoint.my);
+  for (const [key, value] of Object.entries(req)) {
+    url.searchParams.set(key, value.toString());
+  }
+
+  return fetchAPI(url.toString(), {
+    method: "get",
+    next: { tags: [RESERVATION_REVALIDTE_TAG], revalidate: 30 },
+  });
 }

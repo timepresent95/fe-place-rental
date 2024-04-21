@@ -15,6 +15,7 @@ export const publicRoutes: RouteInfo[] = [
   { pageName: "홈 화면", path: "/" },
   { pageName: "예약 현황", path: "/reservation/list" },
   { pageName: "대관 예약", path: "/reservation/post" },
+  { pageName: "나의 대관 예약", path: "/my/reservation" },
 ];
 
 export const routerInfos: RouteInfo[] = [

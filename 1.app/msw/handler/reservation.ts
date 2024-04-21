@@ -10,6 +10,7 @@ import {
 } from "@/5.entities/reservation/model";
 import { DEFAULT_PAGE_SIZE } from "@/2.pages/reservationList/lib";
 import { extractUid } from "./util";
+import { forbiddenUnAuthenticatedResponse } from "../lib/DetailErrorResponse";
 
 function createMockReservation(): Reservation {
   const capacity = faker.number.int({ min: 3, max: 30 });
@@ -71,5 +72,31 @@ export default ((): HttpHandler[] => {
     return HttpResponse.json<PostReservationResponse>(newReservation);
   });
 
-  return [postAPI, listAPI];
+  const myAPI = http.get(apiEndpoint.my, async ({ request }) => {
+    const extractResult = await extractUid(request);
+    const applicantId =
+      extractResult.status === "success" ? extractResult.data.uid : undefined;
+
+    if (extractResult.status === "error") {
+      return forbiddenUnAuthenticatedResponse();
+    }
+
+    const url = new URL(request.url);
+    const offset = Number(url.searchParams.get("offset") ?? 1);
+    const pageSize = Number(
+      url.searchParams.get("pageSize") ?? DEFAULT_PAGE_SIZE
+    );
+    const reservations = mockDatas.reservations
+      .filter((v) => v.applicantId === applicantId)
+      .slice(offset, offset + pageSize);
+    return HttpResponse.json<ListReservationResponse>({
+      id: mockDatas.id,
+      reservations,
+      total: reservations.length,
+      pageSize,
+      offset,
+    });
+  });
+
+  return [postAPI, listAPI, myAPI];
 })();

@@ -1,4 +1,4 @@
-import ReservationTable from "@/3.widgets/ReservationTable/ui/list";
+import ReservationTable from "@/3.widgets/ReservationTable/ui/my";
 import { DEFAULT_PAGE_SIZE } from "../lib";
 import { Suspense } from "react";
 import { TableViewSkeleton } from "@/4.features/TableView/ui";
@@ -14,7 +14,7 @@ interface Props {
   };
 }
 
-function ReservationListPage({ searchParams }: Props) {
+function MyReservationPage({ searchParams }: Props) {
   const paginationQuery = searchParams?.[PAGINATION_QUERY_KEY];
   const pageSizeQuery = searchParams?.[PAGE_SIZE_QUERY_KEY];
 
@@ -24,7 +24,7 @@ function ReservationListPage({ searchParams }: Props) {
 
   if (paginationQuery === undefined || pageSizeQuery === undefined) {
     redirect(
-      `/reservation/list?${PAGINATION_QUERY_KEY}=${pageIndex}&${PAGE_SIZE_QUERY_KEY}=${pageSize}`
+      `/my/reservation?${PAGINATION_QUERY_KEY}=${pageIndex}&${PAGE_SIZE_QUERY_KEY}=${pageSize}`
     );
   }
 
@@ -39,6 +39,6 @@ function ReservationListPage({ searchParams }: Props) {
   );
 }
 
-ReservationListPage.displayName = "ReservationListPage";
+MyReservationPage.displayName = "MyReservationPage";
 
-export default ReservationListPage;
+export default MyReservationPage;

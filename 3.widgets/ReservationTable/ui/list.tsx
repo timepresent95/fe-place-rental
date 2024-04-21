@@ -1,9 +1,8 @@
-import { TableView, TableViewSkeleton } from "@/4.features/TableView/ui";
+import { TableView } from "@/4.features/TableView/ui";
 import { TableColumns } from "@/5.entities/TableList/model";
 import { getListReservation } from "@/5.entities/reservation/api";
-import { ReservationTableData } from "./model";
-import { formatReservationTableData } from "./lib";
-import { Suspense } from "react";
+import { ReservationTableData } from "../model";
+import { formatReservationTableData } from "../lib";
 
 const columns: TableColumns<ReservationTableData> = [
   { accessKey: "applicatorName", columnName: "신청자" },
@@ -26,8 +25,7 @@ async function ReservationTable({
   const response = await getListReservation({ pageSize, offset });
 
   if (response.status === "error") {
-    //TODO: 서버 에러 관련 핸들링 필요
-    return;
+    throw response.error;
   }
 
   const reservationTable = formatReservationTableData(response.data);
@@ -39,6 +37,7 @@ async function ReservationTable({
       pageSize={reservationTable.pageSize}
       total={reservationTable.total}
       paginationQueryKey={paginationQueryKey}
+      emptyMessage="예약이 없습니다."
     />
   );
 }
