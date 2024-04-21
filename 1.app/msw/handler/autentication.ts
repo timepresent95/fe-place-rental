@@ -20,6 +20,7 @@ import { extractUid } from "./util";
 function createMockUserInfo(payload: PostSignupRequestBody): UserInfo {
   return {
     uid: faker.string.uuid(),
+    role: "user",
     ...payload,
   };
 }
@@ -42,6 +43,17 @@ export default ((): HttpHandler[] => {
       email: "test2@fakemail.com",
       phone: "010-5678-1234",
     }),
+    {
+      ...createMockUserInfo({
+        id: "admin",
+        password: "amdin",
+        firstName: "관리자",
+        familyName: "김",
+        email: "admin@fakemail.com",
+        phone: "010-0000-0000",
+      }),
+      role: "admin",
+    },
   ];
 
   //TODO: 중복 아이디 검사 필요
