@@ -1,6 +1,6 @@
 import { ApiResult, baseUrl, fetchAPI } from "@/6.shared/lib/api";
 import {
-  ListReservationRequestParams,
+  ListReservationRequestQuery,
   ListReservationResponse,
   PostReservationRequestBody,
   PostReservationResponse,
@@ -14,7 +14,7 @@ export const apiEndpoint = {
 const RESERVATION_REVALIDTE_TAG = "reservation-list";
 
 export async function getListReservation(
-  req: ListReservationRequestParams
+  req: ListReservationRequestQuery
 ): Promise<ApiResult<ListReservationResponse>> {
   const url = new URL(apiEndpoint.list);
   for (const [key, value] of Object.entries(req)) {

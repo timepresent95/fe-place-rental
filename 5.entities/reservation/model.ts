@@ -14,7 +14,7 @@ export type Reservation = PostReservationRequestBody & {
 
 export type PostReservationResponse = Reservation;
 
-export type ListReservationRequestParams = {
+export type ListReservationRequestQuery = {
   pageSize: number;
   offset: number;
 };
