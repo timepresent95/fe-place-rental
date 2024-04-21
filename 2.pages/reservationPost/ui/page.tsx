@@ -4,6 +4,7 @@ import { FACILITY_ID_QUERY_KEY } from "../lib";
 import ReservationGuide from "./ReservationGuide";
 import ReservationFormField from "./ReservationFormField";
 import { getMy } from "@/5.entities/authentication/api";
+import CustomError from "@/6.shared/lib/CustomError";
 
 interface Props {
   searchParams?: {
@@ -30,7 +31,7 @@ async function ReservationPostPage({ searchParams }: Props) {
     defaultValues.contactEmail = result.data.email;
     defaultValues.contactPhone = result.data.phone;
   } else if (result.error.detailCode === 40002) {
-    throw new Error("wrong token");
+    throw new CustomError(result.error);
   }
 
   return (

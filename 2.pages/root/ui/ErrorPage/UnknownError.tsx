@@ -11,7 +11,7 @@ function UnknownErrorPage() {
           </div>
         </Link>
         <p className="text-2xl font-bold mt-10">
-          알수 없는 에러가 발생했습니다.
+          알 수 없는 에러가 발생했습니다.
         </p>
       </div>
     </main>
