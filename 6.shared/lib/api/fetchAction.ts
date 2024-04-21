@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidateTag } from "next/cache";
-import { CustomErrorResponse } from "./customResponse";
+import { CustomErrorResponse, customClientErrorCodes } from "./customResponse";
 import { cookies } from "next/headers";
 import { createSession } from "../session";
 import { ApiResult } from ".";
@@ -56,12 +56,7 @@ export async function fetchAction<T>(
     //TODO: 여기서 에러가 발생할 경우에 대해 고민해보기
     return {
       status: "error",
-      error: {
-        isError: true,
-        message: "unkown error",
-        status: 520,
-        detailCode: 52000,
-      },
+      error: customClientErrorCodes[40300],
     };
   }
 }
