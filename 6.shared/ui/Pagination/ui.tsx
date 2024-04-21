@@ -66,6 +66,7 @@ export interface Props {
   className?: string;
 }
 
+//NOTE: total은 0이 될 수 없음
 function Pagination({
   total,
   pageSize,

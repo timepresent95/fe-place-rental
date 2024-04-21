@@ -20,12 +20,14 @@ function TableView<T extends TableData>({
   return (
     <div>
       <TableListUI columns={columns} datas={datas} pageSize={pageSize} />
-      <Pagination
-        total={total}
-        pageSize={pageSize}
-        paginationQueryKey={paginationQueryKey}
-        className="mt-4"
-      />
+      {total === 0 ? null : (
+        <Pagination
+          total={total}
+          pageSize={pageSize}
+          paginationQueryKey={paginationQueryKey}
+          className="mt-4"
+        />
+      )}
     </div>
   );
 }
