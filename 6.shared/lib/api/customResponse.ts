@@ -31,6 +31,13 @@ export const customClientErrorCodes: { [key: number]: CustomErrorResponse } = {
     status: 400,
     detailCode: 40001,
   },
+  40002: {
+    isError: true,
+    name: "Bad Request: Use Wrong Token",
+    message: "bad request - use wrong token",
+    status: 400,
+    detailCode: 40002,
+  },
   //unauthenticated
   40100: {
     isError: true,

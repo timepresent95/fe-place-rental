@@ -13,6 +13,13 @@ export class DetailErrorResponse extends HttpResponse {
     });
   }
 }
+//bad request
+export const badRequestResponse = () =>
+  new DetailErrorResponse(customClientErrorCodes[40000]);
+export const badRequestUnvalidationBodyResponse = () =>
+  new DetailErrorResponse(customClientErrorCodes[40001]);
+export const badRequestWrongTokenResponse = () =>
+  new DetailErrorResponse(customClientErrorCodes[40002]);
 
 //unauthenticated
 export const unauthenticatedResponse = () =>

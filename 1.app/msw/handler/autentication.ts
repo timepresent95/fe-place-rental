@@ -9,8 +9,8 @@ import {
   UserInfo,
 } from "@/5.entities/authentication/model";
 import {
+  badRequestWrongTokenResponse,
   forbiddenUnAuthenticatedResponse,
-  notFoundUserInfoResponse,
   unauthenticatedIdResponse,
   unauthenticatedPasswordResponse,
 } from "../lib/DetailErrorResponse";
@@ -97,7 +97,7 @@ export default ((): HttpHandler[] => {
     });
   });
 
-  const myInfoAPI = http.get(apiEndpoint.my, async ({ request }) => {
+  const myAPI = http.get(apiEndpoint.my, async ({ request }) => {
     const extractResult = await extractUid(request);
 
     if (extractResult.status === "error") {
@@ -109,11 +109,11 @@ export default ((): HttpHandler[] => {
     );
 
     if (targetUser === undefined) {
-      return notFoundUserInfoResponse();
+      return badRequestWrongTokenResponse();
     }
 
     return HttpResponse.json<GetMyResponse>(targetUser);
   });
 
-  return [signupAPI, loginAPI, myInfoAPI];
+  return [signupAPI, loginAPI, myAPI];
 })();

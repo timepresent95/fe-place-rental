@@ -1,3 +1,5 @@
+"use server";
+
 import { FACILITY_ID_QUERY_KEY } from "../lib";
 import ReservationGuide from "./ReservationGuide";
 import ReservationFormField from "./ReservationFormField";
@@ -27,6 +29,8 @@ async function ReservationPostPage({ searchParams }: Props) {
       result.data.familyName + result.data.firstName;
     defaultValues.contactEmail = result.data.email;
     defaultValues.contactPhone = result.data.phone;
+  } else if (result.error.detailCode === 40002) {
+    throw new Error("wrong token");
   }
 
   return (

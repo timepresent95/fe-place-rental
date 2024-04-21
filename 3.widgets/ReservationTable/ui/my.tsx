@@ -23,7 +23,6 @@ async function ReservationTable({
   paginationQueryKey,
 }: Props) {
   const response = await getMyReservation({ pageSize, offset });
-  console.log(response.status);
   if (response.status === "error") {
     throw response.error;
   }

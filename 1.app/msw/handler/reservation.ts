@@ -57,7 +57,6 @@ export default ((): HttpHandler[] => {
     const extractResult = await extractUid(request);
     const applicantId =
       extractResult.status === "success" ? extractResult.data.uid : undefined;
-    console.log("applicantId", applicantId);
     const body = (await request.json()) as PostReservationRequestBody;
     const newReservation: PostReservationResponse = {
       ...body,
