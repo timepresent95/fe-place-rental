@@ -8,6 +8,7 @@ export function createSession(token: string) {
     secure: true,
     sameSite: "lax",
     path: "/",
+    maxAge: 60 * 60 * 3, //NOTE: 3 hour
   });
 }
 
