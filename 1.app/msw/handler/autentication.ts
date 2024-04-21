@@ -15,6 +15,7 @@ import {
   unauthenticatedPasswordResponse,
 } from "../lib/DetailErrorResponse";
 import { createToken, decrypt } from "../lib/token";
+import { extractUid } from "./util";
 
 function createMockUserInfo(payload: PostSignupRequestBody): UserInfo {
   return {
@@ -85,15 +86,14 @@ export default ((): HttpHandler[] => {
   });
 
   const myInfoAPI = http.get(apiEndpoint.my, async ({ request }) => {
-    const token = request.headers.get("x-auth-token");
-    const decryptResult = await decrypt(token ?? "");
+    const extractResult = await extractUid(request);
 
-    if (decryptResult.status === "error") {
+    if (extractResult.status === "error") {
       return forbiddenUnAuthenticatedResponse();
     }
 
     const targetUser = mockUserInfos.find(
-      (v) => v.uid === decryptResult.data.uid
+      (v) => v.uid === extractResult.data.uid
     );
 
     if (targetUser === undefined) {

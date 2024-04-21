@@ -10,6 +10,7 @@ export type Reservation = PostReservationRequestBody & {
   attendees: number;
   applicationDate: Date;
   isApproved: boolean;
+  applicantId?: string;
 };
 
 export type PostReservationResponse = Reservation;
@@ -18,6 +19,7 @@ export type ListReservationRequestQuery = {
   pageSize: number;
   offset: number;
 };
+
 export interface ListReservationResponse {
   id: string;
   reservations: Reservation[];

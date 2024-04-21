@@ -9,6 +9,7 @@ import {
   Reservation,
 } from "@/5.entities/reservation/model";
 import { DEFAULT_PAGE_SIZE } from "@/2.pages/reservationList/lib";
+import { extractUid } from "./util";
 
 function createMockReservation(): Reservation {
   const capacity = faker.number.int({ min: 3, max: 30 });
@@ -52,6 +53,10 @@ export default ((): HttpHandler[] => {
   });
 
   const postAPI = http.post(apiEndpoint.post, async ({ request }) => {
+    const extractResult = await extractUid(request);
+    const applicantId =
+      extractResult.status === "success" ? extractResult.data.uid : undefined;
+    console.log("applicantId", applicantId);
     const body = (await request.json()) as PostReservationRequestBody;
     const newReservation: PostReservationResponse = {
       ...body,
@@ -59,6 +64,7 @@ export default ((): HttpHandler[] => {
       attendees: 1,
       applicationDate: new Date(),
       isApproved: false,
+      applicantId,
     };
     mockDatas.reservations.push(newReservation);
     mockDatas.total++;
