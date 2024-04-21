@@ -3,7 +3,6 @@
 import { redirect } from "next/navigation";
 import { extractSignupBody } from "../lib";
 import { postSignup } from "@/5.entities/authentication/api";
-import { createSession } from "@/6.shared/lib/session";
 
 export default async function signupAction(formData: FormData) {
   const signupBody = extractSignupBody(formData);
@@ -12,6 +11,5 @@ export default async function signupAction(formData: FormData) {
     return;
   }
 
-  createSession(result.data.uid);
   redirect("/signup/success");
 }

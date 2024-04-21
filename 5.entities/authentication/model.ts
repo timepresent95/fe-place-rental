@@ -12,3 +12,5 @@ export type PostSignupResponse = UserInfo;
 export type PostLoginRequestBody = z.infer<typeof loginBodyValidation>;
 
 export type PostLoginResponse = UserInfo;
+
+export type GetMyResponse = UserInfo;

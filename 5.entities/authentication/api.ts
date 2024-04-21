@@ -1,5 +1,6 @@
 import { ApiResult, baseUrl, fetchAPI } from "@/6.shared/lib/api";
 import {
+  GetMyResponse,
   PostLoginRequestBody,
   PostLoginResponse,
   PostSignupRequestBody,
@@ -9,6 +10,7 @@ import {
 export const apiEndpoint = {
   signup: baseUrl + "/signup",
   login: baseUrl + "/login",
+  my: baseUrl + "/my",
 };
 
 export async function postSignup(
@@ -26,5 +28,12 @@ export async function postLogin(
   return fetchAPI(apiEndpoint.login, {
     method: "post",
     body: JSON.stringify(body),
+  });
+}
+
+//TODO: get user info로 변경
+export async function getMy(): Promise<ApiResult<GetMyResponse>> {
+  return fetchAPI(apiEndpoint.my, {
+    method: "get",
   });
 }
