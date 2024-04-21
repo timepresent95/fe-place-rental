@@ -5,7 +5,7 @@ export interface CustomSucessResponse {
   name: string;
 }
 
-export interface CustomErrorResponse extends Error {
+export interface CustomErrorResponse {
   isError: true;
   message: string;
   status: number;
