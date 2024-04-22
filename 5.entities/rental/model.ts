@@ -3,6 +3,12 @@ import { applyRentalBodyValidation } from "./lib";
 
 export type ApplyRentalRequestBody = z.infer<typeof applyRentalBodyValidation>;
 
+export const APPLICANT_STATE_PRESENT = {
+  approved: "승인",
+  rejected: "거절",
+  pending: "심사중",
+};
+
 type ApplicationState = "approved" | "rejected" | "pending";
 export type Rental = ApplyRentalRequestBody & {
   id: string;
