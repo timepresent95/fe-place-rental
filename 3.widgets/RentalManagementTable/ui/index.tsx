@@ -6,7 +6,7 @@ import { TableWithDialogView } from "@/4.features/TableWithDialogView/ui";
 import RentalDetailDialog from "./RentalDetailDialog";
 
 const columns: TableColumns<RentalManagementTableRow> = [
-  { accessKey: "id", columnName: "id" },
+  { accessKey: "id", columnName: "예약 번호" },
   { accessKey: "applicantName", columnName: "신청자" },
   { accessKey: "rentalDate", columnName: "대관 일" },
   { accessKey: "applicationDate", columnName: "신청 일" },
