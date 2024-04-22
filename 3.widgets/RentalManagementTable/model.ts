@@ -1,3 +1,5 @@
+import { ApplicationState } from "@/5.entities/rental/model";
+
 export type RentalManagementTableRow = {
   id: string;
   applicantName: string;
@@ -7,6 +9,7 @@ export type RentalManagementTableRow = {
   contactPhone: string;
   purpose: string;
   expectedParticipants: number;
+  applicationState: ApplicationState;
   isPublic: boolean;
 };
 

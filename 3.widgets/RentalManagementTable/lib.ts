@@ -16,6 +16,7 @@ export function formatRentalManagementTable(
     contactPhone: v.contactPhone,
     purpose: v.purpose,
     expectedParticipants: v.expectedParticipants,
+    applicationState: v.applicationState,
     isPublic: v.isPublic,
   }));
 

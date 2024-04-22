@@ -9,7 +9,8 @@ export const APPLICANT_STATE_PRESENT = {
   pending: "심사중",
 };
 
-type ApplicationState = "approved" | "rejected" | "pending";
+export type ApplicationState = keyof typeof APPLICANT_STATE_PRESENT;
+
 export type Rental = ApplyRentalRequestBody & {
   id: string;
   attendees: number;
@@ -19,6 +20,11 @@ export type Rental = ApplyRentalRequestBody & {
 };
 
 export type ApplyRentalResponse = Rental;
+
+export type PatchRentalRequestParam = Rental["id"];
+export type PatchRentalRequestBody = Partial<Rental>;
+
+export type PatchRentalResponse = Rental;
 
 export type ListRentalRequestQuery = {
   pageSize: number;

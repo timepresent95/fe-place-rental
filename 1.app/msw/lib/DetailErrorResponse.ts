@@ -42,3 +42,5 @@ export const notFoundResponse = () =>
   new DetailErrorResponse(customClientErrorCodes[40400]);
 export const notFoundUserInfoResponse = () =>
   new DetailErrorResponse(customClientErrorCodes[40401]);
+export const notFoundDataResponse = () =>
+  new DetailErrorResponse(customClientErrorCodes[40402]);

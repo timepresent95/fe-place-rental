@@ -97,6 +97,13 @@ export const customClientErrorCodes: { [key: number]: CustomErrorResponse } = {
     status: 404,
     detailCode: 40401,
   },
+  40402: {
+    isError: true,
+    name: "Not Found Data",
+    message: "not found: can not find Data",
+    status: 404,
+    detailCode: 40402,
+  },
 };
 
 export const customStatusCodes: { [key: number]: CustomResponse } = {

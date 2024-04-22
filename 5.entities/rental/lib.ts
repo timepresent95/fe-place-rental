@@ -16,3 +16,26 @@ export const applyRentalBodyValidation = z.object({
   }),
   isPublic: z.boolean(),
 });
+
+export const RentalValidation = applyRentalBodyValidation.extend({
+  id: z.string(),
+  attendees: z.number(),
+  applicationDate: z.date(),
+  applicationState: z.union([
+    z.literal("approved"),
+    z.literal("rejected"),
+    z.literal("pending"),
+  ]),
+  applicantId: z.string(),
+});
+
+type RentalValidationKey = keyof z.infer<typeof RentalValidation>;
+
+export function pickRentalValidation(keys: RentalValidationKey[]) {
+  return RentalValidation.pick(
+    keys.reduce((acc, cur) => {
+      acc[cur] = true;
+      return acc;
+    }, {} as Record<RentalValidationKey, true>)
+  );
+}

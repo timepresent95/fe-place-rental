@@ -6,12 +6,17 @@ import {
   MyRentalResponse,
   ApplyRentalRequestBody,
   ApplyRentalResponse,
+  PatchRentalRequestBody,
+  PatchRentalResponse,
+  PatchRentalRequestParam,
 } from "./model";
+import { generateUrl } from "@/6.shared/lib/api/util";
 
 const rentalBaseURL = baseUrl + "/rental";
 export const apiEndpoint = {
   list: rentalBaseURL + "/list",
   apply: rentalBaseURL + "/apply",
+  patch: rentalBaseURL + "/:id",
   my: rentalBaseURL + "/my",
 };
 
@@ -31,6 +36,19 @@ export async function getListRental(
   });
 }
 
+export async function patchReservation(
+  id: PatchRentalRequestParam,
+  body: PatchRentalRequestBody
+): Promise<ApiResult<PatchRentalResponse>> {
+  return fetchAPI(
+    generateUrl(apiEndpoint.patch, { id }),
+    {
+      method: "patch",
+      body: JSON.stringify(body),
+    },
+    RENTAL_REVALIDTE_TAG
+  );
+}
 export async function postReservation(
   body: ApplyRentalRequestBody
 ): Promise<ApiResult<ApplyRentalResponse>> {

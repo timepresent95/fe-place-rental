@@ -7,10 +7,15 @@ import {
   ApplyRentalRequestBody,
   ApplyRentalResponse,
   Rental,
+  PatchRentalRequestBody,
+  PatchRentalResponse,
 } from "@/5.entities/rental/model";
 import { DEFAULT_PAGE_SIZE } from "@/2.pages/rental/list/lib";
 import { extractUid } from "./util";
-import { forbiddenUnAuthenticatedResponse } from "../lib/DetailErrorResponse";
+import {
+  forbiddenUnAuthenticatedResponse,
+  notFoundDataResponse,
+} from "../lib/DetailErrorResponse";
 
 function getRandomApprovedState() {
   const randomNumber = faker.number.int({ min: 0, max: 2 });
@@ -76,6 +81,36 @@ export default ((): HttpHandler[] => {
     return HttpResponse.json<ApplyRentalResponse>(newReservation);
   });
 
+  const patchAPI = http.patch(
+    apiEndpoint.patch,
+    async ({ request, params }) => {
+      const extractResult = await extractUid(request);
+      //TODO: 권한 확인해야함
+      const applicantId =
+        extractResult.status === "success" ? extractResult.data.uid : undefined;
+
+      const body = (await request.json()) as PatchRentalRequestBody;
+
+      const { id } = params;
+      const targetIndex = mockDatas.rentals.findIndex(
+        (rental) => rental.id === id
+      );
+
+      if (targetIndex < 0) {
+        return notFoundDataResponse();
+      }
+
+      mockDatas.rentals[targetIndex] = {
+        ...mockDatas.rentals[targetIndex],
+        ...body,
+      };
+
+      return HttpResponse.json<PatchRentalResponse>(
+        mockDatas.rentals[targetIndex]
+      );
+    }
+  );
+
   const myAPI = http.get(apiEndpoint.my, async ({ request }) => {
     const extractResult = await extractUid(request);
     const applicantId =
@@ -102,5 +137,5 @@ export default ((): HttpHandler[] => {
     });
   });
 
-  return [postAPI, listAPI, myAPI];
+  return [postAPI, listAPI, myAPI, patchAPI];
 })();
