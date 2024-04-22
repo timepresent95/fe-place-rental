@@ -1,8 +1,9 @@
-import { TableView } from "@/4.features/TableView/ui";
 import { TableColumns } from "@/5.entities/TableList/model";
 import { getListRental } from "@/5.entities/rental/api";
-import { RentalManagementTableRow } from "./model";
-import { formatRentalManagementTable } from "./lib";
+import { RentalManagementTableRow } from "../model";
+import { formatRentalManagementTable } from "../lib";
+import { TableWithDialogView } from "@/4.features/TableWithDialogView/ui";
+import RentalDetailDialog from "./RentalDetailDialog";
 
 const columns: TableColumns<RentalManagementTableRow> = [
   { accessKey: "id", columnName: "id" },
@@ -31,14 +32,15 @@ async function RentalManagementTable({
   const reservationTable = formatRentalManagementTable(response.data);
 
   return (
-    <TableView
+    <TableWithDialogView
       columns={columns}
       datas={reservationTable.rows}
       pageSize={reservationTable.pageSize}
       total={reservationTable.total}
       paginationQueryKey={paginationQueryKey}
-      emptyMessage="예약이 없습니다."
-    />
+      emptyMessage="예약이 없습니다.">
+      <RentalDetailDialog />
+    </TableWithDialogView>
   );
 }
 RentalManagementTable.displayName = "RentalManagementTable";
