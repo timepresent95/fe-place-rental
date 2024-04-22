@@ -13,8 +13,8 @@ export const protectedRoutes: RouteInfo[] = [];
 
 export const publicRoutes: RouteInfo[] = [
   { pageName: "홈 화면", path: "/" },
-  { pageName: "예약 현황", path: "/reservation/list" },
-  { pageName: "대관 예약", path: "/reservation/post" },
+  { pageName: "대관 신청 현황", path: "/rental/list" },
+  { pageName: "대관 예약 신청", path: "/rental/apply" },
   { pageName: "나의 대관 예약", path: "/my/reservation" },
 ];
 

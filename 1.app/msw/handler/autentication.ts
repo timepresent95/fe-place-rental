@@ -46,7 +46,7 @@ export default ((): HttpHandler[] => {
     {
       ...createMockUserInfo({
         id: "admin",
-        password: "amdin",
+        password: "admin",
         firstName: "관리자",
         familyName: "김",
         email: "admin@fakemail.com",

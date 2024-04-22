@@ -1,3 +1,3 @@
-import MyReservationLayout from "@/2.pages/myReservation/ui/layout";
+import MyRentalLayout from "@/2.pages/my/rental/ui/layout";
 
-export default MyReservationLayout;
+export default MyRentalLayout;

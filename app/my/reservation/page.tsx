@@ -1,3 +1,3 @@
-import MyReservationPage from "@/2.pages/myReservation/ui/page";
+import MyRentalPage from "@/2.pages/my/rental/ui/page";
 
-export default MyReservationPage;
+export default MyRentalPage;
