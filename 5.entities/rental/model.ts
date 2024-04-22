@@ -3,11 +3,12 @@ import { applyRentalBodyValidation } from "./lib";
 
 export type ApplyRentalRequestBody = z.infer<typeof applyRentalBodyValidation>;
 
+type ApplicationState = "approved" | "rejected" | "pending";
 export type Rental = ApplyRentalRequestBody & {
   id: string;
   attendees: number;
   applicationDate: Date;
-  isApproved: boolean;
+  applicationState: ApplicationState;
   applicantId?: string;
 };
 

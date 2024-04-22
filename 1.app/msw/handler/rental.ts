@@ -12,6 +12,11 @@ import { DEFAULT_PAGE_SIZE } from "@/2.pages/rental/list/lib";
 import { extractUid } from "./util";
 import { forbiddenUnAuthenticatedResponse } from "../lib/DetailErrorResponse";
 
+function getRandomApprovedState() {
+  const randomNumber = faker.number.int({ min: 0, max: 2 });
+  return (["approved", "rejected", "pending"] as const)[randomNumber];
+}
+
 function createMockReservation(): Rental {
   const capacity = faker.number.int({ min: 3, max: 30 });
   return {
@@ -24,7 +29,7 @@ function createMockReservation(): Rental {
     purpose: faker.lorem.paragraph(),
     useDate: faker.date.future(),
     applicationDate: faker.date.recent(),
-    isApproved: faker.datatype.boolean(),
+    applicationState: getRandomApprovedState(),
     isPublic: faker.datatype.boolean(),
   };
 }
@@ -63,7 +68,7 @@ export default ((): HttpHandler[] => {
       id: faker.string.uuid(),
       attendees: 1,
       applicationDate: new Date(),
-      isApproved: false,
+      applicationState: "pending",
       applicantId,
     };
     mockDatas.rentals.push(newReservation);

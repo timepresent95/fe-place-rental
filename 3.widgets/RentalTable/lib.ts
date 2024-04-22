@@ -4,12 +4,18 @@ import dayjs from "@/6.shared/lib/dayjs";
 
 export const DEFAULT_PAGE_SIZE = 10;
 
+const APPLICANT_STATE_PRESENT = {
+  approved: "승인",
+  rejected: "거절",
+  pending: "심사중",
+};
+
 export function formatRentalTable(listRental: ListRentalResponse): RentalTalbe {
   const datas: RentalTableRow[] = listRental.rentals.map((v) => ({
     id: v.id,
-    applicatorName: v.applicantName,
-    applicateStatus: v.isApproved ? "승인" : "거절",
-    participantStatus: `${v.attendees}/${v.expectedParticipants}`,
+    applicantName: v.applicantName,
+    applicationState: APPLICANT_STATE_PRESENT[v.applicationState],
+    participantState: `${v.attendees}/${v.expectedParticipants}`,
     rentalDate: dayjs(v.useDate).format("YYYY-MM-DD"),
   }));
 
