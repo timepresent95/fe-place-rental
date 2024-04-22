@@ -3,6 +3,11 @@ export type RentalManagementTableRow = {
   applicantName: string;
   rentalDate: string;
   applicationDate: string;
+  contactEmail: string;
+  contactPhone: string;
+  purpose: string;
+  expectedParticipants: number;
+  isPublic: boolean;
 };
 
 export type RentalManagementTalbe = {
