@@ -1,14 +1,11 @@
-import { ListRentalResponse } from "@/5.entities/rental/model";
+import {
+  ListRentalResponse,
+  APPLICANT_STATE_PRESENT,
+} from "@/5.entities/rental/model";
 import { RentalTableRow, RentalTalbe } from "./model";
 import dayjs from "@/6.shared/lib/dayjs";
 
 export const DEFAULT_PAGE_SIZE = 10;
-
-const APPLICANT_STATE_PRESENT = {
-  approved: "승인",
-  rejected: "거절",
-  pending: "심사중",
-};
 
 export function formatRentalTable(listRental: ListRentalResponse): RentalTalbe {
   const datas: RentalTableRow[] = listRental.rentals.map((v) => ({
