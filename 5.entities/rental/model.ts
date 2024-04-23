@@ -46,7 +46,7 @@ export type MyRentalRequestQuery = {
 
 export interface MyRentalResponse {
   id: string;
-  rentals: Rental[];
+  list: Rental[];
   total: number;
   pageSize: number;
   offset: number;
