@@ -3,8 +3,10 @@ import { faker } from "@faker-js/faker";
 
 import { extractUid } from "./util";
 import {
+  badRequestWrongTokenResponse,
   forbiddenUnAuthenticatedResponse,
   notFoundDataResponse,
+  unauthenticatedUnauthroizedResponse,
 } from "../lib/DetailErrorResponse";
 
 import { DEFAULT_PAGE_SIZE } from "@/2.pages/rental/list/lib";
@@ -60,10 +62,19 @@ export default ((): HttpHandler[] => {
     async ({ request, params }) => {
       const extractResult = await extractUid(request);
       //TODO: 권한 확인해야함
-      const applicantId =
+      const uid =
         extractResult.status === "success" ? extractResult.data.uid : undefined;
 
       const body = (await request.json()) as PatchRentalRequestBody;
+
+      if (body.applicationState !== undefined) {
+        if (!uid) {
+          return badRequestWrongTokenResponse();
+        }
+        if (!store.data.user.find((v) => v.uid === uid && v.role === "admin")) {
+          return unauthenticatedUnauthroizedResponse();
+        }
+      }
 
       const { id } = params;
       const targetIndex = store.data.rental.list.findIndex(

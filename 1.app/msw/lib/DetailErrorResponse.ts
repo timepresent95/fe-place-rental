@@ -28,6 +28,8 @@ export const unauthenticatedIdResponse = () =>
   new DetailErrorResponse(customClientErrorCodes[40101]);
 export const unauthenticatedPasswordResponse = () =>
   new DetailErrorResponse(customClientErrorCodes[40102]);
+export const unauthenticatedUnauthroizedResponse = () =>
+  new DetailErrorResponse(customClientErrorCodes[40103]);
 
 //forbidden
 export const forbiddenResponse = () =>

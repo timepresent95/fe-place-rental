@@ -11,6 +11,7 @@ export default class CustomStore {
   };
 
   private constructor() {
+    const initRentalListLength = faker.number.int({ min: 11, max: 49 });
     this.data = {
       user: [
         createMockUserInfo({
@@ -43,8 +44,10 @@ export default class CustomStore {
       ],
       rental: {
         id: faker.string.uuid(),
-        list: Array.from({ length }).map(() => createMockReservation()),
-        total: length,
+        list: Array.from({ length: initRentalListLength }).map(() =>
+          createMockReservation()
+        ),
+        total: initRentalListLength,
       },
     };
   }

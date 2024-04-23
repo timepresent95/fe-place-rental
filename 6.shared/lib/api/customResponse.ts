@@ -60,6 +60,13 @@ export const customClientErrorCodes: { [key: number]: CustomErrorResponse } = {
     status: 401,
     detailCode: 40102,
   },
+  40103: {
+    isError: true,
+    name: "Unauthenticated: 해당 요청에 대한 권한이 없습니다.",
+    message: "unauthenticated : 해당 요청에 대한 권한이 없습니다.",
+    status: 401,
+    detailCode: 40103,
+  },
   //forbidden
   40300: {
     isError: true,

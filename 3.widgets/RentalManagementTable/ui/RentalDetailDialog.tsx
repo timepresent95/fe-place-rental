@@ -45,14 +45,26 @@ function RentalDetailDialog() {
           size="lg"
           variant="outline"
           onClick={() => {
-            patchReservation(data.id, { applicationState: "rejected" });
+            patchReservation(data.id, { applicationState: "rejected" })
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((error: unknown) => {
+                console.log(error);
+              });
           }}>
           거절
         </Button>
         <Button
           size="lg"
           onClick={() => {
-            patchReservation(data.id, { applicationState: "approved" });
+            patchReservation(data.id, { applicationState: "approved" })
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((error: unknown) => {
+                console.log(error);
+              });
           }}>
           승인
         </Button>
