@@ -1,51 +1,25 @@
 import { HttpHandler, HttpResponse, http } from "msw";
 import { faker } from "@faker-js/faker";
 
-import { apiEndpoint } from "@/5.entities/rental/api";
-import {
-  ListRentalResponse,
-  ApplyRentalRequestBody,
-  ApplyRentalResponse,
-  Rental,
-  PatchRentalRequestBody,
-  PatchRentalResponse,
-} from "@/5.entities/rental/model";
-import { DEFAULT_PAGE_SIZE } from "@/2.pages/rental/list/lib";
 import { extractUid } from "./util";
 import {
   forbiddenUnAuthenticatedResponse,
   notFoundDataResponse,
 } from "../lib/DetailErrorResponse";
 
-function getRandomApprovedState() {
-  const randomNumber = faker.number.int({ min: 0, max: 2 });
-  return (["approved", "rejected", "pending"] as const)[randomNumber];
-}
-
-function createMockReservation(): Rental {
-  const capacity = faker.number.int({ min: 3, max: 30 });
-  return {
-    id: faker.string.uuid(),
-    applicantName: faker.person.fullName(),
-    contactEmail: faker.internet.email(),
-    contactPhone: faker.phone.number(),
-    attendees: faker.number.int({ max: capacity }),
-    expectedParticipants: capacity,
-    purpose: faker.lorem.paragraph(),
-    useDate: faker.date.future(),
-    applicationDate: faker.date.recent(),
-    applicationState: getRandomApprovedState(),
-    isPublic: faker.datatype.boolean(),
-  };
-}
+import { DEFAULT_PAGE_SIZE } from "@/2.pages/rental/list/lib";
+import { apiEndpoint } from "@/5.entities/rental/api";
+import {
+  ListRentalResponse,
+  ApplyRentalRequestBody,
+  ApplyRentalResponse,
+  PatchRentalRequestBody,
+  PatchRentalResponse,
+} from "@/5.entities/rental/model";
+import CustomStore from "../lib/store";
 
 export default ((): HttpHandler[] => {
-  const length = faker.number.int({ min: 11, max: 50 });
-  const mockDatas = {
-    id: faker.string.uuid(),
-    rentals: Array.from({ length }).map(() => createMockReservation()),
-    total: length,
-  };
+  const store = CustomStore.getInstance();
 
   const listAPI = http.get(apiEndpoint.list, ({ request }) => {
     const url = new URL(request.url);
@@ -55,9 +29,9 @@ export default ((): HttpHandler[] => {
     );
 
     return HttpResponse.json<ListRentalResponse>({
-      id: mockDatas.id,
-      rentals: mockDatas.rentals.slice(offset, offset + pageSize),
-      total: mockDatas.total,
+      id: store.data.rental.id,
+      list: store.data.rental.list.slice(offset, offset + pageSize),
+      total: store.data.rental.total,
       pageSize,
       offset,
     });
@@ -76,8 +50,8 @@ export default ((): HttpHandler[] => {
       applicationState: "pending",
       applicantId,
     };
-    mockDatas.rentals.push(newReservation);
-    mockDatas.total++;
+    store.data.rental.list.push(newReservation);
+    store.data.rental.total++;
     return HttpResponse.json<ApplyRentalResponse>(newReservation);
   });
 
@@ -92,7 +66,7 @@ export default ((): HttpHandler[] => {
       const body = (await request.json()) as PatchRentalRequestBody;
 
       const { id } = params;
-      const targetIndex = mockDatas.rentals.findIndex(
+      const targetIndex = store.data.rental.list.findIndex(
         (rental) => rental.id === id
       );
 
@@ -100,13 +74,13 @@ export default ((): HttpHandler[] => {
         return notFoundDataResponse();
       }
 
-      mockDatas.rentals[targetIndex] = {
-        ...mockDatas.rentals[targetIndex],
+      store.data.rental.list[targetIndex] = {
+        ...store.data.rental.list[targetIndex],
         ...body,
       };
 
       return HttpResponse.json<PatchRentalResponse>(
-        mockDatas.rentals[targetIndex]
+        store.data.rental.list[targetIndex]
       );
     }
   );
@@ -125,12 +99,12 @@ export default ((): HttpHandler[] => {
     const pageSize = Number(
       url.searchParams.get("pageSize") ?? DEFAULT_PAGE_SIZE
     );
-    const reservations = mockDatas.rentals
+    const reservations = store.data.rental.list
       .filter((v) => v.applicantId === applicantId)
       .slice(offset, offset + pageSize);
     return HttpResponse.json<ListRentalResponse>({
-      id: mockDatas.id,
-      rentals: reservations,
+      id: store.data.rental.id,
+      list: reservations,
       total: reservations.length,
       pageSize,
       offset,

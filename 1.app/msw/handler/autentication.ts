@@ -1,67 +1,32 @@
 import { HttpHandler, HttpResponse, http } from "msw";
-import { faker } from "@faker-js/faker";
 
-import { apiEndpoint } from "@/5.entities/authentication/api";
-import {
-  GetMyResponse,
-  PostLoginRequestBody,
-  PostSignupRequestBody,
-  UserInfo,
-} from "@/5.entities/authentication/model";
 import {
   badRequestWrongTokenResponse,
   forbiddenUnAuthenticatedResponse,
   unauthenticatedIdResponse,
   unauthenticatedPasswordResponse,
 } from "../lib/DetailErrorResponse";
-import { createToken, decrypt } from "../lib/token";
+import { createToken } from "../lib/token";
 import { extractUid } from "./util";
+import { createMockUserInfo } from "../lib/faker";
 
-function createMockUserInfo(payload: PostSignupRequestBody): UserInfo {
-  return {
-    uid: faker.string.uuid(),
-    role: "user",
-    ...payload,
-  };
-}
+import { apiEndpoint } from "@/5.entities/authentication/api";
+import {
+  GetMyResponse,
+  PostLoginRequestBody,
+  PostSignupRequestBody,
+} from "@/5.entities/authentication/model";
+import CustomStore from "../lib/store";
 
 export default ((): HttpHandler[] => {
-  const mockUserInfos: UserInfo[] = [
-    createMockUserInfo({
-      id: "test",
-      password: "Test1234!",
-      firstName: "테스트01",
-      familyName: "김",
-      email: "test1@fakemail.com",
-      phone: "010-1234-5678",
-    }),
-    createMockUserInfo({
-      id: "t",
-      password: "t",
-      firstName: "테스트02",
-      familyName: "이",
-      email: "test2@fakemail.com",
-      phone: "010-5678-1234",
-    }),
-    {
-      ...createMockUserInfo({
-        id: "admin",
-        password: "admin",
-        firstName: "관리자",
-        familyName: "김",
-        email: "admin@fakemail.com",
-        phone: "010-0000-0000",
-      }),
-      role: "admin",
-    },
-  ];
+  const store = CustomStore.getInstance();
 
   //TODO: 중복 아이디 검사 필요
   const signupAPI = http.post(apiEndpoint.signup, async ({ request }) => {
     const body = (await request.json()) as PostSignupRequestBody;
 
     const newUserInfo = createMockUserInfo(body);
-    mockUserInfos.push(newUserInfo);
+    store.data.user.push(newUserInfo);
 
     const token = await createToken(newUserInfo.uid);
 
@@ -76,7 +41,7 @@ export default ((): HttpHandler[] => {
 
   const loginAPI = http.post(apiEndpoint.login, async ({ request }) => {
     const body = (await request.json()) as PostLoginRequestBody;
-    const targetUser = mockUserInfos.find((v) => v.id === body.id);
+    const targetUser = store.data.user.find((v) => v.id === body.id);
 
     if (targetUser === undefined) {
       return unauthenticatedIdResponse();
@@ -104,7 +69,7 @@ export default ((): HttpHandler[] => {
       return forbiddenUnAuthenticatedResponse();
     }
 
-    const targetUser = mockUserInfos.find(
+    const targetUser = store.data.user.find(
       (v) => v.uid === extractResult.data.uid
     );
 

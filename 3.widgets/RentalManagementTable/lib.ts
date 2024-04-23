@@ -7,7 +7,7 @@ export const DEFAULT_PAGE_SIZE = 10;
 export function formatRentalManagementTable(
   listRental: ListRentalResponse
 ): RentalManagementTalbe {
-  const datas: RentalManagementTableRow[] = listRental.rentals.map((v) => ({
+  const datas: RentalManagementTableRow[] = listRental.list.map((v) => ({
     id: v.id,
     applicantName: v.applicantName,
     rentalDate: dayjs(v.useDate).format("YYYY-MM-DD"),

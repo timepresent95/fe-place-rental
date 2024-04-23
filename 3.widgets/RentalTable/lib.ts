@@ -8,7 +8,7 @@ import dayjs from "@/6.shared/lib/dayjs";
 export const DEFAULT_PAGE_SIZE = 10;
 
 export function formatRentalTable(listRental: ListRentalResponse): RentalTalbe {
-  const datas: RentalTableRow[] = listRental.rentals.map((v) => ({
+  const datas: RentalTableRow[] = listRental.list.map((v) => ({
     id: v.id,
     applicantName: v.applicantName,
     applicationState: APPLICANT_STATE_PRESENT[v.applicationState],

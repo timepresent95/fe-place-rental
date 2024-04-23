@@ -33,7 +33,7 @@ export type ListRentalRequestQuery = {
 
 export interface ListRentalResponse {
   id: string;
-  rentals: Rental[];
+  list: Rental[];
   total: number;
   pageSize: number;
   offset: number;
