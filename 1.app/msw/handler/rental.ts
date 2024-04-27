@@ -1,13 +1,5 @@
-import { HttpHandler, HttpResponse, http } from "msw";
 import { faker } from "@faker-js/faker";
-
-import { extractUid } from "./util";
-import {
-  badRequestWrongTokenResponse,
-  forbiddenUnAuthenticatedResponse,
-  notFoundDataResponse,
-  unauthenticatedUnauthroizedResponse,
-} from "../lib/DetailErrorResponse";
+import { HttpHandler, HttpResponse, http } from "msw";
 
 import { DEFAULT_PAGE_SIZE } from "@/2.pages/rental/list/lib";
 import { apiEndpoint } from "@/5.entities/rental/api";
@@ -18,6 +10,14 @@ import {
   PatchRentalRequestBody,
   PatchRentalResponse,
 } from "@/5.entities/rental/model";
+
+import { extractUid } from "./util";
+import {
+  badRequestWrongTokenResponse,
+  forbiddenUnAuthenticatedResponse,
+  notFoundDataResponse,
+  unauthenticatedUnauthroizedResponse,
+} from "../lib/DetailErrorResponse";
 import CustomStore from "../lib/store";
 
 export default ((): HttpHandler[] => {

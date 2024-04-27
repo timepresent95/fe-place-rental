@@ -1,6 +1,6 @@
 import { PostLoginRequestBody } from "@/5.entities/authentication/model";
-import { assertValue } from "@/6.shared/lib/assertValue";
 import { FormInfo } from "@/6.shared/lib/api";
+import { assertValue } from "@/6.shared/lib/assertValue";
 
 export const signupFormItems: FormInfo<PostLoginRequestBody>[] = [
   { accessKey: "id", label: "아이디", name: "id" },

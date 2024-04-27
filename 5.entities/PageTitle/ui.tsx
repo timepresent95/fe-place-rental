@@ -1,7 +1,8 @@
 "use client";
 
-import { routerInfos } from "@/6.shared/lib/RouterConfig";
 import { usePathname } from "next/navigation";
+
+import { routerInfos } from "@/6.shared/lib/RouterConfig";
 
 function PageTitle() {
   const pathname = usePathname();

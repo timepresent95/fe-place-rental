@@ -1,5 +1,12 @@
 "use client";
 
+import { PropsWithChildren } from "react";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/6.shared/ui/shardcn/ui/dialog";
 import {
   TableCell,
   Table,
@@ -8,14 +15,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/6.shared/ui/shardcn/ui/table";
-import { TableColumns, TableData } from "./model";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/6.shared/ui/shardcn/ui/dialog";
-import { PropsWithChildren } from "react";
+
 import { TableWithDialogContext } from "./lib";
+import { TableColumns, TableData } from "./model";
+
 
 interface Props<T extends TableData> extends PropsWithChildren {
   columns: TableColumns<T>;

@@ -1,9 +1,10 @@
-import { TableColumns } from "@/5.entities/TableList/model";
-import { getListRental } from "@/5.entities/rental/api";
-import { RentalManagementTableRow } from "../model";
-import { formatRentalManagementTable } from "../lib";
 import { TableWithDialogView } from "@/4.features/TableWithDialogView/ui";
+import { getListRental } from "@/5.entities/rental/api";
+import { TableColumns } from "@/5.entities/TableList/model";
+
 import RentalDetailDialog from "./RentalDetailDialog";
+import { formatRentalManagementTable } from "../lib";
+import { RentalManagementTableRow } from "../model";
 
 const columns: TableColumns<RentalManagementTableRow> = [
   { accessKey: "id", columnName: "예약 번호" },

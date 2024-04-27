@@ -1,7 +1,10 @@
-import MainLogo from "@/6.shared/ui/Icon/MainLogo";
-import logoutAction from "../../api/logoutAction";
-import Link from "next/link";
 import { useEffect } from "react";
+
+import Link from "next/link";
+
+import MainLogo from "@/6.shared/ui/Icon/MainLogo";
+
+import logoutAction from "../../api/logoutAction";
 
 function WrongAuthenticatedErrorPage() {
   useEffect(() => {

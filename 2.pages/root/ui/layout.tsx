@@ -1,18 +1,21 @@
-import { Noto_Sans } from "next/font/google";
-import { cn } from "@/6.shared/lib/tailwindMerge";
-import { Mail } from "lucide-react";
-import Link from "next/link";
-import TooltipWrapper from "@/5.entities/TooltipWrapper/ui";
-import { GithubIcon, TistoryIcon } from "@/6.shared/ui/Icon";
 import { PropsWithChildren } from "react";
+
+import { Mail } from "lucide-react";
+import { Noto_Sans } from "next/font/google";
+import Link from "next/link";
+
+import { getMy } from "@/5.entities/authentication/api";
+import AuthenticationProvider from "@/5.entities/authentication/lib/context";
+import { UserInfo } from "@/5.entities/authentication/model";
+import PageTitle from "@/5.entities/PageTitle/ui";
+import RightNavigation from "@/5.entities/RightNavigation/ui";
+import TooltipWrapper from "@/5.entities/TooltipWrapper/ui";
+import { cn } from "@/6.shared/lib/tailwindMerge";
+import { GithubIcon, TistoryIcon } from "@/6.shared/ui/Icon";
 import MainLogo from "@/6.shared/ui/Icon/MainLogo";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
+
 import logoutAction from "../api/logoutAction";
-import AuthenticationProvider from "@/5.entities/authentication/lib/context";
-import { getMy } from "@/5.entities/authentication/api";
-import { UserInfo } from "@/5.entities/authentication/model";
-import RightNavigation from "@/5.entities/RightNavigation/ui";
-import PageTitle from "@/5.entities/PageTitle/ui";
 
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 

@@ -1,5 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
+
 import { guestOnlyRoutes, protectedRoutes } from "./6.shared/lib/RouterConfig";
 
 export default async function middleware(req: NextRequest) {

@@ -1,4 +1,5 @@
 import { customClientErrorCodes } from "@/6.shared/lib/api/customResponse";
+
 import UnknownErrorPage from "./ErrorPage/UnknownError";
 import WrongAuthenticatedErrorPage from "./ErrorPage/WrongAuthenticate";
 

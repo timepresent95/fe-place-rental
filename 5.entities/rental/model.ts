@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { applyRentalBodyValidation } from "./lib";
 
 export type ApplyRentalRequestBody = z.infer<typeof applyRentalBodyValidation>;

@@ -1,7 +1,9 @@
-import { UserInfo } from "@/5.entities/authentication/model";
-import { createMockReservation, createMockUserInfo } from "./faker";
-import { Rental } from "@/5.entities/rental/model";
 import { faker } from "@faker-js/faker";
+
+import { UserInfo } from "@/5.entities/authentication/model";
+import { Rental } from "@/5.entities/rental/model";
+
+import { createMockReservation, createMockUserInfo } from "./faker";
 
 export default class CustomStore {
   private static instance: CustomStore;

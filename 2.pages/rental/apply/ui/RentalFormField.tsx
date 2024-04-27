@@ -1,11 +1,18 @@
 "use client";
 
-import { DefaultValues, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 
-import { ApplyRentalRequestBody } from "@/5.entities/rental/model";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { DefaultValues, useForm } from "react-hook-form";
+
+import { useAuthentication } from "@/5.entities/authentication/lib/context";
+import { postReservation } from "@/5.entities/rental/api";
 import { applyRentalBodyValidation } from "@/5.entities/rental/lib";
+import { ApplyRentalRequestBody } from "@/5.entities/rental/model";
+import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
 import DatePicker from "@/6.shared/ui/shardcn/components/DatePicker";
+import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import {
   Form,
   FormControl,
@@ -16,12 +23,6 @@ import {
 } from "@/6.shared/ui/shardcn/ui/form";
 import { Input } from "@/6.shared/ui/shardcn/ui/input";
 import { Textarea } from "@/6.shared/ui/shardcn/ui/textarea";
-import { Button } from "@/6.shared/ui/shardcn/ui/button";
-import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
-import { postReservation } from "@/5.entities/rental/api";
-import { useRouter } from "next/navigation";
-import { useAuthentication } from "@/5.entities/authentication/lib/context";
-import { useEffect } from "react";
 
 const FORM_LABEL: {
   [key in keyof ApplyRentalRequestBody]: {

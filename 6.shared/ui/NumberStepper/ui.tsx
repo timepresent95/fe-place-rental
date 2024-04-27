@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
+
+import { Minus, Plus } from "lucide-react";
+
 import { cn } from "@/6.shared/lib/tailwindMerge";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import { Input } from "@/6.shared/ui/shardcn/ui/input";
-import { Minus, Plus } from "lucide-react";
-import { useState } from "react";
 
 interface Props {
   className?: string;

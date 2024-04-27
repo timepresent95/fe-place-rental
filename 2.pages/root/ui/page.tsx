@@ -1,6 +1,7 @@
-import Image from "next/image";
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 
 export default function Page() {

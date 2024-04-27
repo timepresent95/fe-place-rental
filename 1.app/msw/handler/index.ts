@@ -1,7 +1,7 @@
 import { HttpHandler } from "msw";
 
-import rentalHandler from "./rental";
 import autenticationHander from "./autentication";
+import rentalHandler from "./rental";
 
 const handlers: HttpHandler[] = [...rentalHandler, ...autenticationHander];
 

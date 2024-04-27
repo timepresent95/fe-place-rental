@@ -1,8 +1,11 @@
-import ReservationTable from "@/3.widgets/RentalTable/ui/my";
-import { DEFAULT_PAGE_SIZE } from "../lib";
 import { Suspense } from "react";
-import { TableViewSkeleton } from "@/4.features/TableView/ui";
+
 import { redirect } from "next/navigation";
+
+import ReservationTable from "@/3.widgets/RentalTable/ui/my";
+import { TableViewSkeleton } from "@/4.features/TableView/ui";
+
+import { DEFAULT_PAGE_SIZE } from "../lib";
 
 const PAGINATION_QUERY_KEY = "page-index";
 const PAGE_SIZE_QUERY_KEY = "page-size";

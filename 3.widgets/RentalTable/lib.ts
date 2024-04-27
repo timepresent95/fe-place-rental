@@ -2,8 +2,9 @@ import {
   ListRentalResponse,
   APPLICANT_STATE_PRESENT,
 } from "@/5.entities/rental/model";
-import { RentalTableRow, RentalTalbe } from "./model";
 import dayjs from "@/6.shared/lib/dayjs";
+
+import { RentalTableRow, RentalTalbe } from "./model";
 
 export const DEFAULT_PAGE_SIZE = 10;
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/6.shared/lib/tailwindMerge";
 import clsx from "clsx";
 import {
   ChevronLeft,
@@ -10,6 +9,8 @@ import {
   ChevronsRight,
 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import { cn } from "@/6.shared/lib/tailwindMerge";
 
 type PaginationButton =
   | {

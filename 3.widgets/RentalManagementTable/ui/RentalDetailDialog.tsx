@@ -1,9 +1,10 @@
 "use client";
 
-import { useTableWithDialog } from "@/5.entities/TableWithDialog/lib";
-import { RentalManagementTableRow } from "../model";
-import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import { patchReservation } from "@/5.entities/rental/api";
+import { useTableWithDialog } from "@/5.entities/TableWithDialog/lib";
+import { Button } from "@/6.shared/ui/shardcn/ui/button";
+
+import { RentalManagementTableRow } from "../model";
 
 function RentalDetailDialog() {
   const { data } = useTableWithDialog<RentalManagementTableRow>();

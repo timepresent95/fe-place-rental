@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { loginBodyValidation, signupBodyValidation } from "./lib/validation";
 
 export type PostSignupRequestBody = z.infer<typeof signupBodyValidation>;

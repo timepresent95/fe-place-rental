@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/6.shared/ui/shardcn/ui/table";
+
 import { TableColumns, TableData } from "./model";
 
 interface Props<T extends TableData> {

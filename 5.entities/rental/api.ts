@@ -1,4 +1,6 @@
 import { ApiResult, baseUrl, fetchAPI } from "@/6.shared/lib/api";
+import { generateUrl } from "@/6.shared/lib/api/util";
+
 import {
   ListRentalRequestQuery,
   ListRentalResponse,
@@ -10,7 +12,6 @@ import {
   PatchRentalResponse,
   PatchRentalRequestParam,
 } from "./model";
-import { generateUrl } from "@/6.shared/lib/api/util";
 
 const rentalBaseURL = baseUrl + "/rental";
 export const apiEndpoint = {

@@ -1,6 +1,7 @@
 import { ListRentalResponse } from "@/5.entities/rental/model";
-import { RentalManagementTableRow, RentalManagementTalbe } from "./model";
 import dayjs from "@/6.shared/lib/dayjs";
+
+import { RentalManagementTableRow, RentalManagementTalbe } from "./model";
 
 export const DEFAULT_PAGE_SIZE = 10;
 

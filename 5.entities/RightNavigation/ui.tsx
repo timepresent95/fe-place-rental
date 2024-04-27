@@ -1,12 +1,15 @@
 "use client";
 
-import { routerInfos } from "@/6.shared/lib/RouterConfig";
-import { useClickOutside } from "@/6.shared/lib/useClickoutside";
+import { useState } from "react";
+
 import clsx from "clsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+
+import { routerInfos } from "@/6.shared/lib/RouterConfig";
+import { useClickOutside } from "@/6.shared/lib/useClickoutside";
+
 
 const IGNORE_CLASS_NAME = "right-navigation-drawer";
 

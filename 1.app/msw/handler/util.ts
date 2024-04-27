@@ -1,4 +1,5 @@
 import { DefaultBodyType, StrictRequest } from "msw";
+
 import { decrypt } from "../lib/token";
 
 export async function extractUid(request: StrictRequest<DefaultBodyType>) {

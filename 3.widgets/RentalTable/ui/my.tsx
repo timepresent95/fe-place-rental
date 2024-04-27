@@ -1,8 +1,9 @@
 import { TableView } from "@/4.features/TableView/ui";
-import { TableColumns } from "@/5.entities/TableList/model";
 import { getMyReservation } from "@/5.entities/rental/api";
-import { RentalTableRow } from "../model";
+import { TableColumns } from "@/5.entities/TableList/model";
+
 import { formatRentalTable } from "../lib";
+import { RentalTableRow } from "../model";
 
 const columns: TableColumns<RentalTableRow> = [
   { accessKey: "applicantName", columnName: "신청자" },

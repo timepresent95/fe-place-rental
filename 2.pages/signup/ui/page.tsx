@@ -1,9 +1,9 @@
-import { signupFormItems } from "../lib";
-
+import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import { Input } from "@/6.shared/ui/shardcn/ui/input";
 import { Label } from "@/6.shared/ui/shardcn/ui/label";
-import { Button } from "@/6.shared/ui/shardcn/ui/button";
+
 import signupAction from "../api/signupAction";
+import { signupFormItems } from "../lib";
 
 //TODO: 아이디 중복 체크 기능 추가
 function signupPage() {

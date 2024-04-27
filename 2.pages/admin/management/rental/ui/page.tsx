@@ -1,9 +1,12 @@
-import RentalManagementTable from "@/3.widgets/RentalManagementTable/ui";
-import { DEFAULT_PAGE_SIZE } from "../lib";
 import { Suspense } from "react";
-import { TableViewSkeleton } from "@/4.features/TableView/ui";
+
 import { redirect } from "next/navigation";
+
+import RentalManagementTable from "@/3.widgets/RentalManagementTable/ui";
+import { TableViewSkeleton } from "@/4.features/TableView/ui";
 import { useAuthentication } from "@/5.entities/authentication/lib/context";
+
+import { DEFAULT_PAGE_SIZE } from "../lib";
 
 const PAGINATION_QUERY_KEY = "page-index";
 const PAGE_SIZE_QUERY_KEY = "page-size";
