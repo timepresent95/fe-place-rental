@@ -35,7 +35,6 @@ export default async function RootLayout({ children }: PropsWithChildren) {
           "flex flex-col min-h-[130vh] bg-background font-sans antialiased",
           NotoSans.variable
         )}>
-        <RightNavigation />
         <header
           className="py-5 bg-indigo-700 sticky top-0 z-40"
           style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)" }}>
@@ -64,6 +63,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
         <main>
           <PageTitle />
           <AuthenticationProvider userInfo={userInfo ? userInfo : {}}>
+            <RightNavigation />
             {children}
           </AuthenticationProvider>
         </main>
