@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 import { cn } from "@/6.shared/lib/tailwindMerge";
 import { Mail } from "lucide-react";
@@ -13,11 +12,6 @@ import { cookies } from "next/headers";
 import logoutAction from "../api/logoutAction";
 
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
-
-export const metadata: Metadata = {
-  title: "Place Rental",
-  description: "Place Rental Service",
-};
 
 export default function RootLayout({ children }: PropsWithChildren) {
   const isAuthenticated = cookies().get("session")?.value;
