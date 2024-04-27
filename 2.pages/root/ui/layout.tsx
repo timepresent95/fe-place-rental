@@ -5,7 +5,6 @@ import Link from "next/link";
 import TooltipWrapper from "@/5.entities/TooltipWrapper/ui";
 import { GithubIcon, TistoryIcon } from "@/6.shared/ui/Icon";
 import { PropsWithChildren } from "react";
-import RightNavigation from "./RightNavigation";
 import MainLogo from "@/6.shared/ui/Icon/MainLogo";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import { cookies } from "next/headers";
@@ -14,6 +13,7 @@ import PageTitle from "./PageTitle";
 import AuthenticationProvider from "@/5.entities/authentication/lib/context";
 import { getMy } from "@/5.entities/authentication/api";
 import { UserInfo } from "@/5.entities/authentication/model";
+import RightNavigation from "@/5.entities/RightNavigation/ui";
 
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 

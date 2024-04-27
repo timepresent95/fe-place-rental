@@ -10,7 +10,7 @@ import { useState } from "react";
 
 const IGNORE_CLASS_NAME = "right-navigation-drawer";
 
-function RightNavigationDrawer() {
+function RightNavigation() {
   const [hide, setHide] = useState(true);
   const currentPath = usePathname();
 
@@ -55,4 +55,6 @@ function RightNavigationDrawer() {
   );
 }
 
-export default RightNavigationDrawer;
+RightNavigation.displayName = "RightNavigation";
+
+export default RightNavigation;
