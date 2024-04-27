@@ -29,13 +29,15 @@ function MyRentalPage({ searchParams }: Props) {
   }
 
   return (
-    <Suspense fallback={<TableViewSkeleton />} key={`${pageSize}-${offset}`}>
-      <ReservationTable
-        pageSize={pageSize}
-        offset={offset}
-        paginationQueryKey={PAGINATION_QUERY_KEY}
-      />
-    </Suspense>
+    <div className="container">
+      <Suspense fallback={<TableViewSkeleton />} key={`${pageSize}-${offset}`}>
+        <ReservationTable
+          pageSize={pageSize}
+          offset={offset}
+          paginationQueryKey={PAGINATION_QUERY_KEY}
+        />
+      </Suspense>
+    </div>
   );
 }
 

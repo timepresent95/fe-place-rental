@@ -35,7 +35,7 @@ async function RentaApplyPage({ searchParams }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-2 gap-2 container">
       <ReservationGuide />
       <RentalFormField defaultValues={defaultValues} />
     </div>
