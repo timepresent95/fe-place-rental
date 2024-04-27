@@ -7,13 +7,12 @@ import { GithubIcon, TistoryIcon } from "@/6.shared/ui/Icon";
 import { PropsWithChildren } from "react";
 import MainLogo from "@/6.shared/ui/Icon/MainLogo";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
-import { cookies } from "next/headers";
 import logoutAction from "../api/logoutAction";
-import PageTitle from "./PageTitle";
 import AuthenticationProvider from "@/5.entities/authentication/lib/context";
 import { getMy } from "@/5.entities/authentication/api";
 import { UserInfo } from "@/5.entities/authentication/model";
 import RightNavigation from "@/5.entities/RightNavigation/ui";
+import PageTitle from "@/5.entities/PageTitle/ui";
 
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
