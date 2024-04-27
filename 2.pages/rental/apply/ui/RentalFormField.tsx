@@ -20,6 +20,8 @@ import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
 import { postReservation } from "@/5.entities/rental/api";
 import { useRouter } from "next/navigation";
+import { useAuthentication } from "@/5.entities/authentication/lib/context";
+import { useEffect } from "react";
 
 const FORM_LABEL: {
   [key in keyof ApplyRentalRequestBody]: {
@@ -48,17 +50,29 @@ const FORM_LABEL: {
 //TODO: 예약 가능 날짜와 관련된 로직 추가해야 함
 // 이미 예약이 완료된 날, 지나간 날은 예약이 불가능
 
-interface Props {
-  defaultValues: DefaultValues<ApplyRentalRequestBody>;
-}
-
-function RentalFormField({ defaultValues }: Props) {
+function RentalFormField() {
   const router = useRouter();
-
+  const auth = useAuthentication();
   const form = useForm<ApplyRentalRequestBody>({
     resolver: zodResolver(applyRentalBodyValidation),
-    defaultValues: defaultValues,
+    defaultValues: {
+      applicantName: "",
+      contactEmail: "",
+      contactPhone: "",
+      purpose: "",
+      expectedParticipants: 3,
+      useDate: undefined,
+      isPublic: true,
+    },
   });
+
+  useEffect(() => {
+    if (auth.uid) {
+      form.setValue("applicantName", auth.familyName! + auth.firstName!);
+      form.setValue("contactEmail", auth.email!);
+      form.setValue("contactPhone", auth.phone!);
+    }
+  }, [auth, form]);
 
   return (
     <Form {...form}>

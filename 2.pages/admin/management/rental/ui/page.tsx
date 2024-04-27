@@ -3,6 +3,7 @@ import { DEFAULT_PAGE_SIZE } from "../lib";
 import { Suspense } from "react";
 import { TableViewSkeleton } from "@/4.features/TableView/ui";
 import { redirect } from "next/navigation";
+import { useAuthentication } from "@/5.entities/authentication/lib/context";
 
 const PAGINATION_QUERY_KEY = "page-index";
 const PAGE_SIZE_QUERY_KEY = "page-size";
@@ -29,10 +30,7 @@ function ManagementRentalPage({ searchParams }: Props) {
   }
 
   return (
-    <main className="px-4 container">
-      <h1 className="text-3xl font-semibold text-center mb-8">
-        대관 예약 관리
-      </h1>
+    <div className=" container">
       <Suspense fallback={<TableViewSkeleton />} key={`${pageSize}-${offset}`}>
         <RentalManagementTable
           pageSize={pageSize}
@@ -40,7 +38,7 @@ function ManagementRentalPage({ searchParams }: Props) {
           paginationQueryKey={PAGINATION_QUERY_KEY}
         />
       </Suspense>
-    </main>
+    </div>
   );
 }
 

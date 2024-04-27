@@ -12,11 +12,23 @@ export const guestOnlyRoutes: RouteInfo[] = [
 
 export const protectedRoutes: RouteInfo[] = [];
 
+export const adminRoutes: RouteInfo[] = [
+  {
+    pageName: "장소 대여 신청 관리",
+    path: "/admin/management/rental",
+    showTitle: true,
+  },
+];
+
 export const publicRoutes: RouteInfo[] = [
   { pageName: "서비스 소개", path: "/" },
-  { pageName: "대관 신청 현황", path: "/rental/list", showTitle: true },
-  { pageName: "대관 예약 신청", path: "/rental/apply", showTitle: true },
-  { pageName: "나의 대관 예약", path: "/my/reservation", showTitle: true },
+  { pageName: "장소 대여 신청 현황", path: "/rental/list", showTitle: true },
+  { pageName: "장소 대여 신청", path: "/rental/apply", showTitle: true },
+  {
+    pageName: "나의 신청 현황",
+    path: "/my/reservation",
+    showTitle: true,
+  },
 ];
 
 export const routerInfos: RouteInfo[] = [

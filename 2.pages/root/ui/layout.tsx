@@ -11,11 +11,20 @@ import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import { cookies } from "next/headers";
 import logoutAction from "../api/logoutAction";
 import PageTitle from "./PageTitle";
+import AuthenticationProvider from "@/5.entities/authentication/lib/context";
+import { getMy } from "@/5.entities/authentication/api";
+import { UserInfo } from "@/5.entities/authentication/model";
 
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
-export default function RootLayout({ children }: PropsWithChildren) {
-  const isAuthenticated = cookies().get("session")?.value;
+export default async function RootLayout({ children }: PropsWithChildren) {
+  let userInfo: UserInfo | null = null;
+
+  const result = await getMy();
+
+  if (result.status === "success") {
+    userInfo = result.data;
+  }
 
   return (
     <html lang="en">
@@ -32,7 +41,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <Link href="/">
               <MainLogo />
             </Link>
-            {isAuthenticated ? (
+            {userInfo ? (
               <div>
                 <form action={logoutAction}>
                   <Button variant="outline">로그 아웃</Button>
@@ -52,7 +61,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
         </header>
         <main>
           <PageTitle />
-          {children}
+          <AuthenticationProvider userInfo={userInfo ? userInfo : {}}>
+            {children}
+          </AuthenticationProvider>
         </main>
         <footer className="mt-auto pt-12">
           <div
