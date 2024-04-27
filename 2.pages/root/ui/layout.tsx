@@ -10,6 +10,7 @@ import MainLogo from "@/6.shared/ui/Icon/MainLogo";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import { cookies } from "next/headers";
 import logoutAction from "../api/logoutAction";
+import PageTitle from "./PageTitle";
 
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -49,7 +50,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
             )}
           </div>
         </header>
-        {children}
+        <main className="container">
+          <PageTitle />
+          {children}
+        </main>
         <footer className="mt-auto pt-12">
           <div
             className="bg-indigo-700 px-11 pb-8 pt-10 text-sm text-white"
