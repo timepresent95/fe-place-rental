@@ -26,7 +26,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         )}>
         <RightNavigation />
         <header
-          className="py-5 bg-indigo-700 mb-8"
+          className="py-5 bg-indigo-700"
           style={{ boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1)" }}>
           <div className="container px-4 flex justify-between items-center">
             <Link href="/">
@@ -50,7 +50,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             )}
           </div>
         </header>
-        <main className="container">
+        <main>
           <PageTitle />
           {children}
         </main>

@@ -20,7 +20,7 @@ function RightNavigationDrawer() {
     <div
       className={clsx(
         IGNORE_CLASS_NAME,
-        "fixed right-0 w-56 z-10 border-l transition-transform border-slate bg-white h-full shadow pt-12 pr-4 pl-12 space-y-4",
+        "fixed right-0 w-56 z-50 border-l transition-transform border-slate bg-white h-full shadow pt-12 pr-4 pl-12 space-y-4",
         {
           "translate-x-full": hide,
         }

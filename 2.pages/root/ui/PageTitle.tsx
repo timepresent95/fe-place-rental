@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 function PageTitle() {
   const pathname = usePathname();
   const pageInfo = routerInfos.find((v) => v.path === pathname);
-  return pageInfo ? (
+  return pageInfo?.showTitle ? (
     <h1 className="text-3xl font-semibold text-center mb-8">
       {pageInfo.pageName}
     </h1>
