@@ -1,14 +1,14 @@
 import { faker } from "@faker-js/faker";
 
-import { UserInfo } from "@/5.entities/authentication/model";
 import { Rental } from "@/5.entities/rental/model";
+import { User } from "@/5.entities/User/model";
 
 import { createMockReservation, createMockUserInfo } from "./faker";
 
 export default class CustomStore {
   private static instance: CustomStore;
   data: {
-    user: UserInfo[];
+    user: User[];
     rental: { id: string; list: Rental[]; total: number };
   };
 
@@ -41,7 +41,7 @@ export default class CustomStore {
             email: "admin@fakemail.com",
             phone: "010-0000-0000",
           }),
-          role: "admin",
+          authority: "admin",
         },
       ],
       rental: {

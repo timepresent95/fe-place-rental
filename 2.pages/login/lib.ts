@@ -1,4 +1,4 @@
-import { PostLoginRequestBody } from "@/5.entities/authentication/model";
+import { PostLoginRequestBody } from "@/5.entities/User/model";
 import { FormInfo } from "@/6.shared/lib/api";
 import { assertValue } from "@/6.shared/lib/assertValue";
 

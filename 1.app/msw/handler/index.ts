@@ -1,8 +1,8 @@
 import { HttpHandler } from "msw";
 
-import autenticationHander from "./autentication";
 import rentalHandler from "./rental";
+import userHandler from "./user";
 
-const handlers: HttpHandler[] = [...rentalHandler, ...autenticationHander];
+const handlers: HttpHandler[] = [...rentalHandler, ...userHandler];
 
 export default handlers;

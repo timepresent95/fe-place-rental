@@ -6,10 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { DefaultValues, useForm } from "react-hook-form";
 
-import { useAuthentication } from "@/5.entities/authentication/lib/context";
 import { postReservation } from "@/5.entities/rental/api";
 import { applyRentalBodyValidation } from "@/5.entities/rental/lib";
 import { ApplyRentalRequestBody } from "@/5.entities/rental/model";
+import { useUserContext } from "@/5.entities/User/lib/context";
 import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
 import DatePicker from "@/6.shared/ui/shardcn/components/DatePicker";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
@@ -53,7 +53,7 @@ const FORM_LABEL: {
 
 function RentalFormField() {
   const router = useRouter();
-  const auth = useAuthentication();
+  const auth = useUserContext();
   const form = useForm<ApplyRentalRequestBody>({
     resolver: zodResolver(applyRentalBodyValidation),
     defaultValues: {

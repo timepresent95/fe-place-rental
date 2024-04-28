@@ -4,16 +4,16 @@ import Link from "next/link";
 
 import MainLogo from "@/6.shared/ui/Icon/MainLogo";
 
-import logoutAction from "../../api/logoutAction";
+// import logoutAction from "../../../../3.widgets/Header/api/logoutAction";
 
 function WrongAuthenticatedErrorPage() {
-  useEffect(() => {
-    const logout = async () => {
-      await logoutAction();
-    };
+  // useEffect(() => {
+  //   const logout = async () => {
+  //     await logoutAction();
+  //   };
 
-    logout();
-  }, []);
+  //   logout();
+  // }, []);
   return (
     <main className="px-4 container">
       <div className="mt-40 flex flex-col items-center">

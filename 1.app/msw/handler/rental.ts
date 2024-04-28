@@ -71,7 +71,9 @@ export default ((): HttpHandler[] => {
         if (!uid) {
           return badRequestWrongTokenResponse();
         }
-        if (!store.data.user.find((v) => v.uid === uid && v.role === "admin")) {
+        if (
+          !store.data.user.find((v) => v.uid === uid && v.authority === "admin")
+        ) {
           return unauthenticatedUnauthroizedResponse();
         }
       }

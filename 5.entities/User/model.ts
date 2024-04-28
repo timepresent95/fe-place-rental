@@ -1,20 +1,20 @@
 import { z } from "zod";
 
+import { RouteAuthority } from "@/6.shared/Router/model";
+
 import { loginBodyValidation, signupBodyValidation } from "./lib/validation";
 
 export type PostSignupRequestBody = z.infer<typeof signupBodyValidation>;
 
-type UserRole = "user" | "admin";
-
-export type UserInfo = PostSignupRequestBody & {
+export type User = PostSignupRequestBody & {
   uid: string;
-  role: UserRole;
+  authority: RouteAuthority;
 };
 
-export type PostSignupResponse = UserInfo;
+export type PostSignupResponse = User;
 
 export type PostLoginRequestBody = z.infer<typeof loginBodyValidation>;
 
-export type PostLoginResponse = UserInfo;
+export type PostLoginResponse = User;
 
-export type GetMyResponse = UserInfo;
+export type GetMyResponse = User;

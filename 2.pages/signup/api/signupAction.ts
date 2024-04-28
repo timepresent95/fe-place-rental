@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 
-import { postSignup } from "@/5.entities/authentication/api";
+import { postSignup } from "@/5.entities/User/api";
 
 import { extractSignupBody } from "../lib";
 

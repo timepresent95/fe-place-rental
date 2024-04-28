@@ -1,15 +1,12 @@
 import { faker } from "@faker-js/faker";
 
-import {
-  PostSignupRequestBody,
-  UserInfo,
-} from "@/5.entities/authentication/model";
 import { Rental } from "@/5.entities/rental/model";
+import { PostSignupRequestBody, User } from "@/5.entities/User/model";
 
-export function createMockUserInfo(payload: PostSignupRequestBody): UserInfo {
+export function createMockUserInfo(payload: PostSignupRequestBody): User {
   return {
     uid: faker.string.uuid(),
-    role: "user",
+    authority: "user",
     ...payload,
   };
 }

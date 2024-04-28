@@ -1,11 +1,11 @@
 import { HttpHandler, HttpResponse, http } from "msw";
 
-import { apiEndpoint } from "@/5.entities/authentication/api";
+import { apiEndpoint } from "@/5.entities/User/api";
 import {
   GetMyResponse,
   PostLoginRequestBody,
   PostSignupRequestBody,
-} from "@/5.entities/authentication/model";
+} from "@/5.entities/User/model";
 
 import { extractUid } from "./util";
 import {

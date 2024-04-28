@@ -1,4 +1,4 @@
-import { PostSignupRequestBody } from "@/5.entities/authentication/model";
+import { PostSignupRequestBody } from "@/5.entities/User/model";
 import { assertValue } from "@/6.shared/lib/assertValue";
 
 interface FormItem {

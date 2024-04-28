@@ -33,7 +33,7 @@ export default function Page() {
           당신의 공간을 공유하거나 다양한 활동에 참여해보세요
         </p>
       </div>
-      <div className="flex gap-1 container py-12 justify-between">
+      <div className="flex gap-12 container py-12 justify-between">
         <div>
           <span className="text-indigo-600 font-bold">point 1</span>
           <h2 className="font-bold text-2xl my-4">
@@ -58,7 +58,9 @@ export default function Page() {
           alt="main2"
           width={500}
           height={320}
-          className="rounded-xl"
+          className="rounded-xl object-cover"
+          style={{ aspectRatio: "25/16" }}
+          priority
         />
       </div>
       <div className="flex gap-12 container py-20 justify-between">
@@ -67,7 +69,9 @@ export default function Page() {
           alt="main3"
           width={500}
           height={320}
-          className="rounded-xl"
+          className="rounded-xl object-cover"
+          style={{ aspectRatio: "25/16" }}
+          priority
         />
         <div className="flex-1">
           <span className="text-indigo-600 font-bold">point 2</span>
@@ -89,7 +93,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="flex gap-1 container py-20 justify-between">
+      <div className="flex gap-12 container py-20 justify-between">
         <div>
           <span className="text-indigo-600 font-bold">point 3</span>
           <h2 className="font-bold text-2xl my-4">
@@ -115,7 +119,9 @@ export default function Page() {
           alt="main2"
           width={500}
           height={320}
-          className="rounded-xl"
+          className="rounded-xl object-cover"
+          style={{ aspectRatio: "25/16" }}
+          priority
         />
       </div>
       <div>

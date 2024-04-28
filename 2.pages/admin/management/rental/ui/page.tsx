@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 
 import RentalManagementTable from "@/3.widgets/RentalManagementTable/ui";
 import { TableViewSkeleton } from "@/4.features/TableView/ui";
-import { useAuthentication } from "@/5.entities/authentication/lib/context";
 
 import { DEFAULT_PAGE_SIZE } from "../lib";
 
