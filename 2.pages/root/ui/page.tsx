@@ -33,15 +33,14 @@ export default function Page() {
           당신의 공간을 공유하거나 다양한 활동에 참여해보세요
         </p>
       </div>
-      <div className="flex gap-1 container py-20 justify-between">
+      <div className="flex gap-1 container py-12 justify-between">
         <div>
           <span className="text-indigo-600 font-bold">point 1</span>
           <h2 className="font-bold text-2xl my-4">
-            여러분의 공간을 활용해보세요
+            매일 열리는 특별한 행사 참여
           </h2>
-          <p className="font-medium">사용하지 않는 공간을 함께 활용하거나</p>
           <p className="font-medium">
-            다른 사람들과 만나고 싶은 곳을 원하는 시간에만 임대하세요
+            특별한 장소에서 진행되는 다채로운 행사들을 찾아보고 참여하세요
           </p>
           <div className="mt-12">
             <Link href="/">
@@ -49,13 +48,13 @@ export default function Page() {
                 variant="outline"
                 className="font-semibold rounded-3xl"
                 size="lg">
-                나의 공간 공유하기
+                행사 참여하러 가기
               </Button>
             </Link>
           </div>
         </div>
         <Image
-          src="/images/main2.jpg"
+          src="/images/main4.jpg"
           alt="main2"
           width={500}
           height={320}
@@ -89,14 +88,16 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="flex gap-1 container py-12 justify-between">
+
+      <div className="flex gap-1 container py-20 justify-between">
         <div>
           <span className="text-indigo-600 font-bold">point 3</span>
           <h2 className="font-bold text-2xl my-4">
-            매일 열리는 특별한 행사 참여
+            여러분의 공간을 활용해보세요
           </h2>
+          <p className="font-medium">사용하지 않는 공간을 함께 활용하거나</p>
           <p className="font-medium">
-            특별한 장소에서 진행되는 다채로운 행사들을 찾아보고 참여하세요
+            다른 사람들과 만나고 싶은 곳을 원하는 시간에만 임대하세요
           </p>
           <div className="mt-12">
             <Link href="/">
@@ -104,13 +105,13 @@ export default function Page() {
                 variant="outline"
                 className="font-semibold rounded-3xl"
                 size="lg">
-                행사 참여하러 가기
+                나의 공간 공유하기
               </Button>
             </Link>
           </div>
         </div>
         <Image
-          src="/images/main4.jpg"
+          src="/images/main2.jpg"
           alt="main2"
           width={500}
           height={320}
