@@ -10,7 +10,7 @@ import { getMy } from "@/5.entities/User/api";
 import UserProvider from "@/5.entities/User/lib/context";
 import { User } from "@/5.entities/User/model";
 import { cn } from "@/6.shared/lib/tailwindMerge";
-
+import { Toaster } from "@/6.shared/ui/shardcn/ui/sonner";
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
 export default async function RootLayout({ children }: PropsWithChildren) {
@@ -37,6 +37,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             {children}
           </main>
           <Footer />
+          <Toaster />
         </body>
       </UserProvider>
     </html>

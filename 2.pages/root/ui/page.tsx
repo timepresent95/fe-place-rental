@@ -1,7 +1,9 @@
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "sonner";
 
+import ToastButton from "@/5.entities/ToastButton/ui";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 
 export default function Page() {
@@ -24,13 +26,13 @@ export default function Page() {
           <ChevronDown size={44} />
         </div>
       </div>
-      <div className="bg-indigo-50 py-20 text-center">
+      <div className="bg-indigo-50 py-12 text-center">
         <h2 className="font-bold text-4xl text-indigo-600 mb-4">완전 무료!</h2>
         <p className="font-semibold text-lg">
-          이제 장소를 무료로 대여할 수 있습니다!
+          이제 장소를 무료로 대여할 수 있습니다.
         </p>
         <p className="font-semibold text-lg">
-          당신의 공간을 공유하거나 다양한 활동에 참여해보세요
+          당신의 공간을 공유하거나 다양한 활동에 참여해보세요.
         </p>
       </div>
       <div className="flex gap-12 container py-12 justify-between">
@@ -40,7 +42,7 @@ export default function Page() {
             매일 열리는 특별한 행사 참여
           </h2>
           <p className="font-medium">
-            특별한 장소에서 진행되는 다채로운 행사들을 찾아보고 참여하세요
+            특별한 장소에서 진행되는 다채로운 행사들을 찾아보고 참여하세요.
           </p>
           <div className="mt-12">
             <Link href="/">
@@ -63,7 +65,7 @@ export default function Page() {
           priority
         />
       </div>
-      <div className="flex gap-12 container py-20 justify-between">
+      <div className="flex gap-12 container py-12 justify-between">
         <Image
           src="/images/main3.jpg"
           alt="main3"
@@ -81,7 +83,7 @@ export default function Page() {
           </p>
           <p className="font-medium">그리고 손쉽게 대여하세요.</p>
           <div className="mt-12">
-            <Link href="/">
+            <Link href="/rental/apply">
               <Button
                 variant="outline"
                 className="font-semibold rounded-3xl"
@@ -93,7 +95,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="flex gap-12 container py-20 justify-between">
+      <div className="flex gap-12 container py-12 justify-between">
         <div>
           <span className="text-indigo-600 font-bold">point 3</span>
           <h2 className="font-bold text-2xl my-4">
@@ -101,17 +103,16 @@ export default function Page() {
           </h2>
           <p className="font-medium">사용하지 않는 공간을 함께 활용하거나</p>
           <p className="font-medium">
-            다른 사람들과 만나고 싶은 곳을 원하는 시간에만 임대하세요
+            다른 사람들과 만나고 싶은 곳을 원하는 시간에만 임대하세요.
           </p>
           <div className="mt-12">
-            <Link href="/">
-              <Button
-                variant="outline"
-                className="font-semibold rounded-3xl"
-                size="lg">
-                나의 공간 공유하기
-              </Button>
-            </Link>
+            <ToastButton
+              message="해당 서비스는 아직 지원하지 않습니다."
+              variant="outline"
+              className="font-semibold rounded-3xl"
+              size="lg">
+              나의 공간 공유하기
+            </ToastButton>
           </div>
         </div>
         <Image
