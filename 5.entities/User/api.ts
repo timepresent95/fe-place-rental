@@ -32,7 +32,6 @@ export async function postLogin(
   });
 }
 
-//TODO: get user info로 변경
 export async function getMy(): Promise<ApiResult<GetMyResponse>> {
   return fetchAPI(apiEndpoint.my, {
     method: "get",

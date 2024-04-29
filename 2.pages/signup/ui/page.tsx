@@ -5,7 +5,6 @@ import { Label } from "@/6.shared/ui/shardcn/ui/label";
 import signupAction from "../api/signupAction";
 import { signupFormItems } from "../lib";
 
-//TODO: 아이디 중복 체크 기능 추가
 function signupPage() {
   return (
     <form className="w-80 mx-auto mt-4" action={signupAction}>

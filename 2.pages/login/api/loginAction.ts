@@ -6,7 +6,6 @@ import { postLogin } from "@/5.entities/User/api";
 
 import { extractLoginBody } from "../lib";
 
-//TODO: prevState는 어디에 사용하는것인지 알아보기
 export default async function loginAction(
   prevState: string | undefined,
   formData: FormData

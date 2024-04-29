@@ -84,7 +84,6 @@ export default ((): HttpHandler[] => {
     apiEndpoint.patch,
     async ({ request, params }) => {
       const extractResult = await extractUid(request);
-      //TODO: 권한 확인해야함
       const uid =
         extractResult.status === "success" ? extractResult.data.uid : undefined;
 

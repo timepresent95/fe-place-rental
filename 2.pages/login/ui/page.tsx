@@ -8,7 +8,6 @@ import { Label } from "@/6.shared/ui/shardcn/ui/label";
 
 import loginAction from "../api/loginAction";
 
-//TODO: 입력 validation 추가
 function LoginPage() {
   const [errorMessage, dispatch] = useFormState(loginAction, undefined);
 

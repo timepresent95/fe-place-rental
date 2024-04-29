@@ -54,7 +54,6 @@ export async function fetchAction<T>(
       data,
     };
   } catch (error: unknown) {
-    //TODO: 여기서 에러가 발생할 경우에 대해 고민해보기
     return {
       status: "error",
       error: customClientErrorCodes[40300],

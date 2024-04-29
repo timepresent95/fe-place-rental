@@ -21,7 +21,6 @@ import { createToken } from "../lib/token";
 export default ((): HttpHandler[] => {
   const store = CustomStore.getInstance();
 
-  //TODO: 중복 아이디 검사 필요
   const signupAPI = http.post(apiEndpoint.signup, async ({ request }) => {
     const body = (await request.json()) as PostSignupRequestBody;
 
