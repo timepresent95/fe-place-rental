@@ -1,5 +1,7 @@
 "use client";
+
 import Link from "next/link";
+import { toast } from "sonner";
 
 import { logoutAction } from "@/5.entities/User/lib/action";
 import { useUserContext } from "@/5.entities/User/lib/context";
@@ -27,9 +29,13 @@ function Header() {
           </div>
         ) : (
           <div>
-            <form action={logoutAction}>
-              <Button variant="outline">로그 아웃</Button>
-            </form>
+            <Button
+              variant="outline"
+              onClick={() => {
+                logoutAction().then(() => toast("로그아웃이 완료되었습니다."));
+              }}>
+              로그 아웃
+            </Button>
           </div>
         )}
       </div>
