@@ -2,6 +2,8 @@
 
 import { PropsWithChildren } from "react";
 
+import clsx from "clsx";
+
 import {
   Dialog,
   DialogContent,
@@ -18,7 +20,6 @@ import {
 
 import { TableWithDialogContext } from "./lib";
 import { TableColumns, TableData } from "./model";
-
 
 interface Props<T extends TableData> extends PropsWithChildren {
   columns: TableColumns<T>;
@@ -49,8 +50,10 @@ function TableWithDialog<T extends TableData>({
             <Dialog key={index}>
               <DialogTrigger asChild>
                 <TableRow className="h-10 cursor-pointer">
-                  {columns.map(({ accessKey }) => (
-                    <TableCell key={accessKey}>{data[accessKey]}</TableCell>
+                  {columns.map(({ accessKey, className }) => (
+                    <TableCell key={accessKey} className={clsx(className)}>
+                      {data[accessKey]}
+                    </TableCell>
                   ))}
                 </TableRow>
               </DialogTrigger>

@@ -1,6 +1,6 @@
 import { TableWithDialogView } from "@/4.features/TableWithDialogView/ui";
 import { getListRental } from "@/5.entities/rental/api";
-import { TableColumns } from "@/5.entities/TableList/model";
+import { TableColumns } from "@/5.entities/TableWithDialog/model";
 
 import RentalDetailDialog from "./RentalDetailDialog";
 import { formatRentalManagementTable } from "../lib";

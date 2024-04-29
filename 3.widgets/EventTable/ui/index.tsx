@@ -1,13 +1,17 @@
 import { TableWithDialogView } from "@/4.features/TableWithDialogView/ui";
 import { getListRental } from "@/5.entities/rental/api";
-import { TableColumns } from "@/5.entities/TableList/model";
+import { TableColumns } from "@/5.entities/TableWithDialog/model";
 
 import EventDetailDialog from "./EventDetailDialog";
 import { formatEventTable } from "../lib";
 import { EventTableRow } from "../model";
 
 const columns: TableColumns<EventTableRow> = [
-  { accessKey: "purpose", columnName: "행사 소개" },
+  {
+    accessKey: "purpose",
+    columnName: "행사 소개",
+    className: "max-w-64 truncate",
+  },
   { accessKey: "applicantName", columnName: "신청자" },
   { accessKey: "eventDate", columnName: "행사 일" },
   { accessKey: "applicationDate", columnName: "신청 일" },

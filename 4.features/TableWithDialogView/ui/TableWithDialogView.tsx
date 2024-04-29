@@ -2,7 +2,7 @@
 
 import { PropsWithChildren } from "react";
 
-import { TableColumns, TableData } from "@/5.entities/TableList/model";
+import { TableColumns, TableData } from "@/5.entities/TableWithDialog/model";
 import TableWithDialog from "@/5.entities/TableWithDialog/ui";
 import Pagination from "@/6.shared/ui/Pagination/ui";
 

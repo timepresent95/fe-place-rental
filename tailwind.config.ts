@@ -13,6 +13,7 @@ const config = {
     "./6.shared/**/*.{ts,tsx}",
   ],
   prefix: "",
+  safelist: ["max-w-64"],
   theme: {
     container: {
       center: true,
