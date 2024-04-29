@@ -9,7 +9,7 @@ import { EventTableRow } from "../model";
 const columns: TableColumns<EventTableRow> = [
   { accessKey: "purpose", columnName: "행사 소개" },
   { accessKey: "applicantName", columnName: "신청자" },
-  { accessKey: "rentalDate", columnName: "대관 일" },
+  { accessKey: "eventDate", columnName: "행사 일" },
   { accessKey: "applicationDate", columnName: "신청 일" },
 ];
 
