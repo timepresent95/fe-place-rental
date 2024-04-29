@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 import { TableView } from "@/4.features/TableView/ui";
 import { getListRental } from "@/5.entities/rental/api";
 import { TableColumns } from "@/5.entities/TableList/model";
@@ -35,6 +37,14 @@ async function RentalTable({ pageSize, offset, paginationQueryKey }: Props) {
       total={reservationTable.total}
       paginationQueryKey={paginationQueryKey}
       emptyMessage="예약이 없습니다."
+      cellClassName={(data, accessKey) =>
+        clsx({
+          "text-red-500":
+            accessKey === "applicationState" && data[accessKey] === "거절",
+          "text-green-700":
+            accessKey === "applicationState" && data[accessKey] === "승인",
+        })
+      }
     />
   );
 }
