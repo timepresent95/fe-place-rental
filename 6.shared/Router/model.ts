@@ -26,10 +26,23 @@ export const routeGroups: RouteGroup[] = [
   {
     name: "guest-only",
     hide: true,
-    authority: ["guest"],
     entries: [
-      { name: "로그인", path: "/login" },
-      { name: "회원 가입", path: "/signup" },
+      {
+        name: "로그인",
+        path: "/login",
+        authority: ["guest"],
+      },
+      {
+        authority: ["guest"],
+        name: "회원 가입",
+        path: "/signup",
+      },
+      {
+        name: "회원 가입 성공",
+        path: "/signup/success",
+        hideTitle: true,
+        hide: true,
+      },
     ],
   },
   {
@@ -51,8 +64,14 @@ export const routeGroups: RouteGroup[] = [
   {
     name: "장소 대여",
     entries: [
-      { name: "대여 신청", path: "/rental/apply" },
-      { name: "신청 현황", path: "/rental/list" },
+      { name: "장소 대여 신청", path: "/rental/apply" },
+      { name: "장소 대여 신청 현황", path: "/rental/list" },
+      {
+        name: "장소 대여 신청 성공",
+        path: "/rental/success",
+        hideTitle: true,
+        hide: true,
+      },
     ],
   },
   {

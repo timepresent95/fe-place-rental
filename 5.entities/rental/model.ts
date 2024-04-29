@@ -30,6 +30,9 @@ export type PatchRentalResponse = Rental;
 export type ListRentalRequestQuery = {
   pageSize: number;
   offset: number;
+  applicationState?: ApplicationState[];
+  sort?: "applicationDate" | "useDate";
+  sortDirection?: "desc" | "asc";
 };
 
 export interface ListRentalResponse {

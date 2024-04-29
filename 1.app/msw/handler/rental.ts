@@ -9,7 +9,9 @@ import {
   ApplyRentalResponse,
   PatchRentalRequestBody,
   PatchRentalResponse,
+  Rental,
 } from "@/5.entities/rental/model";
+import dayjs from "@/6.shared/lib/dayjs";
 
 import { extractUid } from "./util";
 import {
@@ -29,10 +31,33 @@ export default ((): HttpHandler[] => {
     const pageSize = Number(
       url.searchParams.get("pageSize") ?? DEFAULT_PAGE_SIZE
     );
+    const sort = (url.searchParams.get("sort") ??
+      "applicationDate") as keyof Rental;
+    const sortDirection =
+      url.searchParams.get("sortDirection") === "desc" ? -1 : 1;
 
+    const list = store.data.rental.list
+      .filter((v) => {
+        const applicationStateCondition =
+          url.searchParams.getAll("applicationState");
+        if (applicationStateCondition.length === 0) {
+          return true;
+        }
+        return applicationStateCondition.includes(v.applicationState);
+      })
+      .sort((a, b) => {
+        if (dayjs(a[sort] as Date).isSame(dayjs(b[sort] as Date))) {
+          return 0;
+        }
+        return dayjs(a[sort] as Date).isAfter(dayjs(b[sort] as Date))
+          ? 1 * sortDirection
+          : -1 * sortDirection;
+      })
+      .slice(offset, offset + pageSize);
+    console.log(list.map((v) => v.useDate));
     return HttpResponse.json<ListRentalResponse>({
       id: store.data.rental.id,
-      list: store.data.rental.list.slice(offset, offset + pageSize),
+      list,
       total: store.data.rental.total,
       pageSize,
       offset,

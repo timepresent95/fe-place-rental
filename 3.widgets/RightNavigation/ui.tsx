@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 
 import { useUserContext } from "@/5.entities/User/lib/context";
 import { useClickOutside } from "@/6.shared/lib/useClickoutside";
-import { routeGroups } from "@/6.shared/Router/model";
 import RouteGroupList from "@/6.shared/Router/ui/RouteGroupList";
 
 const IGNORE_CLICK_CLASS = "right-navigation-drawer";

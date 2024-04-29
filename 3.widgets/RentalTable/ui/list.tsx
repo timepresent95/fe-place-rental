@@ -19,7 +19,7 @@ interface Props {
 }
 
 async function RentalTable({ pageSize, offset, paginationQueryKey }: Props) {
-  const response = await getListRental({ pageSize, offset });
+  const response = await getListRental({ pageSize, offset, sort: "useDate" });
 
   if (response.status === "error") {
     throw response.error;

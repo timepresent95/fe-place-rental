@@ -28,7 +28,11 @@ export async function getListRental(
 ): Promise<ApiResult<ListRentalResponse>> {
   const url = new URL(apiEndpoint.list);
   for (const [key, value] of Object.entries(req)) {
-    url.searchParams.set(key, value.toString());
+    if (Array.isArray(value)) {
+      url.searchParams.set(key, value.join(","));
+    } else {
+      url.searchParams.set(key, value.toString());
+    }
   }
 
   return fetchAPI(url.toString(), {
