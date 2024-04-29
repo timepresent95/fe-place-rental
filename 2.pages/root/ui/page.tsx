@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
 
+import AuthLink from "@/4.features/AuthLink/ui";
 import ToastButton from "@/5.entities/ToastButton/ui";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 
@@ -45,14 +46,16 @@ export default function Page() {
             특별한 장소에서 진행되는 다채로운 행사들을 찾아보고 참여하세요.
           </p>
           <div className="mt-12">
-            <Link href="/">
+            <AuthLink
+              href="/event/list"
+              title="해당 페이지는 로그인 이후 사용 가능합니다.">
               <Button
                 variant="outline"
                 className="font-semibold rounded-3xl"
                 size="lg">
                 행사 참여하러 가기
               </Button>
-            </Link>
+            </AuthLink>
           </div>
         </div>
         <Image
