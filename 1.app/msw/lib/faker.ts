@@ -27,7 +27,7 @@ export function createMockReservation(): Rental {
     expectedParticipants: capacity,
     purpose: faker.lorem.paragraph(),
     useDate: faker.date.future(),
-    applicationDate: faker.date.recent(),
+    applicationDate: faker.date.recent({ days: 14 }),
     applicationState: getRandomApprovedState(),
     isPublic: faker.datatype.boolean(),
   };
