@@ -75,6 +75,11 @@ export const routeGroups: RouteGroup[] = [
     ],
   },
   {
+    name: "행사 참여",
+    authority: ["user"],
+    entries: [{ name: "행사 목록", path: "/event/list" }],
+  },
+  {
     name: "마이 페이지",
     authority: ["user"],
     entries: [

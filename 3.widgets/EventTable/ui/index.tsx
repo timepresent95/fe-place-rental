@@ -2,12 +2,12 @@ import { TableWithDialogView } from "@/4.features/TableWithDialogView/ui";
 import { getListRental } from "@/5.entities/rental/api";
 import { TableColumns } from "@/5.entities/TableList/model";
 
-import RentalDetailDialog from "./RentalDetailDialog";
-import { formatRentalManagementTable } from "../lib";
-import { RentalManagementTableRow } from "../model";
+import EventDetailDialog from "./EventDetailDialog";
+import { formatEventTable } from "../lib";
+import { EventTableRow } from "../model";
 
-const columns: TableColumns<RentalManagementTableRow> = [
-  { accessKey: "id", columnName: "예약 번호" },
+const columns: TableColumns<EventTableRow> = [
+  { accessKey: "purpose", columnName: "행사 소개" },
   { accessKey: "applicantName", columnName: "신청자" },
   { accessKey: "rentalDate", columnName: "대관 일" },
   { accessKey: "applicationDate", columnName: "신청 일" },
@@ -19,14 +19,11 @@ interface Props {
   paginationQueryKey: string;
 }
 
-async function RentalManagementTable({
-  pageSize,
-  offset,
-  paginationQueryKey,
-}: Props) {
+async function EventTable({ pageSize, offset, paginationQueryKey }: Props) {
   const response = await getListRental({
     pageSize,
     offset,
+    applicationState: ["approved"],
     sort: "useDate",
   });
 
@@ -34,7 +31,7 @@ async function RentalManagementTable({
     throw response.error;
   }
 
-  const reservationTable = formatRentalManagementTable(response.data);
+  const reservationTable = formatEventTable(response.data);
 
   return (
     <TableWithDialogView
@@ -44,10 +41,10 @@ async function RentalManagementTable({
       total={reservationTable.total}
       paginationQueryKey={paginationQueryKey}
       emptyMessage="예약이 없습니다.">
-      <RentalDetailDialog />
+      <EventDetailDialog />
     </TableWithDialogView>
   );
 }
-RentalManagementTable.displayName = "RentalManagementTable";
+EventTable.displayName = "EventTable";
 
-export default RentalManagementTable;
+export default EventTable;
