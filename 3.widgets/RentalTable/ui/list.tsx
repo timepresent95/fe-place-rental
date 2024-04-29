@@ -1,8 +1,8 @@
 import clsx from "clsx";
 
 import { TableView } from "@/4.features/TableView/ui";
-import { getListRental } from "@/5.entities/rental/api";
-import { ApplicationState } from "@/5.entities/rental/model";
+import { getListRental } from "@/5.entities/Rental/api";
+import { ApplicationState } from "@/5.entities/Rental/model";
 import { TableColumns } from "@/5.entities/TableList/model";
 
 import { formatRentalTable } from "../lib";

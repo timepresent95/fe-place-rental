@@ -1,4 +1,4 @@
-import { ApplicationState } from "@/5.entities/rental/model";
+import { ApplicationState } from "@/5.entities/Rental/model";
 
 export const DEFAULT_PAGE_SIZE = 10;
 

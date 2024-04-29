@@ -1,7 +1,7 @@
 import {
   ListRentalResponse,
   APPLICANT_STATE_PRESENT,
-} from "@/5.entities/rental/model";
+} from "@/5.entities/Rental/model";
 import dayjs from "@/6.shared/lib/dayjs";
 
 import { RentalTableRow, RentalTalbe } from "./model";

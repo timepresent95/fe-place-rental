@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-import { Rental } from "@/5.entities/rental/model";
+import { Rental } from "@/5.entities/Rental/model";
 import { User } from "@/5.entities/User/model";
 
 import { createMockReservation, createMockUserInfo } from "./faker";

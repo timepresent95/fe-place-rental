@@ -3,7 +3,7 @@
 import { ChevronDown } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { ApplicationState } from "@/5.entities/rental/model";
+import { ApplicationState } from "@/5.entities/Rental/model";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import { Checkbox } from "@/6.shared/ui/shardcn/ui/checkbox";
 import {

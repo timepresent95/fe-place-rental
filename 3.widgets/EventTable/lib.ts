@@ -1,4 +1,4 @@
-import { ListRentalResponse } from "@/5.entities/rental/model";
+import { ListRentalResponse } from "@/5.entities/Rental/model";
 import dayjs from "@/6.shared/lib/dayjs";
 
 import { EventTableRow, EventTalbe } from "./model";

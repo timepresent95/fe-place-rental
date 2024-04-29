@@ -1,6 +1,6 @@
 "use client";
 
-import { patchReservation } from "@/5.entities/rental/api";
+import { patchReservation } from "@/5.entities/Rental/api";
 import { useTableWithDialog } from "@/5.entities/TableWithDialog/lib";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 

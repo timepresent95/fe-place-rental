@@ -1,5 +1,5 @@
 import { TableView } from "@/4.features/TableView/ui";
-import { getMyReservation } from "@/5.entities/rental/api";
+import { getMyReservation } from "@/5.entities/Rental/api";
 import { TableColumns } from "@/5.entities/TableList/model";
 
 import { formatRentalTable } from "../lib";

@@ -6,9 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { DefaultValues, useForm } from "react-hook-form";
 
-import { postReservation } from "@/5.entities/rental/api";
-import { applyRentalBodyValidation } from "@/5.entities/rental/lib";
-import { ApplyRentalRequestBody } from "@/5.entities/rental/model";
+import { postReservation } from "@/5.entities/Rental/api";
+import { applyRentalBodyValidation } from "@/5.entities/Rental/lib";
+import { ApplyRentalRequestBody } from "@/5.entities/Rental/model";
 import { useUserContext } from "@/5.entities/User/lib/context";
 import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
 import DatePicker from "@/6.shared/ui/shardcn/components/DatePicker";

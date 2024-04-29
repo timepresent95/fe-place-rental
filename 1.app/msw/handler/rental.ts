@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { HttpHandler, HttpResponse, http } from "msw";
 
 import { DEFAULT_PAGE_SIZE } from "@/2.pages/rental/list/lib";
-import { apiEndpoint } from "@/5.entities/rental/api";
+import { apiEndpoint } from "@/5.entities/Rental/api";
 import {
   ListRentalResponse,
   ApplyRentalRequestBody,
@@ -10,7 +10,7 @@ import {
   PatchRentalRequestBody,
   PatchRentalResponse,
   Rental,
-} from "@/5.entities/rental/model";
+} from "@/5.entities/Rental/model";
 import dayjs from "@/6.shared/lib/dayjs";
 
 import { extractUid } from "./util";
