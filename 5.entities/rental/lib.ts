@@ -19,7 +19,6 @@ export const applyRentalBodyValidation = z.object({
 
 export const RentalValidation = applyRentalBodyValidation.extend({
   id: z.string(),
-  attendees: z.number(),
   applicationDate: z.date(),
   applicationState: z.union([
     z.literal("approved"),

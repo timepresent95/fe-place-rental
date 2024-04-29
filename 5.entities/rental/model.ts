@@ -14,7 +14,6 @@ export type ApplicationState = keyof typeof APPLICANT_STATE_PRESENT;
 
 export type Rental = ApplyRentalRequestBody & {
   id: string;
-  attendees: number;
   applicationDate: Date;
   applicationState: ApplicationState;
   applicantId?: string;

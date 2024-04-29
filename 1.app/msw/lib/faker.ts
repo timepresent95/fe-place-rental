@@ -23,7 +23,6 @@ export function createMockReservation(): Rental {
     applicantName: faker.person.fullName(),
     contactEmail: faker.internet.email(),
     contactPhone: faker.phone.number(),
-    attendees: faker.number.int({ max: capacity }),
     expectedParticipants: capacity,
     purpose: faker.lorem.paragraph(),
     useDate: faker.date.future(),

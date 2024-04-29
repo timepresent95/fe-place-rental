@@ -11,7 +11,7 @@ import { RentalTableRow } from "../model";
 const columns: TableColumns<RentalTableRow> = [
   { accessKey: "applicantName", columnName: "신청자" },
   { accessKey: "applicationState", columnName: "신청 현황" },
-  { accessKey: "participantState", columnName: "참여 현황" },
+  { accessKey: "expectedParticipants", columnName: "예상 참여 인원" },
   { accessKey: "rentalDate", columnName: "대관일" },
 ];
 

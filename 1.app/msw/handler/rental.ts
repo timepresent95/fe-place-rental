@@ -70,7 +70,6 @@ export default ((): HttpHandler[] => {
     const newReservation: ApplyRentalResponse = {
       ...body,
       id: faker.string.uuid(),
-      attendees: 1,
       applicationDate: new Date(),
       applicationState: "pending",
       applicantId,

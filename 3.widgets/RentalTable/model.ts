@@ -2,7 +2,7 @@ export type RentalTableRow = {
   id: string;
   applicantName: string;
   applicationState: string;
-  participantState: string;
+  expectedParticipants: number;
   rentalDate: string;
 };
 

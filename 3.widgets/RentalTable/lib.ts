@@ -13,7 +13,7 @@ export function formatRentalTable(listRental: ListRentalResponse): RentalTalbe {
     id: v.id,
     applicantName: v.applicantName,
     applicationState: APPLICANT_STATE_PRESENT[v.applicationState],
-    participantState: `${v.attendees}/${v.expectedParticipants}`,
+    expectedParticipants: v.expectedParticipants,
     rentalDate: dayjs(v.useDate).format("YYYY-MM-DD"),
   }));
 
