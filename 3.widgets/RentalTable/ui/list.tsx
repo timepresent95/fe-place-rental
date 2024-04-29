@@ -2,6 +2,7 @@ import clsx from "clsx";
 
 import { TableView } from "@/4.features/TableView/ui";
 import { getListRental } from "@/5.entities/rental/api";
+import { ApplicationState } from "@/5.entities/rental/model";
 import { TableColumns } from "@/5.entities/TableList/model";
 
 import { formatRentalTable } from "../lib";
@@ -17,11 +18,22 @@ const columns: TableColumns<RentalTableRow> = [
 interface Props {
   pageSize: number;
   offset: number;
+  applicationState?: ApplicationState[];
   paginationQueryKey: string;
 }
 
-async function RentalTable({ pageSize, offset, paginationQueryKey }: Props) {
-  const response = await getListRental({ pageSize, offset, sort: "useDate" });
+async function RentalTable({
+  pageSize,
+  offset,
+  applicationState,
+  paginationQueryKey,
+}: Props) {
+  const response = await getListRental({
+    pageSize,
+    offset,
+    applicationState,
+    sort: "useDate",
+  });
 
   if (response.status === "error") {
     throw response.error;

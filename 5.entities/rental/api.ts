@@ -29,7 +29,9 @@ export async function getListRental(
   const url = new URL(apiEndpoint.list);
   for (const [key, value] of Object.entries(req)) {
     if (Array.isArray(value)) {
-      url.searchParams.set(key, value.join(","));
+      value.forEach((v) => {
+        url.searchParams.append(key, v);
+      });
     } else {
       url.searchParams.set(key, value.toString());
     }

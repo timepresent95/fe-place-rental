@@ -1,42 +1,43 @@
 import { Suspense } from "react";
 
+import { Filter } from "lucide-react";
 import { redirect } from "next/navigation";
 
+import RentalFilters from "@/3.widgets/RentalFilters/ui";
 import RentalTable from "@/3.widgets/RentalTable/ui/list";
 import { TableViewSkeleton } from "@/4.features/TableView/ui";
 
-import { DEFAULT_PAGE_SIZE } from "../lib";
-
-const PAGINATION_QUERY_KEY = "page-index";
-const PAGE_SIZE_QUERY_KEY = "page-size";
-
-interface Props {
-  searchParams?: {
-    [PAGINATION_QUERY_KEY]: string;
-    [PAGE_SIZE_QUERY_KEY]: string;
-  };
-}
+import {
+  APPLICATION_STATE_FILTER_QUERY_KEY,
+  DEFAULT_PAGE_SIZE,
+  PAGINATION_QUERY_KEY,
+  Props,
+  createRedirectUrl,
+  extractQuery,
+} from "../lib";
 
 function RentalListPage({ searchParams }: Props) {
-  const paginationQuery = searchParams?.[PAGINATION_QUERY_KEY];
-  const pageSizeQuery = searchParams?.[PAGE_SIZE_QUERY_KEY];
+  const { applicationState, pagination, pageSize, offset } =
+    extractQuery(searchParams);
 
-  const pageIndex = Number(paginationQuery ?? 1);
-  const pageSize = Number(pageSizeQuery ?? DEFAULT_PAGE_SIZE);
-  const offset = (pageIndex - 1) * pageSize;
-
-  if (paginationQuery === undefined || pageSizeQuery === undefined) {
-    redirect(
-      `/rental/list?${PAGINATION_QUERY_KEY}=${pageIndex}&${PAGE_SIZE_QUERY_KEY}=${pageSize}`
-    );
+  if (
+    pagination === undefined ||
+    pageSize === undefined ||
+    offset === undefined
+  ) {
+    return redirect(createRedirectUrl(applicationState, 1, DEFAULT_PAGE_SIZE));
   }
 
   return (
     <div className="container">
+      <div className="flex items-center">
+        <RentalFilters filterQueryKey={APPLICATION_STATE_FILTER_QUERY_KEY} />
+      </div>
       <Suspense fallback={<TableViewSkeleton />} key={`${pageSize}-${offset}`}>
         <RentalTable
           pageSize={pageSize}
           offset={offset}
+          applicationState={applicationState}
           paginationQueryKey={PAGINATION_QUERY_KEY}
         />
       </Suspense>

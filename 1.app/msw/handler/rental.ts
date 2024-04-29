@@ -52,13 +52,11 @@ export default ((): HttpHandler[] => {
         return dayjs(a[sort] as Date).isAfter(dayjs(b[sort] as Date))
           ? 1 * sortDirection
           : -1 * sortDirection;
-      })
-      .slice(offset, offset + pageSize);
-    console.log(list.map((v) => v.useDate));
+      });
     return HttpResponse.json<ListRentalResponse>({
       id: store.data.rental.id,
-      list,
-      total: store.data.rental.total,
+      list: list.slice(offset, offset + pageSize),
+      total: list.length,
       pageSize,
       offset,
     });
