@@ -1,6 +1,5 @@
 "use client";
 
-import { patchReservation } from "@/5.entities/Rental/api";
 import { useTableWithDialog } from "@/5.entities/TableWithDialog/lib";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 
@@ -44,8 +43,8 @@ function EventDetailDialog() {
         <div className="border-b border-slate p-3">
           <h6 className="mb-2 font-semibold text-lg">기타 정보</h6>
           <div className="mb-1">
-            <span className="font-semibold">예상 참석 인원:</span>
-            {data.expectedParticipants}
+            <span className="font-semibold">참여 현황</span>
+            {data.participantState}
           </div>
           <div>
             <span className="font-semibold">공개 여부:</span>{" "}

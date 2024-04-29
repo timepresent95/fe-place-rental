@@ -1,11 +1,11 @@
-import { ListRentalResponse } from "@/5.entities/Rental/model";
+import { ListGatheringResponse } from "@/4.features/Gathering/model";
 import dayjs from "@/6.shared/lib/dayjs";
 
 import { EventTableRow, EventTalbe } from "./model";
 
 export const DEFAULT_PAGE_SIZE = 10;
 
-export function formatEventTable(listEvent: ListRentalResponse): EventTalbe {
+export function formatEventTable(listEvent: ListGatheringResponse): EventTalbe {
   const datas: EventTableRow[] = listEvent.list.map((v) => ({
     id: v.id,
     applicantName: v.applicantName,
@@ -14,7 +14,7 @@ export function formatEventTable(listEvent: ListRentalResponse): EventTalbe {
     contactEmail: v.contactEmail,
     contactPhone: v.contactPhone,
     purpose: v.purpose,
-    expectedParticipants: v.expectedParticipants,
+    participantState: `${v.attendees} / ${v.expectedParticipants}`,
     applicationState: v.applicationState,
     isPublic: v.isPublic,
   }));

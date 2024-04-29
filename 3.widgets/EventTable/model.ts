@@ -1,4 +1,4 @@
-import { ApplicationState } from "@/5.entities/Rental/model";
+import { ApplicationState } from "@/4.features/Gathering/model";
 
 export type EventTableRow = {
   id: string;
@@ -8,7 +8,7 @@ export type EventTableRow = {
   contactEmail: string;
   contactPhone: string;
   purpose: string;
-  expectedParticipants: number;
+  participantState: string;
   applicationState: ApplicationState;
   isPublic: boolean;
 };

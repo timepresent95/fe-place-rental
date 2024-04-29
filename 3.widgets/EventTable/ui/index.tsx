@@ -1,5 +1,5 @@
+import { getListGathering } from "@/4.features/Gathering/api";
 import { TableWithDialogView } from "@/4.features/TableWithDialogView/ui";
-import { getListRental } from "@/5.entities/Rental/api";
 import { TableColumns } from "@/5.entities/TableWithDialog/model";
 
 import EventDetailDialog from "./EventDetailDialog";
@@ -24,10 +24,9 @@ interface Props {
 }
 
 async function EventTable({ pageSize, offset, paginationQueryKey }: Props) {
-  const response = await getListRental({
+  const response = await getListGathering({
     pageSize,
     offset,
-    applicationState: ["approved"],
     sort: "useDate",
   });
 
