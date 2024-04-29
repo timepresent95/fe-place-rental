@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 
-import { Filter } from "lucide-react";
 import { redirect } from "next/navigation";
 
 import RentalFilters from "@/3.widgets/RentalFilters/ui";
@@ -31,7 +30,10 @@ function RentalListPage({ searchParams }: Props) {
   return (
     <div className="container">
       <div className="flex items-center">
-        <RentalFilters filterQueryKey={APPLICATION_STATE_FILTER_QUERY_KEY} />
+        <RentalFilters
+          paginationQueryKey={PAGINATION_QUERY_KEY}
+          filterQueryKey={APPLICATION_STATE_FILTER_QUERY_KEY}
+        />
       </div>
       <Suspense fallback={<TableViewSkeleton />} key={`${pageSize}-${offset}`}>
         <RentalTable

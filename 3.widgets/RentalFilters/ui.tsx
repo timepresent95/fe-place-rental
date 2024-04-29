@@ -16,9 +16,10 @@ import {
 
 interface Props {
   filterQueryKey: string;
+  paginationQueryKey: string;
 }
 
-function RentalFilters({ filterQueryKey }: Props) {
+function RentalFilters({ filterQueryKey, paginationQueryKey }: Props) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -33,6 +34,7 @@ function RentalFilters({ filterQueryKey }: Props) {
     } else {
       params.append(filterQueryKey, state);
     }
+    params.set(paginationQueryKey, "1");
     replace(`${pathname}?${params.toString()}`);
   };
 
