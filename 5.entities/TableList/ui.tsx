@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/6.shared/ui/shardcn/ui/table";
+
 import { TableColumns, TableData } from "./model";
 
 interface Props<T extends TableData> {
@@ -13,6 +14,7 @@ interface Props<T extends TableData> {
   datas: T[];
   pageSize: number;
   emptyMessage?: string;
+  cellClassName: (data: T, accessKey: keyof T) => string;
 }
 
 function TableList<T extends TableData>({
@@ -20,6 +22,7 @@ function TableList<T extends TableData>({
   datas,
   pageSize,
   emptyMessage = "테이블에 데이터가 존재하지 않습니다.",
+  cellClassName = () => "",
 }: Props<T>) {
   return (
     <>
@@ -35,14 +38,18 @@ function TableList<T extends TableData>({
           {datas.map((data, index) => (
             <TableRow key={index} className="h-10">
               {columns.map(({ accessKey }) => (
-                <TableCell key={accessKey}>{data[accessKey]}</TableCell>
+                <TableCell
+                  key={accessKey}
+                  className={cellClassName(data, accessKey)}>
+                  {data[accessKey]}
+                </TableCell>
               ))}
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <div
-        className="flex h-full items-center justify-center text-muted-foreground"
+        className="flex h-full items-center justify-center text-muted-foreground bg-slate-50"
         style={{ minHeight: `calc(2.5rem*${pageSize - datas.length})` }}>
         {datas.length === 0 ? <span>{emptyMessage}</span> : null}
       </div>

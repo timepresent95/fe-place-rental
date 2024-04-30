@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+
 import { TableData } from "./model";
 
 interface TableWithDialogContext<T extends TableData> {

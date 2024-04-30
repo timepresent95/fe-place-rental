@@ -1,5 +1,5 @@
-import { fontFamily } from "tailwindcss/defaultTheme";
 import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config = {
   darkMode: ["class"],
@@ -13,12 +13,13 @@ const config = {
     "./6.shared/**/*.{ts,tsx}",
   ],
   prefix: "",
+  safelist: ["max-w-64"],
   theme: {
     container: {
       center: true,
       padding: "2rem",
       screens: {
-        md: "768px",
+        lg: "1024px",
         "2xl": "1400px",
       },
     },

@@ -1,8 +1,8 @@
 export type RentalTableRow = {
   id: string;
-  applicantName: string;
+  hostName: string;
   applicationState: string;
-  participantState: string;
+  expectedParticipants: number;
   rentalDate: string;
 };
 

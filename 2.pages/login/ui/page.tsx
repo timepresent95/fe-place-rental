@@ -1,12 +1,13 @@
 "use client";
 
+import { useFormState, useFormStatus } from "react-dom";
+
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import { Input } from "@/6.shared/ui/shardcn/ui/input";
 import { Label } from "@/6.shared/ui/shardcn/ui/label";
-import loginAction from "../api/loginAction";
-import { useFormState, useFormStatus } from "react-dom";
 
-//TODO: 입력 validation 추가
+import loginAction from "../api/loginAction";
+
 function LoginPage() {
   const [errorMessage, dispatch] = useFormState(loginAction, undefined);
 

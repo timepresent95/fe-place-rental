@@ -1,11 +1,18 @@
 "use client";
 
-import { DefaultValues, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 
-import { ApplyRentalRequestBody } from "@/5.entities/rental/model";
-import { applyRentalBodyValidation } from "@/5.entities/rental/lib";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { DefaultValues, useForm } from "react-hook-form";
+
+import { postReservation } from "@/5.entities/Rental/api";
+import { applyRentalBodyValidation } from "@/5.entities/Rental/lib";
+import { ApplyRentalRequestBody } from "@/5.entities/Rental/model";
+import { useUserContext } from "@/5.entities/User/lib/context";
+import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
 import DatePicker from "@/6.shared/ui/shardcn/components/DatePicker";
+import { Button } from "@/6.shared/ui/shardcn/ui/button";
 import {
   Form,
   FormControl,
@@ -16,10 +23,6 @@ import {
 } from "@/6.shared/ui/shardcn/ui/form";
 import { Input } from "@/6.shared/ui/shardcn/ui/input";
 import { Textarea } from "@/6.shared/ui/shardcn/ui/textarea";
-import { Button } from "@/6.shared/ui/shardcn/ui/button";
-import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
-import { postReservation } from "@/5.entities/rental/api";
-import { useRouter } from "next/navigation";
 
 const FORM_LABEL: {
   [key in keyof ApplyRentalRequestBody]: {
@@ -27,7 +30,7 @@ const FORM_LABEL: {
     placeholder?: string;
   };
 } = {
-  applicantName: {
+  hostName: {
     label: "신청자 이름",
     placeholder: "단체인 경우 단체명",
   },
@@ -48,17 +51,29 @@ const FORM_LABEL: {
 //TODO: 예약 가능 날짜와 관련된 로직 추가해야 함
 // 이미 예약이 완료된 날, 지나간 날은 예약이 불가능
 
-interface Props {
-  defaultValues: DefaultValues<ApplyRentalRequestBody>;
-}
-
-function RentalFormField({ defaultValues }: Props) {
+function RentalFormField() {
   const router = useRouter();
-
+  const auth = useUserContext();
   const form = useForm<ApplyRentalRequestBody>({
     resolver: zodResolver(applyRentalBodyValidation),
-    defaultValues: defaultValues,
+    defaultValues: {
+      hostName: "",
+      contactEmail: "",
+      contactPhone: "",
+      purpose: "",
+      expectedParticipants: 3,
+      useDate: undefined,
+      isPublic: true,
+    },
   });
+
+  useEffect(() => {
+    if (auth.uid) {
+      form.setValue("hostName", auth.familyName! + auth.firstName!);
+      form.setValue("contactEmail", auth.email!);
+      form.setValue("contactPhone", auth.phone!);
+    }
+  }, [auth, form]);
 
   return (
     <Form {...form}>
@@ -124,7 +139,7 @@ function RentalFormField({ defaultValues }: Props) {
         />
         <FormField
           control={form.control}
-          name="applicantName"
+          name="hostName"
           render={({ field }) => {
             return (
               <FormItem>

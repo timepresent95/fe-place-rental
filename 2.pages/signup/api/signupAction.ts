@@ -1,8 +1,10 @@
 "use server";
 
 import { redirect } from "next/navigation";
+
+import { postSignup } from "@/5.entities/User/api";
+
 import { extractSignupBody } from "../lib";
-import { postSignup } from "@/5.entities/authentication/api";
 
 export default async function signupAction(formData: FormData) {
   const signupBody = extractSignupBody(formData);

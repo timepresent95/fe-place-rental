@@ -1,5 +1,5 @@
-import TableListUI from "@/5.entities/TableList/ui";
 import { TableColumns, TableData } from "@/5.entities/TableList/model";
+import TableListUI from "@/5.entities/TableList/ui";
 import Pagination from "@/6.shared/ui/Pagination/ui";
 
 interface Props<T extends TableData> {
@@ -9,6 +9,7 @@ interface Props<T extends TableData> {
   total: number;
   paginationQueryKey: string;
   emptyMessage?: string;
+  cellClassName: (data: T, accessKey: keyof T) => string;
 }
 
 function TableView<T extends TableData>({
@@ -17,6 +18,7 @@ function TableView<T extends TableData>({
   pageSize,
   total,
   paginationQueryKey,
+  cellClassName,
   emptyMessage = "테이블에 데이터가 존재하지 않습니다.",
 }: Props<T>) {
   return (
@@ -26,6 +28,7 @@ function TableView<T extends TableData>({
         datas={datas}
         pageSize={pageSize}
         emptyMessage={emptyMessage}
+        cellClassName={cellClassName}
       />
       {total === 0 ? null : (
         <Pagination

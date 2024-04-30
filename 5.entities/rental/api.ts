@@ -1,4 +1,6 @@
 import { ApiResult, baseUrl, fetchAPI } from "@/6.shared/lib/api";
+import { generateUrl } from "@/6.shared/lib/api/util";
+
 import {
   ListRentalRequestQuery,
   ListRentalResponse,
@@ -10,7 +12,6 @@ import {
   PatchRentalResponse,
   PatchRentalRequestParam,
 } from "./model";
-import { generateUrl } from "@/6.shared/lib/api/util";
 
 const rentalBaseURL = baseUrl + "/rental";
 export const apiEndpoint = {
@@ -20,14 +21,20 @@ export const apiEndpoint = {
   my: rentalBaseURL + "/my",
 };
 
-const RENTAL_REVALIDTE_TAG = "rental-list";
+export const RENTAL_REVALIDTE_TAG = "rental-list";
 
 export async function getListRental(
   req: ListRentalRequestQuery
 ): Promise<ApiResult<ListRentalResponse>> {
   const url = new URL(apiEndpoint.list);
   for (const [key, value] of Object.entries(req)) {
-    url.searchParams.set(key, value.toString());
+    if (Array.isArray(value)) {
+      value.forEach((v) => {
+        url.searchParams.append(key, v);
+      });
+    } else {
+      url.searchParams.set(key, value.toString());
+    }
   }
 
   return fetchAPI(url.toString(), {

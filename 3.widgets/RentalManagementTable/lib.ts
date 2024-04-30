@@ -1,6 +1,7 @@
-import { ListRentalResponse } from "@/5.entities/rental/model";
-import { RentalManagementTableRow, RentalManagementTalbe } from "./model";
+import { ListRentalResponse } from "@/5.entities/Rental/model";
 import dayjs from "@/6.shared/lib/dayjs";
+
+import { RentalManagementTableRow, RentalManagementTalbe } from "./model";
 
 export const DEFAULT_PAGE_SIZE = 10;
 
@@ -9,7 +10,7 @@ export function formatRentalManagementTable(
 ): RentalManagementTalbe {
   const datas: RentalManagementTableRow[] = listRental.list.map((v) => ({
     id: v.id,
-    applicantName: v.applicantName,
+    hostName: v.hostName,
     rentalDate: dayjs(v.useDate).format("YYYY-MM-DD"),
     applicationDate: dayjs(v.applicationDate).format("YYYY-MM-DD"),
     contactEmail: v.contactEmail,

@@ -1,5 +1,14 @@
 "use client";
 
+import { PropsWithChildren } from "react";
+
+import clsx from "clsx";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/6.shared/ui/shardcn/ui/dialog";
 import {
   TableCell,
   Table,
@@ -8,14 +17,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/6.shared/ui/shardcn/ui/table";
-import { TableColumns, TableData } from "./model";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/6.shared/ui/shardcn/ui/dialog";
-import { PropsWithChildren } from "react";
+
 import { TableWithDialogContext } from "./lib";
+import { TableColumns, TableData } from "./model";
 
 interface Props<T extends TableData> extends PropsWithChildren {
   columns: TableColumns<T>;
@@ -46,12 +50,14 @@ function TableWithDialog<T extends TableData>({
             <Dialog key={index}>
               <DialogTrigger asChild>
                 <TableRow className="h-10 cursor-pointer">
-                  {columns.map(({ accessKey }) => (
-                    <TableCell key={accessKey}>{data[accessKey]}</TableCell>
+                  {columns.map(({ accessKey, className }) => (
+                    <TableCell key={accessKey} className={clsx(className)}>
+                      {data[accessKey]}
+                    </TableCell>
                   ))}
                 </TableRow>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="break-all">
                 <TableWithDialogContext.Provider value={{ data }}>
                   {children}
                 </TableWithDialogContext.Provider>
@@ -61,7 +67,7 @@ function TableWithDialog<T extends TableData>({
         </TableBody>
       </Table>
       <div
-        className="flex h-full items-center justify-center text-muted-foreground"
+        className="flex h-full items-center justify-center text-muted-foreground bg-slate-50"
         style={{ minHeight: `calc(2.5rem*${pageSize - datas.length})` }}>
         {datas.length === 0 ? <span>{emptyMessage}</span> : null}
       </div>

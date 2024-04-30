@@ -1,15 +1,12 @@
 import { faker } from "@faker-js/faker";
 
-import {
-  PostSignupRequestBody,
-  UserInfo,
-} from "@/5.entities/authentication/model";
-import { Rental } from "@/5.entities/rental/model";
+import { Rental } from "@/5.entities/Rental/model";
+import { PostSignupRequestBody, User } from "@/5.entities/User/model";
 
-export function createMockUserInfo(payload: PostSignupRequestBody): UserInfo {
+export function createMockUserInfo(payload: PostSignupRequestBody): User {
   return {
     uid: faker.string.uuid(),
-    role: "user",
+    authority: "user",
     ...payload,
   };
 }
@@ -23,14 +20,13 @@ export function createMockReservation(): Rental {
   const capacity = faker.number.int({ min: 3, max: 30 });
   return {
     id: faker.string.uuid(),
-    applicantName: faker.person.fullName(),
+    hostName: faker.person.fullName(),
     contactEmail: faker.internet.email(),
     contactPhone: faker.phone.number(),
-    attendees: faker.number.int({ max: capacity }),
     expectedParticipants: capacity,
     purpose: faker.lorem.paragraph(),
     useDate: faker.date.future(),
-    applicationDate: faker.date.recent(),
+    applicationDate: faker.date.recent({ days: 14 }),
     applicationState: getRandomApprovedState(),
     isPublic: faker.datatype.boolean(),
   };

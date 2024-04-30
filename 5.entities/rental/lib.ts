@@ -2,7 +2,7 @@ import { z } from "zod";
 
 //TODO: unique한 결과를 가져올수 있도록 만들기
 export const applyRentalBodyValidation = z.object({
-  applicantName: z.string().trim().min(1, "신청자 이름 입력해주세요"),
+  hostName: z.string().trim().min(1, "신청자 이름 입력해주세요"),
   contactEmail: z.string().email("올바른 형식의 메일을 입력해주세요"),
   contactPhone: z
     .string()
@@ -19,14 +19,13 @@ export const applyRentalBodyValidation = z.object({
 
 export const RentalValidation = applyRentalBodyValidation.extend({
   id: z.string(),
-  attendees: z.number(),
   applicationDate: z.date(),
   applicationState: z.union([
     z.literal("approved"),
     z.literal("rejected"),
     z.literal("pending"),
   ]),
-  applicantId: z.string(),
+  hostId: z.string(),
 });
 
 type RentalValidationKey = keyof z.infer<typeof RentalValidation>;

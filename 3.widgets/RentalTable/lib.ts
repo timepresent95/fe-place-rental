@@ -1,18 +1,19 @@
 import {
   ListRentalResponse,
   APPLICANT_STATE_PRESENT,
-} from "@/5.entities/rental/model";
-import { RentalTableRow, RentalTalbe } from "./model";
+} from "@/5.entities/Rental/model";
 import dayjs from "@/6.shared/lib/dayjs";
+
+import { RentalTableRow, RentalTalbe } from "./model";
 
 export const DEFAULT_PAGE_SIZE = 10;
 
 export function formatRentalTable(listRental: ListRentalResponse): RentalTalbe {
   const datas: RentalTableRow[] = listRental.list.map((v) => ({
     id: v.id,
-    applicantName: v.applicantName,
+    hostName: v.hostName,
     applicationState: APPLICANT_STATE_PRESENT[v.applicationState],
-    participantState: `${v.attendees}/${v.expectedParticipants}`,
+    expectedParticipants: v.expectedParticipants,
     rentalDate: dayjs(v.useDate).format("YYYY-MM-DD"),
   }));
 

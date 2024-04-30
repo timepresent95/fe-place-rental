@@ -1,10 +1,11 @@
 "use server";
 
 import { revalidateTag } from "next/cache";
-import { CustomErrorResponse, customClientErrorCodes } from "./customResponse";
 import { cookies } from "next/headers";
-import { createSession } from "../session";
+
 import { ApiResult } from ".";
+import { CustomErrorResponse, customClientErrorCodes } from "./customResponse";
+import { createSession } from "../session";
 
 export async function fetchAction<T>(
   url: string,
@@ -53,7 +54,6 @@ export async function fetchAction<T>(
       data,
     };
   } catch (error: unknown) {
-    //TODO: 여기서 에러가 발생할 경우에 대해 고민해보기
     return {
       status: "error",
       error: customClientErrorCodes[40300],

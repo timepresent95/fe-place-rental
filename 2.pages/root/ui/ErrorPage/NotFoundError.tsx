@@ -1,5 +1,6 @@
-import MainLogo from "@/6.shared/ui/Icon/MainLogo";
 import Link from "next/link";
+
+import MainLogo from "@/6.shared/ui/Icon/MainLogo";
 
 function NotFoundErrorPage() {
   return (

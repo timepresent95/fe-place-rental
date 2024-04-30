@@ -1,8 +1,8 @@
-import { ApplicationState } from "@/5.entities/rental/model";
+import { ApplicationState } from "@/5.entities/Rental/model";
 
 export type RentalManagementTableRow = {
   id: string;
-  applicantName: string;
+  hostName: string;
   rentalDate: string;
   applicationDate: string;
   contactEmail: string;

@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { applyRentalBodyValidation } from "./lib";
 
 export type ApplyRentalRequestBody = z.infer<typeof applyRentalBodyValidation>;
@@ -13,10 +14,9 @@ export type ApplicationState = keyof typeof APPLICANT_STATE_PRESENT;
 
 export type Rental = ApplyRentalRequestBody & {
   id: string;
-  attendees: number;
   applicationDate: Date;
   applicationState: ApplicationState;
-  applicantId?: string;
+  hostId?: string;
 };
 
 export type ApplyRentalResponse = Rental;
@@ -29,6 +29,9 @@ export type PatchRentalResponse = Rental;
 export type ListRentalRequestQuery = {
   pageSize: number;
   offset: number;
+  applicationState?: ApplicationState[];
+  sort?: "applicationDate" | "useDate";
+  sortDirection?: "desc" | "asc";
 };
 
 export interface ListRentalResponse {
