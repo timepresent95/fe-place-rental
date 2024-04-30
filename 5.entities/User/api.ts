@@ -13,6 +13,7 @@ export const apiEndpoint = {
   login: baseUrl + "/login",
   my: baseUrl + "/my",
 };
+export const USER_REVALIDTE_TAG = "user";
 
 export async function postSignup(
   body: PostSignupRequestBody
@@ -33,7 +34,11 @@ export async function postLogin(
 }
 
 export async function getMy(): Promise<ApiResult<GetMyResponse>> {
-  return fetchAPI(apiEndpoint.my, {
-    method: "get",
-  });
+  return fetchAPI(
+    apiEndpoint.my,
+    {
+      method: "get",
+    },
+    USER_REVALIDTE_TAG
+  );
 }

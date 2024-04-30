@@ -1,9 +1,9 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { postLogin } from "@/5.entities/User/api";
+import { USER_REVALIDTE_TAG, postLogin } from "@/5.entities/User/api";
 
 import { extractLoginBody } from "../lib";
 
@@ -15,6 +15,7 @@ export default async function loginAction(
   const result = await postLogin(signupBody);
 
   if (result.status === "success") {
+    revalidateTag(USER_REVALIDTE_TAG);
     revalidatePath("/", "layout");
     return redirect("/");
   }
