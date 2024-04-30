@@ -4,7 +4,7 @@ import { useTableWithDialog } from "@/5.entities/TableWithDialog/lib";
 
 import { GatheringManagementTableRow } from "../model";
 
-function RentalDetailDialog() {
+function GatheringManagementDetailDialog() {
   const { data } = useTableWithDialog<GatheringManagementTableRow>();
   return (
     <section className="pt-1">
@@ -25,5 +25,5 @@ function RentalDetailDialog() {
   );
 }
 
-RentalDetailDialog.displayName = "RentalDetailDialog";
-export default RentalDetailDialog;
+GatheringManagementDetailDialog.displayName = "GatheringManagementDetailDialog";
+export default GatheringManagementDetailDialog;

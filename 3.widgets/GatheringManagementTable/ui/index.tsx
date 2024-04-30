@@ -2,7 +2,7 @@ import { getMyGathering } from "@/4.features/Gathering/api";
 import { TableWithDialogView } from "@/4.features/TableWithDialogView/ui";
 import { TableColumns } from "@/5.entities/TableWithDialog/model";
 
-import RentalDetailDialog from "./RentalDetailDialog";
+import GatheringManagementDetailDialog from "./GatheringManagementDetailDialog";
 import { formatGatheringTable } from "../lib";
 import { GatheringManagementTableRow } from "../model";
 
@@ -47,7 +47,7 @@ async function GatheringManagementTable({
       total={reservationTable.total}
       paginationQueryKey={paginationQueryKey}
       emptyMessage="예약이 없습니다.">
-      <RentalDetailDialog />
+      <GatheringManagementDetailDialog />
     </TableWithDialogView>
   );
 }
