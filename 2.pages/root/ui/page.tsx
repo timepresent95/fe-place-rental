@@ -47,7 +47,7 @@ export default function Page() {
           </p>
           <div className="mt-12">
             <AuthLink
-              href="/event/list"
+              href="/gathering/list"
               title="해당 페이지는 로그인 이후 사용 가능합니다.">
               <Button
                 variant="outline"

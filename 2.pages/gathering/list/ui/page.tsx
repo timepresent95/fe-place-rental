@@ -27,7 +27,7 @@ function GatheringListPage({ searchParams }: Props) {
 
   if (paginationQuery === undefined || pageSizeQuery === undefined) {
     redirect(
-      `/event/list?${PAGINATION_QUERY_KEY}=${pageIndex}&${PAGE_SIZE_QUERY_KEY}=${pageSize}`
+      `/gathering/list?${PAGINATION_QUERY_KEY}=${pageIndex}&${PAGE_SIZE_QUERY_KEY}=${pageSize}`
     );
   }
 
