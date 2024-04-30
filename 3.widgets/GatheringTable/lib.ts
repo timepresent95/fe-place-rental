@@ -11,12 +11,12 @@ export function formatGatheringTable(
   const datas: GatheringTableRow[] = listGathering.list.map((v) => ({
     id: v.id,
     applicantName: v.applicantName,
-    GatheringDate: dayjs(v.useDate).format("YYYY-MM-DD"),
+    gatheringDate: dayjs(v.useDate).format("YYYY-MM-DD"),
     applicationDate: dayjs(v.applicationDate).format("YYYY-MM-DD"),
     contactEmail: v.contactEmail,
     contactPhone: v.contactPhone,
     purpose: v.purpose,
-    participantState: `${v.attendees} / ${v.expectedParticipants}`,
+    participantState: `${v.attendees.length} / ${v.expectedParticipants}`,
     applicationState: v.applicationState,
     isPublic: v.isPublic,
   }));

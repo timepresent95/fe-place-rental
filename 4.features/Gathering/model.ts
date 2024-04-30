@@ -19,6 +19,8 @@ export interface Gathering {
   applicants: GatheringApplicant[];
 }
 
+export type GatheringDetail = Rental & { attendees: string[] };
+
 export type ListGatheringRequestQuery = {
   pageSize: number;
   offset: number;
@@ -29,7 +31,7 @@ export type ListGatheringRequestQuery = {
 
 export interface ListGatheringResponse {
   id: string;
-  list: (Rental & { attendees: number })[];
+  list: GatheringDetail[];
   total: number;
   pageSize: number;
   offset: number;

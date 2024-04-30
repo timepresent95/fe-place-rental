@@ -26,6 +26,7 @@ function GatheringListPage({ searchParams }: Props) {
   const offset = (pageIndex - 1) * pageSize;
 
   if (paginationQuery === undefined || pageSizeQuery === undefined) {
+    console.log(123)
     redirect(
       `/gathering/list?${PAGINATION_QUERY_KEY}=${pageIndex}&${PAGE_SIZE_QUERY_KEY}=${pageSize}`
     );

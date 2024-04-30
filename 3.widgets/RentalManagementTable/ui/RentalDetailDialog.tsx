@@ -67,6 +67,7 @@ function RentalDetailDialog() {
           onClick={() => {
             patchReservation(data.id, { applicationState: "rejected" })
               .then((res) => {
+                //TODO: 승낙 후 toast
                 console.log(res);
               })
               .catch((error: unknown) => {

@@ -14,11 +14,12 @@ function GatheringDetailDialog() {
       <div>
         <div className="flex border-slate justify-between border-b p-3">
           <p>
-            <span className="font-semibold">예약 번호:</span>
+            <span className="font-semibold mr-2">예약 번호:</span>
             {data.id}
           </p>
           <p>
-            <span className="font-semibold">행사 일:</span> {data.gatheringDate}
+            <span className="font-semibold mr-2">행사 일:</span>
+            {data.gatheringDate}
           </p>
         </div>
         <div className="border-b border-slate p-3">
@@ -26,28 +27,30 @@ function GatheringDetailDialog() {
           <p>{data.purpose}</p>
         </div>
         <div className="border-b border-slate p-3">
-          <h6 className="mb-2 font-semibold text-lg">신청자 정보</h6>
+          <h6 className="mb-2 font-semibold text-lg">주최자 정보</h6>
           <div className="space-y-1">
             <p>
-              <span className="font-semibold">이름(단체명):</span>{" "}
+              <span className="font-semibold mr-2">이름(단체명):</span>
               {data.applicantName}
             </p>
             <p>
-              <span className="font-semibold">이메일:</span> {data.contactEmail}
+              <span className="font-semibold mr-2">이메일:</span>
+              {data.contactEmail}
             </p>
             <p>
-              <span className="font-semibold">전화:</span> {data.contactPhone}
+              <span className="font-semibold mr-2">전화:</span>
+              {data.contactPhone}
             </p>
           </div>
         </div>
         <div className="border-b border-slate p-3">
           <h6 className="mb-2 font-semibold text-lg">기타 정보</h6>
           <div className="mb-1">
-            <span className="font-semibold">참여 현황</span>
+            <span className="font-semibold mr-2">참여 현황:</span>
             {data.participantState}
           </div>
           <div>
-            <span className="font-semibold">공개 여부:</span>{" "}
+            <span className="font-semibold mr-2">공개 여부:</span>
             {data.isPublic ? "공개" : "비공개"}
           </div>
         </div>

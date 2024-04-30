@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 
+import { GatheringDetail } from "@/4.features/Gathering/model";
 import { Rental } from "@/5.entities/Rental/model";
 import { User } from "@/5.entities/User/model";
 
@@ -10,10 +11,15 @@ export default class CustomStore {
   data: {
     user: User[];
     rental: { id: string; list: Rental[]; total: number };
+    gathering: { id: string; list: GatheringDetail[]; total: number };
   };
 
   private constructor() {
     const initRentalListLength = faker.number.int({ min: 11, max: 49 });
+    const placeId = faker.string.uuid();
+    const rentalList = Array.from({ length: initRentalListLength }).map(() =>
+      createMockReservation()
+    );
     this.data = {
       user: [
         createMockUserInfo({
@@ -45,11 +51,16 @@ export default class CustomStore {
         },
       ],
       rental: {
-        id: faker.string.uuid(),
-        list: Array.from({ length: initRentalListLength }).map(() =>
-          createMockReservation()
-        ),
-        total: initRentalListLength,
+        id: placeId,
+        list: rentalList,
+        total: rentalList.length,
+      },
+      gathering: {
+        id: placeId,
+        list: rentalList
+          .filter((v) => v.applicationState === "approved")
+          .map((v) => ({ ...v, attendees: [] })),
+        total: rentalList.length,
       },
     };
   }
