@@ -57,7 +57,7 @@ function TableWithDialog<T extends TableData>({
                   ))}
                 </TableRow>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="break-all">
                 <TableWithDialogContext.Provider value={{ data }}>
                   {children}
                 </TableWithDialogContext.Provider>
