@@ -1,4 +1,7 @@
-import { ApplicationState } from "@/4.features/Gathering/model";
+import {
+  ApplicationState,
+  GatheringDetail,
+} from "@/4.features/Gathering/model";
 
 export type GatheringTableRow = {
   id: string;
@@ -11,6 +14,7 @@ export type GatheringTableRow = {
   participantState: string;
   applicationState: ApplicationState;
   isPublic: boolean;
+  applicants: GatheringDetail["applicants"];
 };
 
 export type GatheringTalbe = {

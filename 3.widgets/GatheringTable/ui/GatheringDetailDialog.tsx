@@ -69,6 +69,7 @@ function GatheringDetailDialog() {
       <div className="flex justify-center space-x-12 p-3 mt-4">
         <Button
           size="lg"
+          disabled={data.applicants.findIndex((v) => v.uid === user.uid) >= 0}
           onClick={() => {
             applyGathering({ rentalId: data.id }).then((res) => {
               if (res.status === "error") {

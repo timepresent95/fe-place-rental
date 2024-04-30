@@ -19,6 +19,7 @@ export function formatGatheringTable(
     participantState: `${v.attendees.length} / ${v.expectedParticipants}`,
     applicationState: v.applicationState,
     isPublic: v.isPublic,
+    applicants: v.applicants,
   }));
 
   return {
