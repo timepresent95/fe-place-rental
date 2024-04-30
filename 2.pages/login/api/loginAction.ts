@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { postLogin } from "@/5.entities/User/api";
@@ -14,6 +15,7 @@ export default async function loginAction(
   const result = await postLogin(signupBody);
 
   if (result.status === "success") {
+    revalidatePath("/admin", "layout");
     return redirect("/");
   }
 
