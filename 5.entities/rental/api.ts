@@ -21,7 +21,7 @@ export const apiEndpoint = {
   my: rentalBaseURL + "/my",
 };
 
-const RENTAL_REVALIDTE_TAG = "rental-list";
+export const RENTAL_REVALIDTE_TAG = "rental-list";
 
 export async function getListRental(
   req: ListRentalRequestQuery

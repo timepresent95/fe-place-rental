@@ -10,7 +10,7 @@ export function formatGatheringTable(
 ): GatheringTalbe {
   const datas: GatheringTableRow[] = listGathering.list.map((v) => ({
     id: v.id,
-    applicantName: v.applicantName,
+    hostName: v.hostName,
     gatheringDate: dayjs(v.useDate).format("YYYY-MM-DD"),
     applicationDate: dayjs(v.applicationDate).format("YYYY-MM-DD"),
     contactEmail: v.contactEmail,

@@ -1,3 +1,4 @@
+import { RENTAL_REVALIDTE_TAG } from "@/5.entities/Rental/api";
 import { ApiResult, baseUrl, fetchAPI } from "@/6.shared/lib/api";
 import { generateUrl } from "@/6.shared/lib/api/util";
 
@@ -39,7 +40,10 @@ export async function getListGathering(
 
   return fetchAPI(url.toString(), {
     method: "get",
-    next: { tags: [GATHERING_REVALIDTE_TAG], revalidate: 5 * 60 },
+    next: {
+      tags: [GATHERING_REVALIDTE_TAG, RENTAL_REVALIDTE_TAG],
+      revalidate: 5 * 60,
+    },
   });
 }
 

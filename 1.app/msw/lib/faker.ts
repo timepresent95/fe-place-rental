@@ -20,7 +20,7 @@ export function createMockReservation(): Rental {
   const capacity = faker.number.int({ min: 3, max: 30 });
   return {
     id: faker.string.uuid(),
-    applicantName: faker.person.fullName(),
+    hostName: faker.person.fullName(),
     contactEmail: faker.internet.email(),
     contactPhone: faker.phone.number(),
     expectedParticipants: capacity,

@@ -12,7 +12,8 @@ const columns: TableColumns<GatheringTableRow> = [
     columnName: "모임 소개",
     className: "max-w-64 truncate",
   },
-  { accessKey: "applicantName", columnName: "신청자" },
+  { accessKey: "hostName", columnName: "주최자" },
+  { accessKey: "participantState", columnName: "참여 현황" },
   { accessKey: "gatheringDate", columnName: "모임 예정일" },
   { accessKey: "applicationDate", columnName: "신청 일" },
 ];

@@ -103,6 +103,22 @@ export default ((): HttpHandler[] => {
       const targetIndex = store.data.rental.list.findIndex(
         (rental) => rental.id === id
       );
+      if (body.applicationState !== undefined) {
+        if (body.applicationState === "approved") {
+          store.data.gathering.list.push({
+            ...store.data.rental.list[targetIndex],
+            attendees: [],
+            applicants: [],
+          });
+        } else if (body.applicationState === "rejected") {
+          const targetGatheringIndex = store.data.gathering.list.findIndex(
+            (gathering) => gathering.id === id
+          );
+          if (targetGatheringIndex >= 0) {
+            store.data.gathering.list.splice(targetGatheringIndex, 1);
+          }
+        }
+      }
 
       if (targetIndex < 0) {
         return notFoundDataResponse();

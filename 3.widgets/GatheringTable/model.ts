@@ -2,7 +2,7 @@ import { ApplicationState } from "@/4.features/Gathering/model";
 
 export type GatheringTableRow = {
   id: string;
-  applicantName: string;
+  hostName: string;
   gatheringDate: string;
   applicationDate: string;
   contactEmail: string;

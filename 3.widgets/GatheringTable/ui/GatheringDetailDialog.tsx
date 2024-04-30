@@ -31,7 +31,7 @@ function GatheringDetailDialog() {
           <div className="space-y-1">
             <p>
               <span className="font-semibold mr-2">이름(단체명):</span>
-              {data.applicantName}
+              {data.hostName}
             </p>
             <p>
               <span className="font-semibold mr-2">이메일:</span>

@@ -34,7 +34,7 @@ function RentalDetailDialog() {
           <div className="space-y-1">
             <p>
               <span className="font-semibold">이름(단체명):</span>{" "}
-              {data.applicantName}
+              {data.hostName}
             </p>
             <p>
               <span className="font-semibold">이메일:</span> {data.contactEmail}

@@ -11,7 +11,7 @@ export const DEFAULT_PAGE_SIZE = 10;
 export function formatRentalTable(listRental: ListRentalResponse): RentalTalbe {
   const datas: RentalTableRow[] = listRental.list.map((v) => ({
     id: v.id,
-    applicantName: v.applicantName,
+    hostName: v.hostName,
     applicationState: APPLICANT_STATE_PRESENT[v.applicationState],
     expectedParticipants: v.expectedParticipants,
     rentalDate: dayjs(v.useDate).format("YYYY-MM-DD"),

@@ -30,7 +30,7 @@ const FORM_LABEL: {
     placeholder?: string;
   };
 } = {
-  applicantName: {
+  hostName: {
     label: "신청자 이름",
     placeholder: "단체인 경우 단체명",
   },
@@ -57,7 +57,7 @@ function RentalFormField() {
   const form = useForm<ApplyRentalRequestBody>({
     resolver: zodResolver(applyRentalBodyValidation),
     defaultValues: {
-      applicantName: "",
+      hostName: "",
       contactEmail: "",
       contactPhone: "",
       purpose: "",
@@ -69,7 +69,7 @@ function RentalFormField() {
 
   useEffect(() => {
     if (auth.uid) {
-      form.setValue("applicantName", auth.familyName! + auth.firstName!);
+      form.setValue("hostName", auth.familyName! + auth.firstName!);
       form.setValue("contactEmail", auth.email!);
       form.setValue("contactPhone", auth.phone!);
     }
@@ -139,7 +139,7 @@ function RentalFormField() {
         />
         <FormField
           control={form.control}
-          name="applicantName"
+          name="hostName"
           render={({ field }) => {
             return (
               <FormItem>

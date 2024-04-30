@@ -8,7 +8,7 @@ import { RentalManagementTableRow } from "../model";
 
 const columns: TableColumns<RentalManagementTableRow> = [
   { accessKey: "id", columnName: "예약 번호" },
-  { accessKey: "applicantName", columnName: "신청자" },
+  { accessKey: "hostName", columnName: "신청자" },
   { accessKey: "rentalDate", columnName: "대관 일" },
   { accessKey: "applicationDate", columnName: "신청 일" },
 ];
