@@ -2,7 +2,7 @@ import { Suspense } from "react";
 
 import { redirect } from "next/navigation";
 
-import EventTable from "@/3.widgets/EventTable/ui";
+import EventTable from "@/3.widgets/GatheringTable/ui";
 import { TableViewSkeleton } from "@/4.features/TableView/ui";
 
 import { DEFAULT_PAGE_SIZE } from "../lib";
@@ -17,7 +17,7 @@ interface Props {
   };
 }
 
-function EventListPage({ searchParams }: Props) {
+function GatheringListPage({ searchParams }: Props) {
   const paginationQuery = searchParams?.[PAGINATION_QUERY_KEY];
   const pageSizeQuery = searchParams?.[PAGE_SIZE_QUERY_KEY];
 
@@ -44,6 +44,6 @@ function EventListPage({ searchParams }: Props) {
   );
 }
 
-EventListPage.displayName = "EventListPage";
+GatheringListPage.displayName = "GatheringListPage";
 
-export default EventListPage;
+export default GatheringListPage;

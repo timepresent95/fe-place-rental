@@ -1,3 +1,3 @@
-import EventLayout from "@/2.pages/event/layout";
+import GatheringLayout from "@/2.pages/gathering/layout";
 
-export default EventLayout;
+export default GatheringLayout;

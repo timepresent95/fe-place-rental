@@ -1,3 +1,3 @@
-import EventListPage from "@/2.pages/event/list/ui/page";
+import GatheringListPage from "@/2.pages/gathering/list/ui/page";
 
-export default EventListPage;
+export default GatheringListPage;

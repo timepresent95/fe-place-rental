@@ -1,15 +1,17 @@
 import { ListGatheringResponse } from "@/4.features/Gathering/model";
 import dayjs from "@/6.shared/lib/dayjs";
 
-import { EventTableRow, EventTalbe } from "./model";
+import { GatheringTableRow, GatheringTalbe } from "./model";
 
 export const DEFAULT_PAGE_SIZE = 10;
 
-export function formatEventTable(listEvent: ListGatheringResponse): EventTalbe {
-  const datas: EventTableRow[] = listEvent.list.map((v) => ({
+export function formatGatheringTable(
+  listGathering: ListGatheringResponse
+): GatheringTalbe {
+  const datas: GatheringTableRow[] = listGathering.list.map((v) => ({
     id: v.id,
     applicantName: v.applicantName,
-    eventDate: dayjs(v.useDate).format("YYYY-MM-DD"),
+    GatheringDate: dayjs(v.useDate).format("YYYY-MM-DD"),
     applicationDate: dayjs(v.applicationDate).format("YYYY-MM-DD"),
     contactEmail: v.contactEmail,
     contactPhone: v.contactPhone,
@@ -20,10 +22,10 @@ export function formatEventTable(listEvent: ListGatheringResponse): EventTalbe {
   }));
 
   return {
-    id: listEvent.id,
+    id: listGathering.id,
     rows: datas,
-    total: listEvent.total,
-    pageSize: listEvent.pageSize,
-    offset: listEvent.offset,
+    total: listGathering.total,
+    pageSize: listGathering.pageSize,
+    offset: listGathering.offset,
   };
 }

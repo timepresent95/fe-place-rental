@@ -1,9 +1,9 @@
 import { ApplicationState } from "@/4.features/Gathering/model";
 
-export type EventTableRow = {
+export type GatheringTableRow = {
   id: string;
   applicantName: string;
-  eventDate: string;
+  gatheringDate: string;
   applicationDate: string;
   contactEmail: string;
   contactPhone: string;
@@ -13,9 +13,9 @@ export type EventTableRow = {
   isPublic: boolean;
 };
 
-export type EventTalbe = {
+export type GatheringTalbe = {
   id: string;
-  rows: EventTableRow[];
+  rows: GatheringTableRow[];
   total: number;
   pageSize: number;
   offset: number;

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import { getMy } from "@/5.entities/User/api";
 
-async function EventLayout({ children }: PropsWithChildren) {
+async function GatheringLayout({ children }: PropsWithChildren) {
   const result = await getMy();
   if (result.status === "error" || result.data.authority !== "user") {
     redirect("/");
@@ -13,6 +13,6 @@ async function EventLayout({ children }: PropsWithChildren) {
   return children;
 }
 
-EventLayout.displayName = "EventLayout";
+GatheringLayout.displayName = "GatheringLayout";
 
-export default EventLayout;
+export default GatheringLayout;

@@ -3,10 +3,10 @@
 import { useTableWithDialog } from "@/5.entities/TableWithDialog/lib";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 
-import { EventTableRow } from "../model";
+import { GatheringTableRow } from "../model";
 
-function EventDetailDialog() {
-  const { data } = useTableWithDialog<EventTableRow>();
+function GatheringDetailDialog() {
+  const { data } = useTableWithDialog<GatheringTableRow>();
   return (
     <section className="pt-1">
       <h2 className="font-bold text-2xl text-center mb-6">행사 상세 정보</h2>
@@ -18,7 +18,7 @@ function EventDetailDialog() {
             {data.id}
           </p>
           <p>
-            <span className="font-semibold">행사 일:</span> {data.eventDate}
+            <span className="font-semibold">행사 일:</span> {data.gatheringDate}
           </p>
         </div>
         <div className="border-b border-slate p-3">
@@ -61,5 +61,5 @@ function EventDetailDialog() {
   );
 }
 
-EventDetailDialog.displayName = "EventDetailDialog";
-export default EventDetailDialog;
+GatheringDetailDialog.displayName = "GatheringDetailDialog";
+export default GatheringDetailDialog;
