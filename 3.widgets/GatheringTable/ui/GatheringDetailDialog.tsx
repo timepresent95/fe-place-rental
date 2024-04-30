@@ -9,7 +9,7 @@ function GatheringDetailDialog() {
   const { data } = useTableWithDialog<GatheringTableRow>();
   return (
     <section className="pt-1">
-      <h2 className="font-bold text-2xl text-center mb-6">행사 상세 정보</h2>
+      <h2 className="font-bold text-2xl text-center mb-6">모임 상세 정보</h2>
 
       <div>
         <div className="flex border-slate justify-between border-b p-3">
@@ -18,12 +18,12 @@ function GatheringDetailDialog() {
             {data.id}
           </p>
           <p>
-            <span className="font-semibold mr-2">행사 일:</span>
+            <span className="font-semibold mr-2">모임 일:</span>
             {data.gatheringDate}
           </p>
         </div>
         <div className="border-b border-slate p-3">
-          <h6 className="mb-2 font-semibold text-lg">행사 소개</h6>
+          <h6 className="mb-2 font-semibold text-lg">모임 소개</h6>
           <p>{data.purpose}</p>
         </div>
         <div className="border-b border-slate p-3">

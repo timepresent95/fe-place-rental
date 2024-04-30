@@ -40,10 +40,10 @@ export default function Page() {
         <div>
           <span className="text-indigo-600 font-bold">point 1</span>
           <h2 className="font-bold text-2xl my-4">
-            매일 열리는 특별한 행사 참여
+            매일 열리는 특별한 모임 참여
           </h2>
           <p className="font-medium">
-            특별한 장소에서 진행되는 다채로운 행사들을 찾아보고 참여하세요.
+            특별한 장소에서 진행되는 다채로운 모임들을 찾아보고 참여하세요.
           </p>
           <div className="mt-12">
             <AuthLink
@@ -53,7 +53,7 @@ export default function Page() {
                 variant="outline"
                 className="font-semibold rounded-3xl"
                 size="lg">
-                행사 참여하러 가기
+                모임 참여하러 가기
               </Button>
             </AuthLink>
           </div>

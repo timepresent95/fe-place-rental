@@ -16,7 +16,7 @@ function Footer() {
             <MainLogo />
             <div className="mt-2">
               <p>
-                본 페이지는 시설 대관 및 행사 참여를 위한
+                본 페이지는 시설 대관 및 모임 참여를 위한
                 프로토타입페이지입니다.
               </p>
               <p>

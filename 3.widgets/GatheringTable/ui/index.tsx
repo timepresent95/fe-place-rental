@@ -9,11 +9,11 @@ import { GatheringTableRow } from "../model";
 const columns: TableColumns<GatheringTableRow> = [
   {
     accessKey: "purpose",
-    columnName: "행사 소개",
+    columnName: "모임 소개",
     className: "max-w-64 truncate",
   },
   { accessKey: "applicantName", columnName: "신청자" },
-  { accessKey: "gatheringDate", columnName: "행사 일" },
+  { accessKey: "gatheringDate", columnName: "모임 예정일" },
   { accessKey: "applicationDate", columnName: "신청 일" },
 ];
 
