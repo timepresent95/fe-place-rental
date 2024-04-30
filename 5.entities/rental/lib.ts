@@ -25,7 +25,7 @@ export const RentalValidation = applyRentalBodyValidation.extend({
     z.literal("rejected"),
     z.literal("pending"),
   ]),
-  applicantId: z.string(),
+  hostId: z.string(),
 });
 
 type RentalValidationKey = keyof z.infer<typeof RentalValidation>;

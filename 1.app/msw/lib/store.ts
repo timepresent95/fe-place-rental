@@ -59,7 +59,7 @@ export default class CustomStore {
         id: placeId,
         list: rentalList
           .filter((v) => v.applicationState === "approved")
-          .map((v) => ({ ...v, attendees: [] })),
+          .map((v) => ({ ...v, attendees: [], applicants: [] })),
         total: rentalList.length,
       },
     };

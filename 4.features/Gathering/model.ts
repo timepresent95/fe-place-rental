@@ -1,4 +1,5 @@
 import { Rental } from "@/5.entities/Rental/model";
+import { User } from "@/5.entities/User/model";
 
 export const APPLICATION_STATE_PRESENT = {
   approved: "승인",
@@ -19,7 +20,10 @@ export interface Gathering {
   applicants: GatheringApplicant[];
 }
 
-export type GatheringDetail = Rental & { attendees: string[] };
+export type GatheringDetail = Rental & {
+  attendees: string[];
+  applicants: User[];
+};
 
 export type ListGatheringRequestQuery = {
   pageSize: number;

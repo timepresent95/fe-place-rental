@@ -16,7 +16,7 @@ export type Rental = ApplyRentalRequestBody & {
   id: string;
   applicationDate: Date;
   applicationState: ApplicationState;
-  applicantId?: string;
+  hostId?: string;
 };
 
 export type ApplyRentalResponse = Rental;

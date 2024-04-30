@@ -64,7 +64,7 @@ export default ((): HttpHandler[] => {
 
   const postAPI = http.post(apiEndpoint.apply, async ({ request }) => {
     const extractResult = await extractUid(request);
-    const applicantId =
+    const hostId =
       extractResult.status === "success" ? extractResult.data.uid : undefined;
     const body = (await request.json()) as ApplyRentalRequestBody;
     const newReservation: ApplyRentalResponse = {
@@ -72,7 +72,7 @@ export default ((): HttpHandler[] => {
       id: faker.string.uuid(),
       applicationDate: new Date(),
       applicationState: "pending",
-      applicantId,
+      hostId,
     };
     store.data.rental.list.push(newReservation);
     store.data.rental.total++;
@@ -121,7 +121,7 @@ export default ((): HttpHandler[] => {
 
   const myAPI = http.get(apiEndpoint.my, async ({ request }) => {
     const extractResult = await extractUid(request);
-    const applicantId =
+    const hostId =
       extractResult.status === "success" ? extractResult.data.uid : undefined;
 
     if (extractResult.status === "error") {
@@ -134,7 +134,7 @@ export default ((): HttpHandler[] => {
       url.searchParams.get("pageSize") ?? DEFAULT_PAGE_SIZE
     );
     const reservations = store.data.rental.list
-      .filter((v) => v.applicantId === applicantId)
+      .filter((v) => v.hostId === hostId)
       .slice(offset, offset + pageSize);
     return HttpResponse.json<ListRentalResponse>({
       id: store.data.rental.id,
