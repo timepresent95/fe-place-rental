@@ -2,10 +2,20 @@ import { HttpHandler, HttpResponse, http } from "msw";
 
 import { DEFAULT_PAGE_SIZE } from "@/3.widgets/GatheringTable/lib";
 import { apiEndpoint } from "@/4.features/Gathering/api";
-import { ListGatheringResponse } from "@/4.features/Gathering/model";
+import {
+  ApplyGatheringRequestBody,
+  ApplyGatheringResponse,
+  ListGatheringResponse,
+} from "@/4.features/Gathering/model";
 import { Rental } from "@/5.entities/Rental/model";
 import dayjs from "@/6.shared/lib/dayjs";
 
+import { extractUid } from "./util";
+import {
+  badRequestWrongTokenResponse,
+  forbiddenUnAuthenticatedResponse,
+  notFoundDataResponse,
+} from "../lib/DetailErrorResponse";
 import CustomStore from "../lib/store";
 
 export default ((): HttpHandler[] => {
@@ -50,5 +60,30 @@ export default ((): HttpHandler[] => {
     });
   });
 
-  return [listAPI];
+  const applyAPI = http.post(apiEndpoint.apply, async ({ request }) => {
+    const extractResult = await extractUid(request);
+    const userId =
+      extractResult.status === "success" ? extractResult.data.uid : undefined;
+    if (!userId) {
+      return badRequestWrongTokenResponse();
+    }
+    const { rentalId, applicantId } =
+      (await request.json()) as ApplyGatheringRequestBody;
+    const targetIndex = store.data.gathering.list.findIndex(
+      (v) => v.id === rentalId
+    );
+    const targetUser = store.data.user.find((v) => v.id === applicantId);
+    if (targetIndex === undefined) {
+      return notFoundDataResponse();
+    }
+
+    if (targetUser === undefined) {
+      return forbiddenUnAuthenticatedResponse();
+    }
+    store.data.gathering.list[targetIndex].applicants.push(targetUser);
+
+    return HttpResponse.json<ApplyGatheringResponse>({ rentalId });
+  });
+
+  return [listAPI, applyAPI];
 })();

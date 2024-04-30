@@ -1,12 +1,23 @@
 "use client";
 
+import { toast } from "sonner";
+
+import { applyEvent } from "@/4.features/Gathering/api";
 import { useTableWithDialog } from "@/5.entities/TableWithDialog/lib";
+import { useUserContext } from "@/5.entities/User/lib/context";
+import { customClientErrorCodes } from "@/6.shared/lib/api/customResponse";
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
 
 import { GatheringTableRow } from "../model";
 
 function GatheringDetailDialog() {
   const { data } = useTableWithDialog<GatheringTableRow>();
+  const user = useUserContext();
+
+  if (user.uid === undefined) {
+    throw customClientErrorCodes[40002].message;
+  }
+
   return (
     <section className="pt-1">
       <h2 className="font-bold text-2xl text-center mb-6">모임 상세 정보</h2>
@@ -56,7 +67,20 @@ function GatheringDetailDialog() {
         </div>
       </div>
       <div className="flex justify-center space-x-12 p-3 mt-4">
-        <Button size="lg" onClick={() => {}}>
+        <Button
+          size="lg"
+          onClick={() => {
+            applyEvent({ rentalId: data.id, applicantId: user.uid! })
+              .then(() => {
+                toast("참여 신청이 완료되었습니다.");
+              })
+              .catch((error: unknown) => {
+                toast("서버 에러", {
+                  description:
+                    "참여 신청이 실패했습니다. 잠시후 다시 시도해주세요",
+                });
+              });
+          }}>
           참여 신청
         </Button>
       </div>

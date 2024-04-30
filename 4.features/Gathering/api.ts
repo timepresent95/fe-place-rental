@@ -60,6 +60,7 @@ export async function invitationEvent(
     GATHERING_REVALIDTE_TAG
   );
 }
+
 export async function applyEvent(
   body: ApplyGatheringRequestBody
 ): Promise<ApiResult<ApplyGatheringResponse>> {

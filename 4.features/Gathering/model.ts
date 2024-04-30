@@ -9,17 +9,6 @@ export const APPLICATION_STATE_PRESENT = {
 
 export type ApplicationState = keyof typeof APPLICATION_STATE_PRESENT;
 
-interface GatheringApplicant {
-  applicantId: string;
-  applicationDate: Date;
-  applicationState: ApplicationState;
-}
-
-export interface Gathering {
-  rentalId: string;
-  applicants: GatheringApplicant[];
-}
-
 export type GatheringDetail = Rental & {
   attendees: string[];
   applicants: User[];
@@ -46,12 +35,16 @@ export interface ApplyGatheringRequestBody {
   rentalId: string;
 }
 
-export type ApplyGatheringResponse = Gathering;
+export type ApplyGatheringResponse = {
+  rentalId: string;
+};
 
-export type InvitaionGatheringReqeustParam = Gathering["rentalId"];
+export type InvitaionGatheringReqeustParam = string;
 export interface InvitaionGatheringRequestBody {
   applicantId: string;
   applicationState: ApplicationState;
 }
 
-export type InvitaionGatheringResponse = Gathering;
+export type InvitaionGatheringResponse = {
+  rentalId: string;
+};
