@@ -11,7 +11,7 @@ export type ApplicationState = keyof typeof APPLICATION_STATE_PRESENT;
 
 export type GatheringDetail = Rental & {
   attendees: string[];
-  applicants: User[];
+  applicants: (User & { applicationState: ApplicationState })[];
 };
 
 export type ListGatheringRequestQuery = {
@@ -31,7 +31,6 @@ export interface ListGatheringResponse {
 }
 
 export interface ApplyGatheringRequestBody {
-  applicantId: string;
   rentalId: string;
 }
 
@@ -48,3 +47,16 @@ export interface InvitaionGatheringRequestBody {
 export type InvitaionGatheringResponse = {
   rentalId: string;
 };
+
+export type MyGatheringRequestQuery = {
+  pageSize: number;
+  offset: number;
+};
+
+export interface MyGatheringResponse {
+  id: string;
+  list: GatheringDetail[];
+  total: number;
+  pageSize: number;
+  offset: number;
+}

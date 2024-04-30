@@ -5,7 +5,10 @@ import { apiEndpoint } from "@/4.features/Gathering/api";
 import {
   ApplyGatheringRequestBody,
   ApplyGatheringResponse,
+  InvitaionGatheringRequestBody,
+  InvitaionGatheringResponse,
   ListGatheringResponse,
+  MyGatheringResponse,
 } from "@/4.features/Gathering/model";
 import { Rental } from "@/5.entities/Rental/model";
 import dayjs from "@/6.shared/lib/dayjs";
@@ -15,6 +18,7 @@ import {
   badRequestWrongTokenResponse,
   forbiddenUnAuthenticatedResponse,
   notFoundDataResponse,
+  unauthenticatedUnauthroizedResponse,
 } from "../lib/DetailErrorResponse";
 import CustomStore from "../lib/store";
 
@@ -67,12 +71,11 @@ export default ((): HttpHandler[] => {
     if (!userId) {
       return badRequestWrongTokenResponse();
     }
-    const { rentalId, applicantId } =
-      (await request.json()) as ApplyGatheringRequestBody;
+    const { rentalId } = (await request.json()) as ApplyGatheringRequestBody;
     const targetIndex = store.data.gathering.list.findIndex(
       (v) => v.id === rentalId
     );
-    const targetUser = store.data.user.find((v) => v.id === applicantId);
+    const targetUser = store.data.user.find((v) => v.uid === userId);
     if (targetIndex === undefined) {
       return notFoundDataResponse();
     }
@@ -80,10 +83,88 @@ export default ((): HttpHandler[] => {
     if (targetUser === undefined) {
       return forbiddenUnAuthenticatedResponse();
     }
-    store.data.gathering.list[targetIndex].applicants.push(targetUser);
+    store.data.gathering.list[targetIndex].applicants.push({
+      ...targetUser,
+      applicationState: "pending",
+    });
+
 
     return HttpResponse.json<ApplyGatheringResponse>({ rentalId });
   });
 
-  return [listAPI, applyAPI];
+  const invitaionAPI = http.post(
+    apiEndpoint.invitaion,
+    async ({ request, params }) => {
+      const id = params.id as string;
+
+      const targetIndex = store.data.gathering.list.findIndex(
+        (v) => v.id === id
+      );
+
+      if (targetIndex === undefined) {
+        return notFoundDataResponse();
+      }
+
+      const extractResult = await extractUid(request);
+      const uid =
+        extractResult.status === "success" ? extractResult.data.uid : undefined;
+      if (!uid) {
+        return badRequestWrongTokenResponse();
+      }
+
+      if (store.data.gathering.list[targetIndex].hostId !== uid) {
+        return unauthenticatedUnauthroizedResponse();
+      }
+
+      const { applicantId, applicationState } =
+        (await request.json()) as InvitaionGatheringRequestBody;
+
+      const targetApplicantIndex = store.data.gathering.list[
+        targetIndex
+      ].applicants.findIndex((v) => v.uid === applicantId);
+
+      if (targetApplicantIndex === undefined) {
+        return notFoundDataResponse();
+      }
+
+      store.data.gathering.list[targetIndex].applicants[targetApplicantIndex] =
+        {
+          ...store.data.gathering.list[targetIndex].applicants[
+            targetApplicantIndex
+          ],
+          applicationState,
+        };
+      return HttpResponse.json<InvitaionGatheringResponse>({ rentalId: id });
+    }
+  );
+
+  const myAPI = http.get(apiEndpoint.my, async ({ request }) => {
+    const extractResult = await extractUid(request);
+
+    if (extractResult.status === "error") {
+      return forbiddenUnAuthenticatedResponse();
+    }
+
+    const uid = extractResult.data.uid;
+
+    const url = new URL(request.url);
+    const offset = Number(url.searchParams.get("offset") ?? 1);
+    const pageSize = Number(
+      url.searchParams.get("pageSize") ?? DEFAULT_PAGE_SIZE
+    );
+
+    const reservations = store.data.gathering.list
+      .filter((v) => v.hostId === uid)
+      .slice(offset, offset + pageSize);
+
+    return HttpResponse.json<MyGatheringResponse>({
+      id: store.data.rental.id,
+      list: reservations,
+      total: reservations.length,
+      pageSize,
+      offset,
+    });
+  });
+
+  return [listAPI, applyAPI, invitaionAPI, myAPI];
 })();

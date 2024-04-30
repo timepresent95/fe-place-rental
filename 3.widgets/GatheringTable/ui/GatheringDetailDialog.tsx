@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 
-import { applyEvent } from "@/4.features/Gathering/api";
+import { applyGathering } from "@/4.features/Gathering/api";
 import { useTableWithDialog } from "@/5.entities/TableWithDialog/lib";
 import { useUserContext } from "@/5.entities/User/lib/context";
 import { customClientErrorCodes } from "@/6.shared/lib/api/customResponse";
@@ -70,16 +70,16 @@ function GatheringDetailDialog() {
         <Button
           size="lg"
           onClick={() => {
-            applyEvent({ rentalId: data.id, applicantId: user.uid! })
-              .then(() => {
-                toast("참여 신청이 완료되었습니다.");
-              })
-              .catch((error: unknown) => {
+            applyGathering({ rentalId: data.id }).then((res) => {
+              if (res.status === "error") {
                 toast("서버 에러", {
                   description:
                     "참여 신청이 실패했습니다. 잠시후 다시 시도해주세요",
                 });
-              });
+              } else {
+                toast("참여 신청이 완료되었습니다.");
+              }
+            });
           }}>
           참여 신청
         </Button>

@@ -87,6 +87,10 @@ export const routeGroups: RouteGroup[] = [
         name: "나의 신청 현황",
         path: "/my/reservation",
       },
+      {
+        name: "나의 모임 관리",
+        path: "/my/gathering",
+      },
     ],
   },
 ];

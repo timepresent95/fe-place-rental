@@ -10,6 +10,8 @@ import {
   InvitaionGatheringResponse,
   ListGatheringRequestQuery,
   ListGatheringResponse,
+  MyGatheringRequestQuery,
+  MyGatheringResponse,
 } from "./model";
 
 const gatheringBaseURL = baseUrl + "/gathering";
@@ -17,6 +19,7 @@ export const apiEndpoint = {
   list: gatheringBaseURL + "/list",
   apply: gatheringBaseURL + "/apply",
   invitaion: gatheringBaseURL + "/:id",
+  my: gatheringBaseURL + "/my",
 };
 
 const GATHERING_REVALIDTE_TAG = "gathering-list";
@@ -47,7 +50,7 @@ export async function getListGathering(
   });
 }
 
-export async function invitationEvent(
+export async function invitationGathering(
   id: InvitaionGatheringReqeustParam,
   body: InvitaionGatheringRequestBody
 ): Promise<ApiResult<InvitaionGatheringResponse>> {
@@ -61,7 +64,7 @@ export async function invitationEvent(
   );
 }
 
-export async function applyEvent(
+export async function applyGathering(
   body: ApplyGatheringRequestBody
 ): Promise<ApiResult<ApplyGatheringResponse>> {
   return fetchAPI(
@@ -72,4 +75,18 @@ export async function applyEvent(
     },
     GATHERING_REVALIDTE_TAG
   );
+}
+
+export async function getMyGathering(
+  req: MyGatheringRequestQuery
+): Promise<ApiResult<MyGatheringResponse>> {
+  const url = new URL(apiEndpoint.my);
+  for (const [key, value] of Object.entries(req)) {
+    url.searchParams.set(key, value.toString());
+  }
+
+  return fetchAPI(url.toString(), {
+    method: "get",
+    next: { tags: [GATHERING_REVALIDTE_TAG] },
+  });
 }
