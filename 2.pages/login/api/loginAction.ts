@@ -15,7 +15,7 @@ export default async function loginAction(
   const result = await postLogin(signupBody);
 
   if (result.status === "success") {
-    revalidatePath("/admin", "layout");
+    revalidatePath("/", "layout");
     return redirect("/");
   }
 
