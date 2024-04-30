@@ -40,7 +40,6 @@ export type ApplyGatheringResponse = {
 
 export type InvitaionGatheringReqeustParam = string;
 export interface InvitaionGatheringRequestBody {
-  applicantId: string;
   applicationState: ApplicationState;
 }
 

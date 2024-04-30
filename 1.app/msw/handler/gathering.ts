@@ -88,11 +88,10 @@ export default ((): HttpHandler[] => {
       applicationState: "pending",
     });
 
-
     return HttpResponse.json<ApplyGatheringResponse>({ rentalId });
   });
 
-  const invitaionAPI = http.post(
+  const invitaionAPI = http.patch(
     apiEndpoint.invitaion,
     async ({ request, params }) => {
       const id = params.id as string;
@@ -100,7 +99,6 @@ export default ((): HttpHandler[] => {
       const targetIndex = store.data.gathering.list.findIndex(
         (v) => v.id === id
       );
-
       if (targetIndex === undefined) {
         return notFoundDataResponse();
       }
@@ -116,12 +114,12 @@ export default ((): HttpHandler[] => {
         return unauthenticatedUnauthroizedResponse();
       }
 
-      const { applicantId, applicationState } =
+      const { applicationState } =
         (await request.json()) as InvitaionGatheringRequestBody;
 
       const targetApplicantIndex = store.data.gathering.list[
         targetIndex
-      ].applicants.findIndex((v) => v.uid === applicantId);
+      ].applicants.findIndex((v) => v.uid === uid);
 
       if (targetApplicantIndex === undefined) {
         return notFoundDataResponse();
