@@ -67,7 +67,7 @@ function TableWithDialog<T extends TableData>({
         </TableBody>
       </Table>
       <div
-        className="flex h-full items-center justify-center text-muted-foreground"
+        className="flex h-full items-center justify-center text-muted-foreground bg-slate-50"
         style={{ minHeight: `calc(2.5rem*${pageSize - datas.length})` }}>
         {datas.length === 0 ? <span>{emptyMessage}</span> : null}
       </div>

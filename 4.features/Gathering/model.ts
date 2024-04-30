@@ -24,7 +24,7 @@ export type GatheringDetail = Rental & { attendees: string[] };
 export type ListGatheringRequestQuery = {
   pageSize: number;
   offset: number;
-  available?: true;
+  available?: boolean;
   sort?: "applicationDate" | "useDate";
   sortDirection?: "desc" | "asc";
 };

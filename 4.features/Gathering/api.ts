@@ -25,6 +25,9 @@ export async function getListGathering(
 ): Promise<ApiResult<ListGatheringResponse>> {
   const url = new URL(apiEndpoint.list);
   for (const [key, value] of Object.entries(req)) {
+    if (value === undefined) {
+      continue;
+    }
     if (Array.isArray(value)) {
       value.forEach((v) => {
         url.searchParams.append(key, v);

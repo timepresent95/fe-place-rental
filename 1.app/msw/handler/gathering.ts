@@ -21,15 +21,26 @@ export default ((): HttpHandler[] => {
       "applicationDate") as keyof Rental;
     const sortDirection =
       url.searchParams.get("sortDirection") === "desc" ? -1 : 1;
-
-    const list = store.data.gathering.list.sort((a, b) => {
-      if (dayjs(a[sort] as Date).isSame(dayjs(b[sort] as Date))) {
-        return 0;
-      }
-      return dayjs(a[sort] as Date).isAfter(dayjs(b[sort] as Date))
-        ? 1 * sortDirection
-        : -1 * sortDirection;
-    });
+    const list = store.data.gathering.list
+      .filter((v) => {
+        const availableFilter = url.searchParams.get("available");
+        if (availableFilter === null || availableFilter === "false") {
+          return true;
+        } else {
+          return (
+            dayjs(v.useDate).isAfter(dayjs()) &&
+            v.expectedParticipants > v.attendees.length
+          );
+        }
+      })
+      .sort((a, b) => {
+        if (dayjs(a[sort] as Date).isSame(dayjs(b[sort] as Date))) {
+          return 0;
+        }
+        return dayjs(a[sort] as Date).isAfter(dayjs(b[sort] as Date))
+          ? 1 * sortDirection
+          : -1 * sortDirection;
+      });
     return HttpResponse.json<ListGatheringResponse>({
       id: store.data.rental.id,
       list: list.slice(offset, offset + pageSize),

@@ -20,13 +20,20 @@ const columns: TableColumns<GatheringTableRow> = [
 interface Props {
   pageSize: number;
   offset: number;
+  availableFilter?: boolean;
   paginationQueryKey: string;
 }
 
-async function EventTable({ pageSize, offset, paginationQueryKey }: Props) {
+async function EventTable({
+  pageSize,
+  offset,
+  availableFilter,
+  paginationQueryKey,
+}: Props) {
   const response = await getListGathering({
     pageSize,
     offset,
+    available: availableFilter,
     sort: "useDate",
   });
 

@@ -19,20 +19,19 @@ interface Props {
   paginationQueryKey: string;
 }
 
-function RentalFilters({ filterQueryKey, paginationQueryKey }: Props) {
+type FilterValue = "true" | "false";
+function GatheringFilters({ filterQueryKey, paginationQueryKey }: Props) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  const applicationState = searchParams.getAll(
-    filterQueryKey
-  ) as ApplicationState[];
+  const availableFilter = searchParams.get(filterQueryKey) as FilterValue;
 
-  const replacePageURL = (state: ApplicationState) => {
+  const replacePageURL = () => {
     const params = new URLSearchParams(searchParams);
-    if (applicationState.includes(state)) {
-      params.delete(filterQueryKey, state);
+    if (availableFilter === "true") {
+      params.set(filterQueryKey, "false");
     } else {
-      params.append(filterQueryKey, state);
+      params.set(filterQueryKey, "true");
     }
     params.set(paginationQueryKey, "1");
     replace(`${pathname}?${params.toString()}`);
@@ -43,7 +42,7 @@ function RentalFilters({ filterQueryKey, paginationQueryKey }: Props) {
       <MenubarMenu>
         <MenubarTrigger asChild className="cursor-pointer">
           <Button variant="outline" className="flex items-center">
-            신청 현황
+            필터
             <ChevronDown size={16} className="ml-2" />
           </Button>
         </MenubarTrigger>
@@ -51,42 +50,14 @@ function RentalFilters({ filterQueryKey, paginationQueryKey }: Props) {
           <MenubarItem>
             <div className="flex items-center space-x-2">
               <Checkbox
-                id="approved"
-                checked={applicationState.includes("approved")}
-                onClick={() => replacePageURL("approved")}
+                id="available"
+                checked={availableFilter === "true"}
+                onClick={() => replacePageURL()}
               />
               <label
-                htmlFor="approved"
+                htmlFor="available"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                 승인
-              </label>
-            </div>
-          </MenubarItem>
-          <MenubarItem>
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="rejected"
-                checked={applicationState.includes("rejected")}
-                onClick={() => replacePageURL("rejected")}
-              />
-              <label
-                htmlFor="rejected"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                거절
-              </label>
-            </div>
-          </MenubarItem>
-          <MenubarItem>
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="pending"
-                checked={applicationState.includes("pending")}
-                onClick={() => replacePageURL("pending")}
-              />
-              <label
-                htmlFor="pending"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                심사중
               </label>
             </div>
           </MenubarItem>
@@ -96,6 +67,6 @@ function RentalFilters({ filterQueryKey, paginationQueryKey }: Props) {
   );
 }
 
-RentalFilters.displayName = "RentalFilters";
+GatheringFilters.displayName = "GatheringFilters";
 
-export default RentalFilters;
+export default GatheringFilters;

@@ -3,41 +3,45 @@ import { Suspense } from "react";
 import { redirect } from "next/navigation";
 
 import EventTable from "@/3.widgets/GatheringTable/ui";
+import GatheringFilters from "@/3.widgets/RentalFilters/ui";
 import { TableViewSkeleton } from "@/4.features/TableView/ui";
 
-import { DEFAULT_PAGE_SIZE } from "../lib";
-
-const PAGINATION_QUERY_KEY = "page-index";
-const PAGE_SIZE_QUERY_KEY = "page-size";
-
-interface Props {
-  searchParams?: {
-    [PAGINATION_QUERY_KEY]: string;
-    [PAGE_SIZE_QUERY_KEY]: string;
-  };
-}
+import {
+  AVAILABLE_FILTER_QUERY_KEY,
+  DEFAULT_PAGE_SIZE,
+  PAGINATION_QUERY_KEY,
+  Props,
+  createRedirectUrl,
+  extractQuery,
+} from "../lib";
 
 function GatheringListPage({ searchParams }: Props) {
-  const paginationQuery = searchParams?.[PAGINATION_QUERY_KEY];
-  const pageSizeQuery = searchParams?.[PAGE_SIZE_QUERY_KEY];
+  const { availableFilter, pagination, pageSize, offset } =
+    extractQuery(searchParams);
 
-  const pageIndex = Number(paginationQuery ?? 1);
-  const pageSize = Number(pageSizeQuery ?? DEFAULT_PAGE_SIZE);
-  const offset = (pageIndex - 1) * pageSize;
-
-  if (paginationQuery === undefined || pageSizeQuery === undefined) {
-    console.log(123)
-    redirect(
-      `/gathering/list?${PAGINATION_QUERY_KEY}=${pageIndex}&${PAGE_SIZE_QUERY_KEY}=${pageSize}`
-    );
+  if (
+    pagination === undefined ||
+    pageSize === undefined ||
+    offset === undefined
+  ) {
+    redirect(createRedirectUrl(1, DEFAULT_PAGE_SIZE, availableFilter));
   }
 
   return (
     <div className=" container">
-      <Suspense fallback={<TableViewSkeleton />} key={`${pageSize}-${offset}`}>
+      <div className="flex items-center">
+        <GatheringFilters
+          paginationQueryKey={PAGINATION_QUERY_KEY}
+          filterQueryKey={AVAILABLE_FILTER_QUERY_KEY}
+        />
+      </div>
+      <Suspense
+        fallback={<TableViewSkeleton />}
+        key={`${pageSize}-${offset}-${availableFilter}`}>
         <EventTable
           pageSize={pageSize}
           offset={offset}
+          availableFilter={availableFilter}
           paginationQueryKey={PAGINATION_QUERY_KEY}
         />
       </Suspense>
