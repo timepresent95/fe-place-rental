@@ -1,5 +1,3 @@
-"use server";
-
 import RentalFormField from "./RentalFormField";
 import ReservationGuide from "./RentalGuide";
 import { FACILITY_ID_QUERY_KEY } from "../lib";
