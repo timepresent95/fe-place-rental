@@ -11,14 +11,14 @@ export interface User {
   createdAt: Date;
 }
 
-const user = new Map<string, User>();
+export const users = new Map<User["id"], User>();
 
 export function createUser(payload: Omit<User, "id" | "createdAt">) {
   const id = faker.string.uuid();
   const createdAt = new Date();
-  user.set(id, { ...payload, id, createdAt });
+  users.set(id, { ...payload, id, createdAt });
 
-  return user.get(id) as User;
+  return users.get(id) as User;
 }
 
 export function createMockUser() {
