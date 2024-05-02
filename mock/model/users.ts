@@ -31,5 +31,9 @@ export function createMockUser() {
       faker.string.numeric({ allowLeadingZeros: false, length: 4 }) +
       faker.string.numeric({ length: 4 }),
   };
-  return createUser(payload);
+
+  const user = createUser(payload);
+  user.createdAt = faker.date.past({ years: 1 });
+
+  return user;
 }

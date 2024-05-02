@@ -47,7 +47,10 @@ export function createMockPlace(ownerId: Account["userId"]) {
     );
   }
 
-  const createdAt = new Date();
+  const createdAt = faker.date.between({
+    from: owner.createdAt,
+    to: faker.date.past({ years: 1 }),
+  });
   const address = [
     faker.location.country(),
     faker.location.state(),
