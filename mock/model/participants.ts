@@ -4,12 +4,12 @@ import { Party, parties } from "./parties";
 import { User, users } from "./users";
 import { InternalServerError, NotFoundError } from "../errors";
 
-type ParticipantPermission = "approved" | "rejected" | "pending";
+type RequestState = "approved" | "rejected" | "pending";
 
 interface Participant {
   userId: User["id"];
   partyId: Party["id"];
-  permission: ParticipantPermission;
+  requestState: RequestState;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -33,7 +33,7 @@ export function createParticipnat(userId: User["id"], partyId: Party["id"]) {
   participants.set(id, {
     userId,
     partyId,
-    permission: "pending",
+    requestState: "pending",
     createdAt,
     updatedAt: createdAt,
   });
@@ -55,15 +55,15 @@ export function createMockParticipnat(
   }
 
   const participants = createParticipnat(userId, partyId);
-  participants.permission = getRandomPermission();
+  participants.requestState = getRandomRequestState();
   participants.createdAt = faker.date.soon({ refDate: party.createdAt });
   participants.updatedAt = faker.date.soon({ refDate: participants.createdAt });
 
   return participants;
 }
 
-function getRandomPermission() {
+function getRandomRequestState() {
   return ["approved", "rejected", "pending"][
     Math.random() * 2
-  ] as ParticipantPermission;
+  ] as RequestState;
 }

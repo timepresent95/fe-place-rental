@@ -4,7 +4,7 @@ import { Account, accounts } from "./accounts";
 import { Place, places } from "./places";
 import { InternalServerError, NotFoundError } from "../errors";
 
-type PartyPermission = "approved" | "rejected" | "pending";
+type RequestState = "approved" | "rejected" | "pending";
 
 export interface Party {
   id: string;
@@ -13,7 +13,7 @@ export interface Party {
   description: string;
   capacity: number;
   partyAt: Date;
-  permission: PartyPermission;
+  requestState: RequestState;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -49,7 +49,7 @@ export function createParty(
     hostId: host.id,
     placeId: place.id,
     ...payload,
-    permission: "pending",
+    requestState: "pending",
     createdAt,
     updatedAt: createdAt,
   });
@@ -75,7 +75,7 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
       to: faker.date.soon(),
     }),
   });
-  party.permission = getRandomPermission();
+  party.requestState = getRandomRequestState();
   party.createdAt = faker.date.between({
     from: place.createdAt,
     to: faker.date.recent({ days: 31 }),
@@ -85,8 +85,8 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
   return party;
 }
 
-function getRandomPermission() {
+function getRandomRequestState() {
   return ["approved", "rejected", "pending"][
     Math.random() * 2
-  ] as PartyPermission;
+  ] as RequestState;
 }
