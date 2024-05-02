@@ -15,6 +15,7 @@ export interface Party {
   partyAt: Date;
   permission: PartyPermission;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 export const parties = new Map<string, Party>();
@@ -50,6 +51,7 @@ export function createParty(
     ...payload,
     permission: "pending",
     createdAt,
+    updatedAt: createdAt,
   });
 
   return parties.get(id) as Party;
@@ -73,10 +75,18 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
       to: faker.date.soon(),
     }),
   });
+  party.permission = getRandomPermission();
   party.createdAt = faker.date.between({
     from: place.createdAt,
     to: faker.date.recent({ days: 31 }),
   });
+  party.updatedAt = faker.date.soon({ refDate: party.createdAt });
 
   return party;
+}
+
+function getRandomPermission() {
+  return ["approved", "rejected", "pending"][
+    Math.random() * 2
+  ] as PartyPermission;
 }
