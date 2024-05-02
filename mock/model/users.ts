@@ -26,7 +26,10 @@ export function createMockUser() {
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     email: faker.internet.email(),
-    phone: faker.phone.number("010-####-####"),
+    phone:
+      "010" +
+      faker.string.numeric({ allowLeadingZeros: false, length: 4 }) +
+      faker.string.numeric({ length: 4 }),
   };
   return createUser(payload);
 }
