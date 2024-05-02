@@ -9,6 +9,7 @@ export interface Place {
   ownerId: Account["id"];
   capacity: number;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 export const places = new Map<Place["id"], Place>();
@@ -31,7 +32,7 @@ export function createPlace(
 
   const createdAt = new Date();
 
-  places.set(id, { ...payload, id, ownerId, createdAt });
+  places.set(id, { ...payload, id, ownerId, createdAt, updatedAt: createdAt });
 
   return places.get(id) as Place;
 }
@@ -64,6 +65,7 @@ export function createMockPlace(ownerId: Account["id"]) {
     createdAt,
     address,
     capacity: faker.number.int({ min: 3, max: 100 }),
+    updatedAt: createdAt,
   });
 
   return places.get(id) as Place;

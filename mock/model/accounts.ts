@@ -8,12 +8,14 @@ export interface Account {
   password: string;
   role: string;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 export const accounts = new Map<Account["id"], Account>();
 
 export function createAccount(
-  payload: Pick<Account, "password"> & Omit<User, "id" | "createdAt">
+  payload: Pick<Account, "password"> &
+    Omit<User, "id" | "createdAt" | "updatedAt">
 ) {
   const user = createUser({
     firstName: payload.firstName,
@@ -27,6 +29,7 @@ export function createAccount(
     password: payload.password,
     role: "user",
     createdAt: user.createdAt,
+    updatedAt: user.createdAt,
   });
 
   return accounts.get(user.id) as Account;
@@ -46,6 +49,7 @@ export function createMockAccount() {
     password: faker.internet.password(),
     role: "user",
     createdAt: user.createdAt,
+    updatedAt: user.createdAt,
   });
 
   return accounts.get(user.id) as Account;

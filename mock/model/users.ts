@@ -9,14 +9,17 @@ export interface User {
   email: string;
   phone: string;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 export const users = new Map<User["id"], User>();
 
-export function createUser(payload: Omit<User, "id" | "createdAt">) {
+export function createUser(
+  payload: Omit<User, "id" | "createdAt" | "updatedAt">
+) {
   const id = faker.string.uuid();
   const createdAt = new Date();
-  users.set(id, { ...payload, id, createdAt });
+  users.set(id, { ...payload, id, createdAt, updatedAt: createdAt });
 
   return users.get(id) as User;
 }

@@ -58,6 +58,7 @@ export function createMockParticipnat(
   participants.permission = getRandomPermission();
   participants.createdAt = faker.date.soon({ refDate: party.createdAt });
   participants.updatedAt = faker.date.soon({ refDate: participants.createdAt });
+
   return participants;
 }
 
