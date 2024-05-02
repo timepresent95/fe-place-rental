@@ -6,7 +6,7 @@ import { InternalServerError, NotFoundError } from "../errors";
 
 type PartyPermission = "approved" | "rejected" | "pending";
 
-interface Party {
+export interface Party {
   id: string;
   hostId: Account["id"];
   placeId: Place["id"];
