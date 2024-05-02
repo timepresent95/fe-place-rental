@@ -12,3 +12,9 @@ export class ConfictError extends MockError {
     super(409, "Conflict Error", description);
   }
 }
+
+export class InternalServerError extends MockError {
+  constructor(description: string = "") {
+    super(500, "InternalServerError", description);
+  }
+}
