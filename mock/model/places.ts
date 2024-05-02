@@ -1,20 +1,21 @@
 import { faker } from "@faker-js/faker";
 
 import { accounts } from "./accounts";
+import { User } from "./users";
 import { InternalServerError, UnauthorizedError } from "../errors";
 
 export interface Place {
   id: string;
   address: string;
-  ownerId: string;
+  ownerId: User["id"];
   capacity: number;
   createdAt: Date;
 }
 
-export const places = new Map<string, Place>();
+export const places = new Map<Place["id"], Place>();
 
 export function createPlace(
-  ownerId: string,
+  ownerId: User["id"],
   payload: Pick<Place, "address" | "capacity">
 ) {
   const owner = accounts.get(ownerId);
@@ -36,9 +37,10 @@ export function createPlace(
   return places.get(id) as Place;
 }
 
-export function createMockPlace(ownerId: string) {
+export function createMockPlace(ownerId: User["id"]) {
   const owner = accounts.get(ownerId);
   const id = faker.string.uuid();
+
   if (owner === undefined || places.has(id)) {
     throw new InternalServerError(
       "mock 데이터를 생성하는 과정에서 오류가 발생했습니다."

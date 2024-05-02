@@ -1,10 +1,10 @@
 import { faker } from "@faker-js/faker";
 
 import { User, createMockUser, createUser } from "./users";
-import { ConfictError, InternalServerError } from "../errors";
+import { InternalServerError } from "../errors";
 
 export interface Account {
-  userId: string;
+  userId: User["id"];
   password: string;
   role: string;
   createdAt: Date;
