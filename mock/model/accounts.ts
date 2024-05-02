@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 import { User, createUser } from "./users";
 import { ConfictError, InternalServerError } from "../errors";
 
-interface Account {
+export interface Account {
   email: string;
   password: string;
   role: string;
@@ -11,7 +11,7 @@ interface Account {
   createdAt: Date;
 }
 
-const accounts = new Map<string, Account>();
+export const accounts = new Map<string, Account>();
 
 export function createAccount(
   payload: Pick<Account, "password"> & Omit<User, "id" | "createdAt">

@@ -1,7 +1,66 @@
-interface places {
+import { faker } from "@faker-js/faker";
+
+import { accounts } from "./accounts";
+import { InternalServerError, UnauthorizedError } from "../errors";
+
+export interface Place {
   id: string;
   address: string;
-  owner_id: string;
+  ownerId: string;
   capacity: number;
-  created_at: Date;
+  createdAt: Date;
+}
+
+export const places = new Map<string, Place>();
+
+export function createPlace(
+  ownerId: string,
+  payload: Pick<Place, "address" | "capacity">
+) {
+  const owner = accounts.get(ownerId);
+  if (owner === undefined) {
+    throw new UnauthorizedError("존재하지 않는 계정입니다.");
+  }
+
+  const id = faker.string.uuid();
+  if (places.has(id)) {
+    throw new InternalServerError(
+      "mock 데이터를 생성하는 과정에서 오류가 발생했습니다."
+    );
+  }
+
+  const createdAt = new Date();
+
+  places.set(id, { ...payload, id, ownerId, createdAt });
+
+  return places.get(id) as Place;
+}
+
+export function createMockPlace(ownerId: string) {
+  const owner = accounts.get(ownerId);
+  const id = faker.string.uuid();
+  if (owner === undefined || places.has(id)) {
+    throw new InternalServerError(
+      "mock 데이터를 생성하는 과정에서 오류가 발생했습니다."
+    );
+  }
+
+  const createdAt = new Date();
+  const address = [
+    faker.location.country(),
+    faker.location.state(),
+    faker.location.city(),
+    faker.location.streetAddress(),
+    faker.location.secondaryAddress(),
+  ].join(" ");
+
+  places.set(id, {
+    id,
+    ownerId,
+    createdAt,
+    address,
+    capacity: faker.number.int({ min: 3, max: 100 }),
+  });
+
+  return places.get(id) as Place;
 }

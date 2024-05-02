@@ -7,6 +7,18 @@ class MockError extends Error {
   }
 }
 
+export class UnauthorizedError extends MockError {
+  constructor(description: string = "") {
+    super(401, "Unauthorized Error", description);
+  }
+}
+
+export class NotFoundError extends MockError {
+  constructor(description: string = "") {
+    super(404, "Not Found Error", description);
+  }
+}
+
 export class ConfictError extends MockError {
   constructor(description: string = "") {
     super(409, "Conflict Error", description);
@@ -15,6 +27,6 @@ export class ConfictError extends MockError {
 
 export class InternalServerError extends MockError {
   constructor(description: string = "") {
-    super(500, "InternalServerError", description);
+    super(500, "Internal Server Error", description);
   }
 }
