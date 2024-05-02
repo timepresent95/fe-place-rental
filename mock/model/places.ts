@@ -1,13 +1,12 @@
 import { faker } from "@faker-js/faker";
 
 import { Account, accounts } from "./accounts";
-import { User } from "./users";
 import { InternalServerError, UnauthorizedError } from "../errors";
 
 export interface Place {
   id: string;
   address: string;
-  ownerId: User["id"];
+  ownerId: Account["id"];
   capacity: number;
   createdAt: Date;
 }
@@ -15,7 +14,7 @@ export interface Place {
 export const places = new Map<Place["id"], Place>();
 
 export function createPlace(
-  ownerId: Account["userId"],
+  ownerId: Account["id"],
   payload: Pick<Place, "address" | "capacity">
 ) {
   const owner = accounts.get(ownerId);
@@ -37,7 +36,7 @@ export function createPlace(
   return places.get(id) as Place;
 }
 
-export function createMockPlace(ownerId: Account["userId"]) {
+export function createMockPlace(ownerId: Account["id"]) {
   const owner = accounts.get(ownerId);
   const id = faker.string.uuid();
 

@@ -1,14 +1,14 @@
 import { faker } from "@faker-js/faker";
 
+import { Account, accounts } from "./accounts";
 import { Place, places } from "./places";
-import { User, users } from "./users";
 import { InternalServerError, NotFoundError } from "../errors";
 
 type PartyPermission = "approved" | "rejected" | "pending";
 
 interface Party {
   id: string;
-  hostId: User["id"];
+  hostId: Account["id"];
   placeId: Place["id"];
   description: string;
   capacity: number;
@@ -20,11 +20,11 @@ interface Party {
 export const parties = new Map<string, Party>();
 
 export function createParty(
-  hostId: User["id"],
+  hostId: Account["id"],
   placeId: Place["id"],
   payload: Pick<Party, "description" | "capacity" | "partyAt">
 ) {
-  const host = users.get(hostId);
+  const host = accounts.get(hostId);
   if (host === undefined) {
     throw new NotFoundError("유저 정보가 존재하지 않습니다");
   }
@@ -55,8 +55,8 @@ export function createParty(
   return parties.get(id) as Party;
 }
 
-export function createMockParty(hostId: User["id"], placeId: Place["id"]) {
-  const host = users.get(hostId);
+export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
+  const host = accounts.get(hostId);
   const place = places.get(placeId);
 
   if (host === undefined || place === undefined) {
@@ -76,7 +76,7 @@ export function createMockParty(hostId: User["id"], placeId: Place["id"]) {
   party.createdAt = faker.date.between({
     from: place.createdAt,
     to: faker.date.recent({ days: 31 }),
-  })
+  });
 
   return party;
 }

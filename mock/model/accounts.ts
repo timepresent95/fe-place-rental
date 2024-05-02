@@ -4,13 +4,13 @@ import { User, createMockUser, createUser } from "./users";
 import { InternalServerError } from "../errors";
 
 export interface Account {
-  userId: User["id"];
+  id: User["id"];
   password: string;
   role: string;
   createdAt: Date;
 }
 
-export const accounts = new Map<Account["userId"], Account>();
+export const accounts = new Map<Account["id"], Account>();
 
 export function createAccount(
   payload: Pick<Account, "password"> & Omit<User, "id" | "createdAt">
@@ -23,7 +23,7 @@ export function createAccount(
   });
 
   accounts.set(user.id, {
-    userId: user.id,
+    id: user.id,
     password: payload.password,
     role: "user",
     createdAt: user.createdAt,
@@ -42,7 +42,7 @@ export function createMockAccount() {
   }
 
   accounts.set(user.id, {
-    userId: user.id,
+    id: user.id,
     password: faker.internet.password(),
     role: "user",
     createdAt: user.createdAt,
