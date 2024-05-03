@@ -10,7 +10,6 @@ import { postReservation } from "@/5.entities/Rental/api";
 import { applyRentalBodyValidation } from "@/5.entities/Rental/lib";
 import { ApplyRentalRequestBody } from "@/5.entities/Rental/model";
 import { useUserContext } from "@/5.entities/User/lib/context";
-import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
 import { Button } from "@/ui/button";
 import DatePicker from "@/ui/date-picker";
 import {
@@ -22,6 +21,7 @@ import {
   FormMessage,
 } from "@/ui/form";
 import { Input } from "@/ui/input";
+import NumberStepper from "@/ui/number-stepper";
 import { Textarea } from "@/ui/textarea";
 
 const FORM_LABEL: {
