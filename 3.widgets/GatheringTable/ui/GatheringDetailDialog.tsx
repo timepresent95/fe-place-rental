@@ -6,7 +6,7 @@ import { applyGathering } from "@/4.features/Gathering/api";
 import { useTableWithDialog } from "@/5.entities/TableWithDialog/lib";
 import { useUserContext } from "@/5.entities/User/lib/context";
 import { customClientErrorCodes } from "@/6.shared/lib/api/customResponse";
-import { Button } from "@/6.shared/ui/shardcn/ui/button";
+import { Button } from "@/ui/button";
 
 import { GatheringTableRow } from "../model";
 

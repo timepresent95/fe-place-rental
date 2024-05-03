@@ -2,7 +2,7 @@
 
 import { patchReservation } from "@/5.entities/Rental/api";
 import { useTableWithDialog } from "@/5.entities/TableWithDialog/lib";
-import { Button } from "@/6.shared/ui/shardcn/ui/button";
+import { Button } from "@/ui/button";
 
 import { RentalManagementTableRow } from "../model";
 

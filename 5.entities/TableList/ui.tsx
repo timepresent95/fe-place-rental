@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/6.shared/ui/shardcn/ui/table";
+} from "@/ui/table";
 
 import { TableColumns, TableData } from "./model";
 

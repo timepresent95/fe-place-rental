@@ -12,7 +12,7 @@ import { ApplyRentalRequestBody } from "@/5.entities/Rental/model";
 import { useUserContext } from "@/5.entities/User/lib/context";
 import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
 import DatePicker from "@/6.shared/ui/shardcn/components/DatePicker";
-import { Button } from "@/6.shared/ui/shardcn/ui/button";
+import { Button } from "@/ui/button";
 import {
   Form,
   FormControl,
@@ -20,9 +20,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/6.shared/ui/shardcn/ui/form";
-import { Input } from "@/6.shared/ui/shardcn/ui/input";
-import { Textarea } from "@/6.shared/ui/shardcn/ui/textarea";
+} from "@/ui/form";
+import { Input } from "@/ui/input";
+import { Textarea } from "@/ui/textarea";
 
 const FORM_LABEL: {
   [key in keyof ApplyRentalRequestBody]: {

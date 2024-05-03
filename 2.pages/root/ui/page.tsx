@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 import AuthLink from "@/4.features/AuthLink/ui";
 import ToastButton from "@/5.entities/ToastButton/ui";
-import { Button } from "@/6.shared/ui/shardcn/ui/button";
+import { Button } from "@/ui/button";
 
 export default function Page() {
   return (

@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 
 import { toast } from "sonner";
 
-import { Button, ButtonProps } from "@/6.shared/ui/shardcn/ui/button";
+import { Button, ButtonProps } from "@/ui/button";
 
 interface ToastButtonProps extends Omit<ButtonProps, "onClick"> {
   message: string;

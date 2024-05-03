@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { invitationGathering } from "@/4.features/Gathering/api";
 import { APPLICATION_STATE_PRESENT } from "@/4.features/Gathering/model";
 import { useTableWithDialog } from "@/5.entities/TableWithDialog/lib";
-import { Button } from "@/6.shared/ui/shardcn/ui/button";
+import { Button } from "@/ui/button";
 
 import { GatheringManagementTableRow } from "../model";
 

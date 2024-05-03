@@ -4,11 +4,7 @@ import { PropsWithChildren } from "react";
 
 import clsx from "clsx";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/6.shared/ui/shardcn/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/ui/dialog";
 import {
   TableCell,
   Table,
@@ -16,7 +12,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/6.shared/ui/shardcn/ui/table";
+} from "@/ui/table";
 
 import { TableWithDialogContext } from "./lib";
 import { TableColumns, TableData } from "./model";

@@ -1,4 +1,4 @@
-import { Skeleton } from "@/6.shared/ui/shardcn/ui/skeleton";
+import { Skeleton } from "@/ui/skeleton";
 
 function TableViewSkeleton() {
   return (

@@ -2,9 +2,9 @@
 
 import { useFormState, useFormStatus } from "react-dom";
 
-import { Button } from "@/6.shared/ui/shardcn/ui/button";
-import { Input } from "@/6.shared/ui/shardcn/ui/input";
-import { Label } from "@/6.shared/ui/shardcn/ui/label";
+import { Button } from "@/ui/button";
+import { Input } from "@/ui/input";
+import { Label } from "@/ui/label";
 
 import loginAction from "../api/loginAction";
 

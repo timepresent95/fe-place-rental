@@ -12,7 +12,7 @@ import {
 } from "react-hook-form";
 
 import { cn } from "@/6.shared/lib/tailwindMerge";
-import { Label } from "@/6.shared/ui/shardcn/ui/label";
+import { Label } from "@/ui/label";
 
 const Form = FormProvider;
 

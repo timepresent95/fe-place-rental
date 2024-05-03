@@ -5,7 +5,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/6.shared/ui/shardcn/ui/tooltip";
+} from "@/ui/tooltip";
 
 interface Props extends PropsWithChildren {
   message: string;
