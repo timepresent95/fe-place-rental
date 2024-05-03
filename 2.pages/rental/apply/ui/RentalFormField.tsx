@@ -11,8 +11,8 @@ import { applyRentalBodyValidation } from "@/5.entities/Rental/lib";
 import { ApplyRentalRequestBody } from "@/5.entities/Rental/model";
 import { useUserContext } from "@/5.entities/User/lib/context";
 import NumberStepper from "@/6.shared/ui/NumberStepper/ui";
-import DatePicker from "@/6.shared/ui/shardcn/components/DatePicker";
 import { Button } from "@/ui/button";
+import DatePicker from "@/ui/date-picker";
 import {
   Form,
   FormControl,
