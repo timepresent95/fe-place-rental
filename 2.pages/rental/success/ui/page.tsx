@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import MainLogo from "@/6.shared/ui/Icon/MainLogo";
+import MainLogo from "@/Icon/MainLogo";
 
 function RentalSuccessPage() {
   return (

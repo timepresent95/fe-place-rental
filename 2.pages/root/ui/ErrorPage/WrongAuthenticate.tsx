@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import Link from "next/link";
 
-import MainLogo from "@/6.shared/ui/Icon/MainLogo";
+import MainLogo from "@/Icon/MainLogo";
 
 // import logoutAction from "../../../../3.widgets/Header/api/logoutAction";
 

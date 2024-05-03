@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 import { logoutAction } from "@/5.entities/User/lib/action";
 import { useUserContext } from "@/5.entities/User/lib/context";
-import MainLogo from "@/6.shared/ui/Icon/MainLogo";
+import MainLogo from "@/Icon/MainLogo";
 import { Button } from "@/ui/button";
 
 function Header() {

@@ -2,8 +2,8 @@ import { Mail } from "lucide-react";
 import Link from "next/link";
 
 import TooltipWrapper from "@/5.entities/TooltipWrapper/ui";
-import { GithubIcon, TistoryIcon } from "@/6.shared/ui/Icon";
-import MainLogo from "@/6.shared/ui/Icon/MainLogo";
+import { GithubIcon, TistoryIcon } from "@/Icon";
+import MainLogo from "@/Icon/MainLogo";
 
 function Footer() {
   return (
