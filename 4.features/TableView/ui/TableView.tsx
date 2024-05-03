@@ -1,7 +1,6 @@
 import { TableColumns, TableData } from "@/5.entities/TableList/model";
 import TableListUI from "@/5.entities/TableList/ui";
-import Pagination from "@/6.shared/ui/Pagination/ui";
-
+import Pagination from "@/ui/pagination";
 interface Props<T extends TableData> {
   columns: TableColumns<T>;
   datas: T[];
