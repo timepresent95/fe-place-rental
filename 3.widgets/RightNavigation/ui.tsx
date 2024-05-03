@@ -7,8 +7,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { useUserContext } from "@/5.entities/User/lib/context";
-import { useClickOutside } from "@/6.shared/lib/useClickoutside";
 import RouteGroupList from "@/6.shared/Router/ui/RouteGroupList";
+import { useClickOutside } from "@/hook/useClickoutside";
 
 const IGNORE_CLICK_CLASS = "right-navigation-drawer";
 
