@@ -1,7 +1,8 @@
+import { ensureExists } from "@/util/\btypeSafety";
+
 import { CustomErrorResponse } from "./customResponse";
 import { fetchAction } from "./fetchAction";
 import { mswAction } from "./mswAction";
-import { assertValue } from "../assertValue";
 
 export interface FormInfo<T extends Record<string, any>> {
   accessKey: Extract<keyof T, string>;
@@ -17,7 +18,7 @@ export type ApiResult<T> =
     }
   | { status: "error"; error: CustomErrorResponse };
 
-export const baseUrl = assertValue(
+export const baseUrl = ensureExists(
   process.env.NEXT_PUBLIC_API_URL,
   "api base url is not defined"
 );

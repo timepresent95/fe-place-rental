@@ -1,5 +1,5 @@
 import { PostSignupRequestBody } from "@/5.entities/User/model";
-import { assertValue } from "@/6.shared/lib/assertValue";
+import { ensureExists } from "@/util/\btypeSafety";
 
 interface FormItem {
   accessKey: Extract<keyof PostSignupRequestBody, string>;
@@ -19,7 +19,7 @@ export const signupFormItems: FormItem[] = [
 
 export function extractSignupBody(formData: FormData): PostSignupRequestBody {
   return signupFormItems.reduce((acc, cur) => {
-    acc[cur.accessKey] = assertValue(
+    acc[cur.accessKey] = ensureExists(
       formData.get(cur.name),
       "올바르지 않은 입력입니다"
     ) as string;

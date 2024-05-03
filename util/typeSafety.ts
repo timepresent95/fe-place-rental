@@ -1,7 +1,7 @@
-export const assertValue = <T>(
+export const ensureExists = <T>(
   value: T | undefined | null,
   message: string
-) => {
+): T => {
   if (value === undefined || value === null) {
     throw new Error(message);
   }
