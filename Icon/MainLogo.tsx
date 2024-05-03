@@ -1,5 +1,7 @@
 import { MapPin } from "lucide-react";
 
+//TODO: Logo, Logo + service name 으로 파일 분리
+//TODO: 배경, 텍스트 색상 변경이 가능하도록 props 받기
 function MainLogo() {
   return (
     <div className="flex">

@@ -1,5 +1,5 @@
 import { ApiResult, baseUrl, fetchAPI } from "@/6.shared/lib/api";
-import { generateUrl } from "@/6.shared/lib/api/util";
+import { createUrl } from "@/util/url";
 
 import {
   ListRentalRequestQuery,
@@ -48,7 +48,7 @@ export async function patchReservation(
   body: PatchRentalRequestBody
 ): Promise<ApiResult<PatchRentalResponse>> {
   return fetchAPI(
-    generateUrl(apiEndpoint.patch, { id }),
+    createUrl(apiEndpoint.patch, { params: { id } }),
     {
       method: "patch",
       body: JSON.stringify(body),

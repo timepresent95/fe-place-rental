@@ -1,6 +1,6 @@
 import { RENTAL_REVALIDTE_TAG } from "@/5.entities/Rental/api";
 import { ApiResult, baseUrl, fetchAPI } from "@/6.shared/lib/api";
-import { generateUrl } from "@/6.shared/lib/api/util";
+import { createUrl } from "@/util/url";
 
 import {
   ApplyGatheringRequestBody,
@@ -55,7 +55,7 @@ export async function invitationGathering(
   body: InvitaionGatheringRequestBody
 ): Promise<ApiResult<InvitaionGatheringResponse>> {
   return fetchAPI(
-    generateUrl(apiEndpoint.invitaion, { id }),
+    createUrl(apiEndpoint.invitaion, { params: { id } }),
     {
       method: "patch",
       body: JSON.stringify(body),
