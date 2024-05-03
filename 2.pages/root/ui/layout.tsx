@@ -9,8 +9,8 @@ import RightNavigation from "@/3.widgets/RightNavigation/ui";
 import { getMy } from "@/5.entities/User/api";
 import UserProvider from "@/5.entities/User/lib/context";
 import { User } from "@/5.entities/User/model";
-import { cn } from "@/6.shared/lib/tailwindMerge";
 import { Toaster } from "@/ui/sonner";
+import { cn } from "@/util/tailwind";
 const NotoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
 export default async function RootLayout({ children }: PropsWithChildren) {

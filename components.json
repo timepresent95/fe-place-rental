@@ -11,7 +11,7 @@
     "prefix": ""
   },
   "aliases": {
-    "utils": "@/6.shared/lib/tailwindMerge",
+    "utils": "@/util/tailwind",
     "components": "@/components",
     "ui": "@/ui"
   }

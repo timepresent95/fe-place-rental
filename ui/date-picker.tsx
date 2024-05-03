@@ -5,10 +5,10 @@ import { useState } from "react";
 import { CalendarIcon } from "lucide-react";
 
 import dayjs from "@/6.shared/lib/dayjs";
-import { cn } from "@/6.shared/lib/tailwindMerge";
 import { Button } from "@/ui/button";
 import { Calendar } from "@/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
+import { cn } from "@/util/tailwind";
 
 interface Props {
   onChange?: (day?: Date) => void;

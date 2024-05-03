@@ -4,9 +4,9 @@ import { useState } from "react";
 
 import { Minus, Plus } from "lucide-react";
 
-import { cn } from "@/6.shared/lib/tailwindMerge";
 import { Button } from "@/ui/button";
 import { Input } from "@/ui/input";
+import { cn } from "@/util/tailwind";
 
 interface Props {
   className?: string;

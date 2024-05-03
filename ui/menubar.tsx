@@ -9,7 +9,7 @@ import {
 } from "@radix-ui/react-icons";
 import * as MenubarPrimitive from "@radix-ui/react-menubar";
 
-import { cn } from "@/6.shared/lib/tailwindMerge";
+import { cn } from "@/util/tailwind";
 
 const MenubarMenu = MenubarPrimitive.Menu;
 

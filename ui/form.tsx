@@ -11,8 +11,8 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-import { cn } from "@/6.shared/lib/tailwindMerge";
 import { Label } from "@/ui/label";
+import { cn } from "@/util/tailwind";
 
 const Form = FormProvider;
 

@@ -1,4 +1,4 @@
-import { cn } from "@/6.shared/lib/tailwindMerge"
+import { cn } from "@/util/tailwind";
 
 function Skeleton({
   className,
@@ -9,7 +9,7 @@ function Skeleton({
       className={cn("animate-pulse rounded-md bg-primary/10", className)}
       {...props}
     />
-  )
+  );
 }
 
-export { Skeleton }
+export { Skeleton };
