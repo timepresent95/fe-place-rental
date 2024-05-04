@@ -1,3 +1,5 @@
+import { convertCamelToKebab, convertCamelToSnake } from "./string";
+
 type OptionType = string | number | boolean;
 
 interface Options {
@@ -22,11 +24,14 @@ export function createUrl(path: string, options?: Options) {
   const query =
     options?.query === undefined
       ? []
-      : Object.entries(options.query).map(([key, value]) =>
-          Array.isArray(value)
-            ? value.map((v) => `${key}=${v}`).join("&")
-            : `${key}=${value}`
-        );
+      : Object.entries(options.query).map(([key, value]) => {
+          const snakeKey = convertCamelToSnake(key);
+          return Array.isArray(value)
+            ? value
+                .map((v) => `${snakeKey}=${convertCamelToKebab(v.toString())}`)
+                .join("&")
+            : `${snakeKey}=${convertCamelToKebab(value.toString())}`;
+        });
 
   return `${url}${query.length === 0 ? "" : query.join("&")}`;
 }
