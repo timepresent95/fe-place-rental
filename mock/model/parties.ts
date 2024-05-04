@@ -13,6 +13,8 @@ export interface Party {
   description: string;
   capacity: number;
   partyAt: Date;
+  openAt: Date;
+  closeAt: Date;
   requestState: RequestState;
   createdAt: Date;
   updatedAt: Date;
@@ -50,6 +52,8 @@ export function createParty(
   }
 
   const createdAt = new Date();
+  const openAt = createdAt;
+  const closeAt = faker.date.between({ from: openAt, to: payload.partyAt });
 
   parties.set(id, {
     id,
@@ -57,6 +61,8 @@ export function createParty(
     placeId: place.id,
     ...payload,
     requestState: "pending",
+    openAt,
+    closeAt,
     createdAt,
     updatedAt: createdAt,
   });
@@ -87,6 +93,10 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
   });
 
   const partyAt = faker.date.recent({ days: 31, refDate: createdAt });
+
+  const openAt = createdAt;
+  const closeAt = faker.date.between({ from: openAt, to: partyAt });
+
   const requestState = partyDates.has(partyAt.valueOf())
     ? "rejected"
     : getRandomRequestState();
@@ -99,6 +109,8 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
     capacity: faker.number.int({ min: 2, max: place.capacity - 1 }),
     partyAt,
     requestState,
+    openAt,
+    closeAt,
     createdAt,
     updatedAt: faker.date.soon({ refDate: createdAt }),
   });
