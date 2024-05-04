@@ -6,7 +6,7 @@ import { InternalServerError, NotFoundError } from "../errors";
 
 type RequestState = "approved" | "rejected" | "pending";
 
-interface Participant {
+export interface Participant {
   userId: User["id"];
   partyId: Party["id"];
   requestState: RequestState;

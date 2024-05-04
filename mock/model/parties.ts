@@ -103,7 +103,7 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
     updatedAt: faker.date.soon({ refDate: createdAt }),
   });
 
-  return parties.get(id);
+  return parties.get(id) as Party;
 }
 
 function getRandomRequestState() {
