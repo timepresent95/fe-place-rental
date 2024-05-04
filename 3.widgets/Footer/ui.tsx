@@ -1,9 +1,9 @@
 import { Mail } from "lucide-react";
 import Link from "next/link";
 
-import TooltipWrapper from "@/5.entities/TooltipWrapper/ui";
 import { GithubIcon, TistoryIcon } from "@/Icon";
 import MainLogo from "@/Icon/MainLogo";
+import { Tooltip } from "@/ui/tooltip";
 
 function Footer() {
   return (
@@ -28,27 +28,30 @@ function Footer() {
             </div>
           </div>
           <div className="flex items-start space-x-2">
-            <TooltipWrapper message="timepresent95@gmail.com">
+            <Tooltip
+              message="timepresent95@gmail.com"
+              collisionPadding={12}
+              sideOffset={8}>
               <Link
                 href="mailto:timepresent95@gmail.com"
                 className="rounded-full bg-white p-1 text-black hover:bg-slate-200">
                 <Mail className="h-4 w-4" />
               </Link>
-            </TooltipWrapper>
-            <TooltipWrapper message="github">
+            </Tooltip>
+            <Tooltip message="github" collisionPadding={12} sideOffset={8}>
               <Link
                 href="https://github.com/timepresent95/fe-hyu-facility-rental"
                 className="rounded-full bg-white p-1 hover:bg-slate-200">
                 <GithubIcon className="h-4 w-4" />
               </Link>
-            </TooltipWrapper>
-            <TooltipWrapper message="blog">
+            </Tooltip>
+            <Tooltip message="blog" collisionPadding={12} sideOffset={8}>
               <Link
                 href="https://an-thropology.tistory.com/"
                 className="rounded-full bg-white p-1.5 hover:bg-slate-200">
                 <TistoryIcon className="h-3 w-3" />
               </Link>
-            </TooltipWrapper>
+            </Tooltip>
           </div>
         </div>
       </div>

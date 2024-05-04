@@ -8,7 +8,7 @@ import { cn } from "@/util/tailwind";
 
 const TooltipProvider = TooltipPrimitive.Provider;
 
-const Tooltip = TooltipPrimitive.Root;
+const TooltipWrapper = TooltipPrimitive.Root;
 
 const TooltipTrigger = TooltipPrimitive.Trigger;
 
@@ -28,4 +28,23 @@ const TooltipContent = React.forwardRef<
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
+interface Props
+  extends React.PropsWithChildren,
+    React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content> {
+  message: string;
+}
+function Tooltip({ message, children, ...props }: Props) {
+  return (
+    <TooltipProvider delayDuration={200}>
+      <TooltipWrapper>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
+        <TooltipContent {...props}>
+          <p>{message}</p>
+        </TooltipContent>
+      </TooltipWrapper>
+    </TooltipProvider>
+  );
+}
+Tooltip.displayName = "Tooltip";
+
+export { TooltipWrapper,Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
