@@ -55,7 +55,7 @@ export async function invitationGathering(
   body: InvitaionGatheringRequestBody
 ): Promise<ApiResult<InvitaionGatheringResponse>> {
   return fetchAPI(
-    createUrl(apiEndpoint.invitaion, { params: { id } }),
+    createUrl(apiEndpoint.invitaion, { param: { id } }),
     {
       method: "patch",
       body: JSON.stringify(body),

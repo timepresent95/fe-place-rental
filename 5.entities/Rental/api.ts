@@ -48,7 +48,7 @@ export async function patchReservation(
   body: PatchRentalRequestBody
 ): Promise<ApiResult<PatchRentalResponse>> {
   return fetchAPI(
-    createUrl(apiEndpoint.patch, { params: { id } }),
+    createUrl(apiEndpoint.patch, { param: { id } }),
     {
       method: "patch",
       body: JSON.stringify(body),
