@@ -1,10 +1,9 @@
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { toast } from "sonner";
 
 import AuthLink from "@/4.features/AuthLink/ui";
-import ToastButton from "@/5.entities/ToastButton/ui";
+import ToastButton from "@/components/client/toast-button";
 import { Button } from "@/ui/button";
 
 export default function Page() {
