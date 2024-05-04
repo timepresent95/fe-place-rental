@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 
 import { Account, accounts } from "./accounts";
 import { Place, places } from "./places";
-import { InternalServerError, NotFoundError } from "../errors";
+import { ConfictError, InternalServerError, NotFoundError } from "../errors";
 
 type RequestState = "approved" | "rejected" | "pending";
 
@@ -20,6 +20,8 @@ export interface Party {
 
 export const parties = new Map<string, Party>();
 
+export const partyDates = new Set<number>();
+
 export function createParty(
   hostId: Account["id"],
   placeId: Place["id"],
@@ -33,6 +35,11 @@ export function createParty(
   const place = places.get(placeId);
   if (place === undefined) {
     throw new NotFoundError("존재하지 않는 장소입니다.");
+  }
+
+  const partyAt = payload.partyAt;
+  if (partyDates.has(partyAt.valueOf())) {
+    throw new ConfictError("예약할수 없는 날짜입니다.");
   }
 
   const id = faker.string.uuid();
@@ -67,26 +74,38 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
     );
   }
 
-  const party = createParty(hostId, placeId, {
-    description: faker.lorem.paragraphs(),
-    capacity: faker.number.int({ min: 2, max: place.capacity - 1 }),
-    partyAt: faker.date.between({
-      from: faker.date.recent(),
-      to: faker.date.soon(),
-    }),
-  });
-  party.requestState = getRandomRequestState();
-  party.createdAt = faker.date.between({
+  const id = faker.string.uuid();
+  if (parties.has(id)) {
+    throw new InternalServerError(
+      "mock 데이터를 생성하는 과정에서 오류가 발생했습니다."
+    );
+  }
+
+  const createdAt = faker.date.between({
     from: place.createdAt,
     to: faker.date.recent({ days: 31 }),
   });
-  party.updatedAt = faker.date.soon({ refDate: party.createdAt });
 
-  return party;
+  const partyAt = faker.date.recent({ days: 31, refDate: createdAt });
+  const requestState = partyDates.has(partyAt.valueOf())
+    ? "rejected"
+    : getRandomRequestState();
+
+  parties.set(id, {
+    id,
+    hostId: host.id,
+    placeId: place.id,
+    description: faker.lorem.paragraphs(),
+    capacity: faker.number.int({ min: 2, max: place.capacity - 1 }),
+    partyAt,
+    requestState,
+    createdAt,
+    updatedAt: faker.date.soon({ refDate: createdAt }),
+  });
+
+  return parties.get(id);
 }
 
 function getRandomRequestState() {
-  return ["approved", "rejected", "pending"][
-    Math.random() * 2
-  ] as RequestState;
+  return ["approved", "rejected", "pending"][Math.random() * 2] as RequestState;
 }
