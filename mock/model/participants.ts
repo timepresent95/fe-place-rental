@@ -16,7 +16,7 @@ export interface Participant {
 //NOTE: participants의 id는 {userId}-{partyId}로 구성
 export const participants = new Map<string, Participant>();
 
-export function createParticipnat(userId: User["id"], partyId: Party["id"]) {
+export function createParticipant(userId: User["id"], partyId: Party["id"]) {
   const user = users.get(userId);
   if (user === undefined) {
     throw new NotFoundError("유저 정보가 존재하지 않습니다");
@@ -40,7 +40,7 @@ export function createParticipnat(userId: User["id"], partyId: Party["id"]) {
   return participants.get(id) as Participant;
 }
 
-export function createMockParticipnat(
+export function createMockParticipant(
   userId: User["id"],
   partyId: Party["id"]
 ) {
@@ -53,7 +53,7 @@ export function createMockParticipnat(
     );
   }
 
-  const participants = createParticipnat(userId, partyId);
+  const participants = createParticipant(userId, partyId);
   participants.requestState = getRandomRequestState();
   participants.createdAt = faker.date.soon({ refDate: party.createdAt });
   participants.updatedAt = faker.date.soon({ refDate: participants.createdAt });
