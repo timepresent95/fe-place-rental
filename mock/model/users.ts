@@ -7,7 +7,7 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  mobileNumber: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -29,7 +29,7 @@ export function createMockUser() {
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     email: faker.internet.email(),
-    phone:
+    mobileNumber:
       "010" +
       faker.string.numeric({ allowLeadingZeros: false, length: 4 }) +
       faker.string.numeric({ length: 4 }),

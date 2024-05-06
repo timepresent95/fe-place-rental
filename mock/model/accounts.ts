@@ -21,7 +21,7 @@ export function createAccount(
     firstName: payload.firstName,
     lastName: payload.lastName,
     email: payload.email,
-    phone: payload.phone,
+    mobileNumber: payload.mobileNumber,
   });
 
   accounts.set(user.id, {
