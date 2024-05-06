@@ -41,19 +41,31 @@ function refineParties(
     });
 
   return {
-    data: data.slice(offset, offset + pageSize).map((v) => ({
-      partyId: v.id,
-      hostId: v.hostId,
-      placeId: v.placeId,
-      description: v.description,
-      capacity: v.capacity,
-      requestStatus: v.requestState,
-      openAt: v.openAt,
-      closeAt: v.closeAt,
-      partyAt: v.partyAt,
-      createdAt: v.createdAt,
-      updatedAt: v.updatedAt,
-    })),
+    data: data.slice(offset, offset + pageSize).map((v) => {
+      //TODO: 없는 placeId인 경우 에러 반환해야 함
+      const place = store.places.get(v.placeId)!;
+      const headcount = Array.from(
+        store.participants,
+        ([_, value]) => value
+      ).filter((value) => v.id === value.partyId).length;
+
+      return {
+        partyId: v.id,
+        hostId: v.hostId,
+        placeName: place.name,
+        placeAddress: place.address,
+        placeId: v.placeId,
+        description: v.description,
+        capacity: v.capacity,
+        headcount,
+        requestState: v.requestState,
+        openAt: v.openAt,
+        closeAt: v.closeAt,
+        partyAt: v.partyAt,
+        createdAt: v.createdAt,
+        updatedAt: v.updatedAt,
+      };
+    }),
     isEnd: data.length >= offset + pageSize,
   };
 }
