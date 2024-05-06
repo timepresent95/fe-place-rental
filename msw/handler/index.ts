@@ -1,5 +1,7 @@
 import { HttpHandler } from "msw";
 
-const handlers: HttpHandler[] = [];
+import { partyApi } from "./party";
+
+const handlers: HttpHandler[] = [...partyApi];
 
 export default handlers;

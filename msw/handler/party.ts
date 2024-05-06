@@ -82,3 +82,5 @@ const allListApi = http.get(partyEndPoint.allList, ({ request }) => {
     isEnd: parties.isEnd,
   });
 });
+
+export const partyApi = [allListApi];
