@@ -1,9 +1,17 @@
 export type PartyInfo = {
   partyId: string;
-  hostId: string;
-  placeName: string;
-  placeAddress: string;
-  placeId: string;
+  host: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    mobileNumber: string;
+  };
+  place: {
+    id: string;
+    address: string;
+    name: string;
+  };
   description: string;
   capacity: number;
   headcount: number;
