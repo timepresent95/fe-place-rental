@@ -64,7 +64,7 @@ function useDialogValue(): TableData {
   return value;
 }
 
-function DialogTableBody<TData extends TableData>({
+function DialogDataTableBody<TData extends TableData>({
   table,
 }: {
   table: TableType<TData>;
@@ -100,15 +100,15 @@ function DialogTableBody<TData extends TableData>({
   );
 }
 
-interface DialogTableProps<TData extends TableData, TValue> {
+interface DialogDataTableProps<TData extends TableData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-function DialogTable<TData extends TableData, TValue>({
+function DialogDataTable<TData extends TableData, TValue>({
   columns,
   data,
-}: DialogTableProps<TData, TValue>) {
+}: DialogDataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
@@ -135,7 +135,7 @@ function DialogTable<TData extends TableData, TValue>({
       </TableHeader>
       <Dialog>
         <DialogProvider>
-          <DialogTableBody table={table} />
+          <DialogDataTableBody table={table} />
           <DialogContent className="break-all">
             <p>1</p>
           </DialogContent>
@@ -144,5 +144,6 @@ function DialogTable<TData extends TableData, TValue>({
     </Table>
   );
 }
+DialogDataTable.displayName = "DialogDataTable";
 
-export { DialogTable };
+export { DialogDataTable };

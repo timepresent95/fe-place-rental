@@ -18,15 +18,15 @@ import {
 
 type TableData = Record<string, any>;
 
-interface DialogTableProps<TData extends TableData, TValue> {
+interface DataTableProps<TData extends TableData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-function DialogTable<TData extends TableData, TValue>({
+function DataTable<TData extends TableData, TValue>({
   columns,
   data,
-}: DialogTableProps<TData, TValue>) {
+}: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
@@ -77,6 +77,6 @@ function DialogTable<TData extends TableData, TValue>({
     </Table>
   );
 }
-DialogTable.displayName = "DialogTable";
+DataTable.displayName = "DataTable";
 
-export { DialogTable };
+export { DataTable };
