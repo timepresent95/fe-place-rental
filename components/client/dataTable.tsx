@@ -37,7 +37,9 @@ function DataTable<TData extends TableData>({
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <TableHead key={header.id}>
+              <TableHead
+                key={header.id}
+                style={{ width: `${header.getSize()}px` }}>
                 {header.isPlaceholder
                   ? null
                   : flexRender(
@@ -55,18 +57,27 @@ function DataTable<TData extends TableData>({
             <TableRow
               key={row.id}
               data-state={row.getIsSelected() && "selected"}>
-              {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
+              {row.getVisibleCells().map((cell) => {
+                const cellContext = cell.getContext();
+                const hasMeta = cellContext.cell.column.columnDef.meta;
+
+                return (
+                  <TableCell
+                    key={cell.id}
+                    {...(hasMeta && {
+                      ...hasMeta.getCellContext(cellContext),
+                    })}>
+                    {flexRender(cell.column.columnDef.cell, cellContext)}
+                  </TableCell>
+                );
+              })}
             </TableRow>
           ))
         ) : (
           <TableRow>
             <TableCell
               colSpan={table.getAllColumns().length}
-              className="h-24 text-center">
+              className="text-center">
               No results.
             </TableCell>
           </TableRow>
