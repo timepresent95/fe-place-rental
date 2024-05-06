@@ -48,9 +48,10 @@ export function createMockPlace(ownerId: Account["id"]) {
   }
 
   const createdAt = faker.date.between({
-    from: owner.createdAt,
-    to: faker.date.past({ years: 1 }),
+    from: faker.date.past({ years: 1, refDate: owner.createdAt }),
+    to: owner.createdAt,
   });
+
   const address = [
     faker.location.country(),
     faker.location.state(),
@@ -59,12 +60,13 @@ export function createMockPlace(ownerId: Account["id"]) {
     faker.location.secondaryAddress(),
   ].join(" ");
 
+  const capacity = faker.number.int({ min: 3, max: 100 });
   places.set(id, {
     id,
     ownerId,
     createdAt,
     address,
-    capacity: faker.number.int({ min: 3, max: 100 }),
+    capacity,
     updatedAt: createdAt,
   });
 
