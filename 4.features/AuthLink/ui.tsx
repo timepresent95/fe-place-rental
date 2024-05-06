@@ -16,7 +16,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/ui/alert-dialog";
+} from "@/ui/alertDialog";
 
 interface Props extends PropsWithChildren {
   title?: string;
