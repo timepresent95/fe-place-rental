@@ -93,4 +93,13 @@ export const routeGroups: RouteGroup[] = [
       },
     ],
   },
+  {
+    name: "임시",
+    entries: [
+      {
+        name: "모든 파티 임시",
+        path: "/party",
+      },
+    ],
+  },
 ];
