@@ -1,5 +1,3 @@
-"use client";
-
 import {
   PropsWithChildren,
   createContext,
@@ -100,15 +98,15 @@ function DialogDataTableBody<TData extends TableData>({
   );
 }
 
-interface DialogDataTableProps<TData extends TableData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+interface DialogDataTableProps<TData extends TableData> {
+  columns: ColumnDef<TData>[];
   data: TData[];
 }
 
-function DialogDataTable<TData extends TableData, TValue>({
+function DialogDataTable<TData extends TableData>({
   columns,
   data,
-}: DialogDataTableProps<TData, TValue>) {
+}: DialogDataTableProps<TData>) {
   const table = useReactTable({
     data,
     columns,

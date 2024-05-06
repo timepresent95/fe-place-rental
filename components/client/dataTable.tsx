@@ -1,5 +1,3 @@
-"use client";
-
 import {
   ColumnDef,
   flexRender,
@@ -18,15 +16,15 @@ import {
 
 type TableData = Record<string, any>;
 
-interface DataTableProps<TData extends TableData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+interface DataTableProps<TData extends TableData> {
+  columns: ColumnDef<TData>[];
   data: TData[];
 }
 
-function DataTable<TData extends TableData, TValue>({
+function DataTable<TData extends TableData>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData>) {
   const table = useReactTable({
     data,
     columns,
