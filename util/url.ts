@@ -23,15 +23,26 @@ export function createUrl(path: string, options?: Options) {
 
   const query =
     options?.query === undefined
-      ? []
-      : Object.entries(options.query).map(([key, value]) => {
-          const snakeKey = convertCamelToSnake(key);
-          return Array.isArray(value)
-            ? value
-                .map((v) => `${snakeKey}=${convertCamelToKebab(v.toString())}`)
-                .join("&")
-            : `${snakeKey}=${convertCamelToKebab(value.toString())}`;
-        });
+      ? ""
+      : Object.entries(options.query).reduce((acc, [key, value]) => {
+          if (value === undefined) {
+            return acc;
+          }
 
-  return `${url}${query.length === 0 ? "" : query.join("&")}`;
+          const prefix = acc === "" ? "?" : "&";
+          const snakeKey = convertCamelToSnake(key);
+
+          return (
+            prefix +
+            (Array.isArray(value)
+              ? value
+                  .map(
+                    (v) => `${snakeKey}=${convertCamelToKebab(v.toString())}`
+                  )
+                  .join("&")
+              : `${snakeKey}=${convertCamelToKebab(value.toString())}`)
+          );
+        }, "");
+
+  return url + query;
 }
