@@ -7,6 +7,7 @@ export interface Place {
   id: string;
   address: string;
   ownerId: Account["id"];
+  name: string;
   capacity: number;
   createdAt: Date;
   updatedAt: Date;
@@ -16,7 +17,7 @@ export const places = new Map<Place["id"], Place>();
 
 export function createPlace(
   ownerId: Account["id"],
-  payload: Pick<Place, "address" | "capacity">
+  payload: Pick<Place, "address" | "capacity" | "name">
 ) {
   const owner = accounts.get(ownerId);
   if (owner === undefined) {
@@ -67,6 +68,7 @@ export function createMockPlace(ownerId: Account["id"]) {
     createdAt,
     address,
     capacity,
+    name: faker.lorem.word(),
     updatedAt: createdAt,
   });
 
