@@ -3,7 +3,7 @@ import { getRandom } from "@/util/math";
 import { accounts, createMockAccount } from "./accounts";
 import {
   Participant,
-  createMockParticipnat,
+  createMockParticipant,
   participants,
 } from "./participants";
 import { Party, createMockParty, parties } from "./parties";
@@ -60,7 +60,7 @@ function setInit() {
     ]);
 
     userIdSet.forEach((userId) =>
-      ret.push(createMockParticipnat(userId, partyId))
+      ret.push(createMockParticipant(userId, partyId))
     );
 
     return ret;
