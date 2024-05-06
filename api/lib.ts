@@ -1,11 +1,6 @@
 import { mswAction } from "@/msw/lib/lib";
 import { ensureExists } from "@/util/\btypeSafety";
 
-const baseUrl = ensureExists(
-  process.env.NEXT_PUBLIC_API_URL,
-  "api base url is not defined"
-);
-
 export type ApiResult<T> = { status: "error" } | { status: "success"; data: T };
 
 export async function fetchAction<T>(
@@ -21,7 +16,7 @@ export async function fetchAction<T>(
       return mswAction(url, reqInit);
     }
 
-    const res = await fetch(baseUrl + url, reqInit);
+    const res = await fetch(url, reqInit);
 
     if (!res.ok) {
       return { status: "error" };
