@@ -3,8 +3,7 @@ import { faker } from "@faker-js/faker";
 import { Account, accounts } from "./accounts";
 import { Place, places } from "./places";
 import { ConfictError, InternalServerError, NotFoundError } from "../errors";
-
-type RequestState = "approved" | "rejected" | "pending";
+import { RequestState, getRandomRequestState } from "../lib";
 
 export interface Party {
   id: string;
@@ -117,6 +116,3 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
   return parties.get(id) as Party;
 }
 
-function getRandomRequestState() {
-  return ["approved", "rejected", "pending"][Math.random() * 2] as RequestState;
-}

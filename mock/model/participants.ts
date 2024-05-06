@@ -3,8 +3,7 @@ import { faker } from "@faker-js/faker";
 import { Party, parties } from "./parties";
 import { User, users } from "./users";
 import { InternalServerError, NotFoundError } from "../errors";
-
-type RequestState = "approved" | "rejected" | "pending";
+import { RequestState, getRandomRequestState } from "../lib";
 
 export interface Participant {
   userId: User["id"];
@@ -60,10 +59,4 @@ export function createMockParticipnat(
   participants.updatedAt = faker.date.soon({ refDate: participants.createdAt });
 
   return participants;
-}
-
-function getRandomRequestState() {
-  return ["approved", "rejected", "pending"][
-    Math.random() * 2
-  ] as RequestState;
 }
