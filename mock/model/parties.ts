@@ -92,8 +92,7 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
     to: faker.date.recent({ days: 31 }),
   });
 
-  const partyAt = faker.date.recent({ days: 31, refDate: createdAt });
-
+  const partyAt = faker.date.soon({ days: 31, refDate: createdAt });
   const openAt = createdAt;
   const closeAt = faker.date.between({ from: openAt, to: partyAt });
 
