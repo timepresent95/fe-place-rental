@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react";
 
 import { TableColumns, TableData } from "@/5.entities/TableWithDialog/model";
 import TableWithDialog from "@/5.entities/TableWithDialog/ui";
-import Pagination from "@/ui/pagination";
+import Pagination from "@/components/server/pagination";
 
 interface Props<T extends TableData> extends PropsWithChildren {
   columns: TableColumns<T>;
@@ -37,7 +37,7 @@ function TableWithDialogView<T extends TableData>({
         <Pagination
           total={total}
           pageSize={pageSize}
-          paginationQueryKey={paginationQueryKey}
+          paginationKey={paginationQueryKey}
           className="mt-4"
         />
       )}

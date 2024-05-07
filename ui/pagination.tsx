@@ -1,163 +1,120 @@
-"use client";
+import * as React from "react";
 
-import clsx from "clsx";
 import {
-  ChevronLeft,
-  ChevronRight,
-  Ellipsis,
-  ChevronsLeft,
-  ChevronsRight,
-} from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DotsHorizontalIcon,
+} from "@radix-ui/react-icons";
+import Link from "next/link";
 
+import { ButtonProps, buttonVariants } from "@/ui/button";
 import { cn } from "@/util/tailwind";
 
-type PaginationButton =
-  | {
-      type: "number";
-      index: number;
-    }
-  | { type: "left" | "right" };
+const Pagination = ({ className, ...props }: React.ComponentProps<"div">) => (
+  <div
+    role="navigation"
+    aria-label="pagination"
+    className={cn("mx-auto flex w-full justify-center", className)}
+    {...props}
+  />
+);
+Pagination.displayName = "Pagination";
 
-function createVisiblePageIndexes(
-  currentIndex: number,
-  endPageIndex: number,
-  pagerCount: number
-): PaginationButton[] {
-  let ret: PaginationButton[] = [];
-  let startIndex = currentIndex - Math.floor((pagerCount - 1) / 2);
-  let endIndex = currentIndex + Math.ceil((pagerCount - 1) / 2);
-  if (startIndex < 1) {
-    endIndex += 1 - startIndex;
-    startIndex = 1;
-  }
-  if (endIndex > endPageIndex) {
-    startIndex -= endIndex - endPageIndex;
-    endIndex = endPageIndex;
-  }
+const PaginationContent = React.forwardRef<
+  HTMLUListElement,
+  React.ComponentProps<"ul">
+>(({ className, ...props }, ref) => (
+  <ul
+    ref={ref}
+    className={cn("flex flex-row items-center gap-1", className)}
+    {...props}
+  />
+));
+PaginationContent.displayName = "PaginationContent";
 
-  startIndex = Math.max(startIndex, 1);
-  endIndex = Math.min(endIndex, endPageIndex);
+const PaginationItem = React.forwardRef<
+  HTMLLIElement,
+  React.ComponentProps<"li">
+>(({ className, ...props }, ref) => (
+  <li ref={ref} className={cn("", className)} {...props} />
+));
+PaginationItem.displayName = "PaginationItem";
 
-  for (let i = startIndex; i <= endIndex; i++) {
-    ret.push({ type: "number", index: i });
-  }
+type PaginationLinkProps = {
+  isActive?: boolean;
+} & Pick<ButtonProps, "size"> &
+  React.ComponentProps<typeof Link>;
 
-  if (ret[0].type === "number" && ret[0].index !== 1) {
-    ret.splice(0, 1, { type: "number", index: 1 }, { type: "left" });
-  }
+const PaginationLink = ({
+  className,
+  isActive,
+  size = "icon",
+  ...props
+}: PaginationLinkProps) => (
+  <Link
+    aria-current={isActive ? "page" : undefined}
+    className={cn(
+      buttonVariants({
+        variant: isActive ? "outline" : "ghost",
+        size,
+      }),
+      className
+    )}
+    {...props}
+  />
+);
+PaginationLink.displayName = "PaginationLink";
 
-  const last = ret[ret.length - 1];
-  if (last && last.type === "number" && last.index !== endPageIndex) {
-    ret.splice(
-      ret.length - 1,
-      1,
-      { type: "right" },
-      { type: "number", index: endPageIndex }
-    );
-  }
-  return ret;
-}
+const PaginationPrevious = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="Go to previous page"
+    size="default"
+    className={cn("gap-1 pl-2.5", className)}
+    {...props}>
+    <ChevronLeftIcon className="h-4 w-4" />
+    <span>이전</span>
+  </PaginationLink>
+);
+PaginationPrevious.displayName = "PaginationPrevious";
 
-export interface Props {
-  total: number;
-  pageSize: number;
-  paginationQueryKey: string;
-  pagerCount?: number;
-  className?: string;
-}
+const PaginationNext = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="Go to next page"
+    size="default"
+    className={cn("gap-1 pr-2.5", className)}
+    {...props}>
+    <span>다음</span>
+    <ChevronRightIcon className="h-4 w-4" />
+  </PaginationLink>
+);
+PaginationNext.displayName = "PaginationNext";
 
-//NOTE: total은 0이 될 수 없음
-function Pagination({
-  total,
-  pageSize,
-  paginationQueryKey,
-  pagerCount = 6,
-  className = "",
-}: Props) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const { replace } = useRouter();
-  const currentIndex = Number(searchParams.get(paginationQueryKey)) || 1;
-  const endPageIndex = Math.ceil(total / pageSize);
-  const visiblePageIndexes = createVisiblePageIndexes(
-    currentIndex,
-    endPageIndex,
-    pagerCount
-  );
+const PaginationEllipsis = ({
+  className,
+  ...props
+}: React.ComponentProps<"span">) => (
+  <span
+    aria-hidden
+    className={cn("flex h-9 w-9 items-center justify-center", className)}
+    {...props}>
+    <DotsHorizontalIcon className="h-4 w-4" />
+    <span className="sr-only">More pages</span>
+  </span>
+);
+PaginationEllipsis.displayName = "PaginationEllipsis";
 
-  const replacePageURL = (pageNumber: number) => {
-    const params = new URLSearchParams(searchParams);
-    params.set(paginationQueryKey, pageNumber.toString());
-    replace(`${pathname}?${params.toString()}`);
-  };
-
-  function onClickSkipPrev() {
-    if (visiblePageIndexes[2].type === "number") {
-      const targetIndex =
-        visiblePageIndexes[2].index - Math.ceil((pagerCount - 1) / 2);
-      replacePageURL(Math.max(targetIndex, 1));
-    }
-  }
-  function onClickSkipNext() {
-    const prevNextEllipsis = visiblePageIndexes[visiblePageIndexes.length - 3];
-    if (prevNextEllipsis.type === "number") {
-      const targetIndex =
-        prevNextEllipsis.index + Math.floor((pagerCount - 1) / 2);
-      replacePageURL(Math.min(targetIndex, endPageIndex));
-    }
-  }
-
-  return (
-    <div className={cn("flex items-center", className)}>
-      <button
-        disabled={currentIndex === 1}
-        onClick={() => replacePageURL(currentIndex - 1)}
-        className={clsx({ "opacity-0 cursor-default": currentIndex === 1 })}>
-        <ChevronLeft size={16} className="mx-auto" />
-      </button>
-      <div className="mx-auto">
-        {visiblePageIndexes.map((pageIndex, i) =>
-          pageIndex.type === "number" ? (
-            <button
-              key={i}
-              onClick={() => replacePageURL(pageIndex.index)}
-              className={clsx("w-6", {
-                "text-blue-700 font-bold": pageIndex.index === currentIndex,
-                "hover:text-blue-500": pageIndex.index !== currentIndex,
-              })}>
-              {pageIndex.index}
-            </button>
-          ) : (
-            <button key={i} className="w-6 group">
-              <Ellipsis size={16} className="group-hover:hidden" />
-              {pageIndex.type === "left" ? (
-                <ChevronsLeft
-                  size={16}
-                  onClick={onClickSkipPrev}
-                  className="hidden group-hover:block group-hover:text-blue-500"
-                />
-              ) : (
-                <ChevronsRight
-                  size={16}
-                  onClick={onClickSkipNext}
-                  className="hidden group-hover:block group-hover:text-blue-500"
-                />
-              )}
-            </button>
-          )
-        )}
-      </div>
-      <button
-        disabled={currentIndex >= endPageIndex}
-        onClick={() => replacePageURL(currentIndex + 1)}
-        className={clsx({
-          "opacity-0 cursor-default": currentIndex >= endPageIndex,
-        })}>
-        <ChevronRight size={16} className="mx-auto" />
-      </button>
-    </div>
-  );
-}
-
-export default Pagination;
+export {
+  Pagination,
+  PaginationContent,
+  PaginationLink,
+  PaginationItem,
+  PaginationPrevious,
+  PaginationNext,
+  PaginationEllipsis,
+};

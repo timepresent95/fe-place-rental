@@ -1,6 +1,6 @@
 import { TableColumns, TableData } from "@/5.entities/TableList/model";
 import TableListUI from "@/5.entities/TableList/ui";
-import Pagination from "@/ui/pagination";
+import Pagination from "@/components/server/pagination";
 interface Props<T extends TableData> {
   columns: TableColumns<T>;
   datas: T[];
@@ -33,7 +33,7 @@ function TableView<T extends TableData>({
         <Pagination
           total={total}
           pageSize={pageSize}
-          paginationQueryKey={paginationQueryKey}
+          paginationKey={paginationQueryKey}
           className="mt-4"
         />
       )}
