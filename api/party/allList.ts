@@ -18,5 +18,5 @@ export type Response = {
   pageSize: number;
   pageIndex: number;
   data: PartyInfo[];
-  isEnd: boolean;
+  total: number;
 };
