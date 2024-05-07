@@ -8,8 +8,9 @@ import dayjs from "dayjs";
 
 import { getAllListParty } from "@/api";
 import { PartyInfo } from "@/api/party/common";
-import { DataTable } from "@/components/client/dataTable";
 import { RequestState } from "@/mock/lib";
+
+import { DataTable } from "../common/dataTable";
 
 const partyColumnDef: ColumnDef<PartyInfo>[] = [
   {

@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react";
 
 import { TableColumns, TableData } from "@/5.entities/TableWithDialog/model";
 import TableWithDialog from "@/5.entities/TableWithDialog/ui";
-import Pagination from "@/components/server/pagination";
+import Pagination from "@/components/common/server/pagination";
 
 interface Props<T extends TableData> extends PropsWithChildren {
   columns: TableColumns<T>;

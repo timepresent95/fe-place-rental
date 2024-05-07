@@ -1,4 +1,4 @@
-import PartyTable from "@/components/client/party/partyTable";
+import PartyTable from "@/components/party/partyTable";
 
 export default function page() {
   return (

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import AuthLink from "@/4.features/AuthLink/ui";
-import ToastButton from "@/components/client/toastButton";
+import ToastButton from "@/components/common/toastButton";
 import { Button } from "@/ui/button";
 
 export default function Page() {
