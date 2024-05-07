@@ -11,7 +11,7 @@ import { applyRentalBodyValidation } from "@/5.entities/Rental/lib";
 import { ApplyRentalRequestBody } from "@/5.entities/Rental/model";
 import { useUserContext } from "@/5.entities/User/lib/context";
 import { Button } from "@/ui/button";
-import DatePicker from "@/ui/date-picker";
+import DatePicker from "@/ui/datePicker";
 import {
   Form,
   FormControl,
@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from "@/ui/form";
 import { Input } from "@/ui/input";
-import NumberStepper from "@/ui/number-stepper";
+import NumberStepper from "@/ui/numberStepper";
 import { Textarea } from "@/ui/textarea";
 
 const FORM_LABEL: {
