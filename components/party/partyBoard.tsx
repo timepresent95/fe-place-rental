@@ -93,7 +93,7 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
   },
 ];
 
-function PartyTable() {
+function PartyBoard() {
   const [pageSize, setPageSize] = useState<number>(10);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
@@ -122,5 +122,5 @@ function PartyTable() {
     </div>
   );
 }
-
-export default PartyTable;
+PartyBoard.displayName = "PartyBoard";
+export default PartyBoard;
