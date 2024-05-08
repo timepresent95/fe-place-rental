@@ -1,12 +1,12 @@
 import { ComponentProps } from "react";
 
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+
 import {
   PaginationContent,
-  Pagination as PaginationContainer,
+  PaginationServer as PaginationContainer,
   PaginationItem,
-  PaginationPrevious,
   PaginationLink,
-  PaginationNext,
 } from "@/ui/pagination";
 
 interface PaginationItemsProps {
@@ -53,7 +53,14 @@ function Pagination({
     <PaginationContainer {...props}>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href="#" />
+          <PaginationLink
+            href="#"
+            aria-label="Go to previous page"
+            size="default"
+            className="gap-1 pr-2.5">
+            <ChevronLeftIcon className="h-4 w-4" />
+            <span>이전</span>
+          </PaginationLink>
         </PaginationItem>
         <PaginationItems
           currentIndex={currentIndex}
@@ -61,7 +68,14 @@ function Pagination({
           endIndex={endIndex}
         />
         <PaginationItem>
-          <PaginationNext href="#" />
+          <PaginationLink
+            href="#"
+            aria-label="Go to previous page"
+            size="default"
+            className="gap-1 pr-2.5">
+            <span>다음</span>
+            <ChevronRightIcon className="h-4 w-4" />
+          </PaginationLink>
         </PaginationItem>
       </PaginationContent>
     </PaginationContainer>

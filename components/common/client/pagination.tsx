@@ -1,12 +1,12 @@
 import { ComponentProps } from "react";
 
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+
 import {
   PaginationContent,
-  Pagination as PaginationContainer,
+  PaginationClient as PaginationContainer,
   PaginationItem,
-  PaginationPrevious,
-  PaginationLink,
-  PaginationNext,
+  PaginationButton,
 } from "@/ui/pagination";
 
 interface PaginationItemsProps {
@@ -21,39 +21,44 @@ function PaginationItems({
   endIndex,
 }: PaginationItemsProps) {
   const startIndex = Math.max(currentIndex - buttonCount / 2, 0);
-  const itemCount = endIndex - startIndex + 1;
+  const itemCount = Math.min(endIndex - startIndex + 1, buttonCount);
   return startIndex > endIndex
     ? null
     : Array.from({ length: itemCount }).map((_, index) => (
         <PaginationItem key={index}>
-          <PaginationLink href="#" isActive={index === currentIndex}>
+          <PaginationButton isActive={index === currentIndex}>
             {index + startIndex + 1}
-          </PaginationLink>
+          </PaginationButton>
         </PaginationItem>
       ));
 }
 
 interface PaginationProps extends ComponentProps<"div"> {
   pageSize: number;
-  paginationKey: string;
+  currentIndex: number;
   total: number;
   buttonCount?: number;
 }
 
 function Pagination({
   pageSize,
-  paginationKey,
   total,
+  currentIndex,
   buttonCount = 6,
   ...props
 }: PaginationProps) {
-  const currentIndex = 0;
   const endIndex = Math.ceil(total / pageSize) - 1;
   return (
     <PaginationContainer {...props}>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href="#" />
+          <PaginationButton
+            aria-label="Go to previous page"
+            size="default"
+            className="gap-1 pr-2.5">
+            <ChevronLeftIcon className="h-4 w-4" />
+            <span>이전</span>
+          </PaginationButton>
         </PaginationItem>
         <PaginationItems
           currentIndex={currentIndex}
@@ -61,7 +66,13 @@ function Pagination({
           endIndex={endIndex}
         />
         <PaginationItem>
-          <PaginationNext href="#" />
+          <PaginationButton
+            aria-label="Go to next page"
+            size="default"
+            className="gap-1 pr-2.5">
+            <span>다음</span>
+            <ChevronRightIcon className="h-4 w-4" />
+          </PaginationButton>
         </PaginationItem>
       </PaginationContent>
     </PaginationContainer>

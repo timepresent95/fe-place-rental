@@ -7,10 +7,13 @@ import {
 } from "@radix-ui/react-icons";
 import Link from "next/link";
 
-import { ButtonProps, buttonVariants } from "@/ui/button";
+import { Button, ButtonProps, buttonVariants } from "@/ui/button";
 import { cn } from "@/util/tailwind";
 
-const Pagination = ({ className, ...props }: React.ComponentProps<"div">) => (
+const PaginationClient = ({
+  className,
+  ...props
+}: React.ComponentProps<"div">) => (
   <div
     role="navigation"
     aria-label="pagination"
@@ -18,7 +21,20 @@ const Pagination = ({ className, ...props }: React.ComponentProps<"div">) => (
     {...props}
   />
 );
-Pagination.displayName = "Pagination";
+PaginationClient.displayName = "PaginationClient";
+
+const PaginationServer = ({
+  className,
+  ...props
+}: React.ComponentProps<"nav">) => (
+  <nav
+    role="navigation"
+    aria-label="pagination"
+    className={cn("mx-auto flex w-full justify-center", className)}
+    {...props}
+  />
+);
+PaginationServer.displayName = "PaginationServer";
 
 const PaginationContent = React.forwardRef<
   HTMLUListElement,
@@ -65,35 +81,26 @@ const PaginationLink = ({
 );
 PaginationLink.displayName = "PaginationLink";
 
-const PaginationPrevious = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
-    aria-label="Go to previous page"
-    size="default"
-    className={cn("gap-1 pl-2.5", className)}
-    {...props}>
-    <ChevronLeftIcon className="h-4 w-4" />
-    <span>이전</span>
-  </PaginationLink>
-);
-PaginationPrevious.displayName = "PaginationPrevious";
+type PaginationButtonProps = {
+  isActive?: boolean;
+} & ButtonProps;
 
-const PaginationNext = ({
+const PaginationButton = ({
   className,
+  isActive,
+  size = "icon",
+  type,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
-    aria-label="Go to next page"
-    size="default"
-    className={cn("gap-1 pr-2.5", className)}
-    {...props}>
-    <span>다음</span>
-    <ChevronRightIcon className="h-4 w-4" />
-  </PaginationLink>
+}: PaginationButtonProps) => (
+  <Button
+    type="button"
+    aria-current={isActive ? "page" : undefined}
+    variant={isActive ? "outline" : "ghost"}
+    size={size}
+    {...props}
+  />
 );
-PaginationNext.displayName = "PaginationNext";
+PaginationButton.displayName = "PaginationButton";
 
 const PaginationEllipsis = ({
   className,
@@ -110,11 +117,11 @@ const PaginationEllipsis = ({
 PaginationEllipsis.displayName = "PaginationEllipsis";
 
 export {
-  Pagination,
+  PaginationClient,
+  PaginationServer,
   PaginationContent,
   PaginationLink,
+  PaginationButton,
   PaginationItem,
-  PaginationPrevious,
-  PaginationNext,
   PaginationEllipsis,
 };
