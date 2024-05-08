@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, use, useState } from "react";
+import { Suspense, use, useState, useTransition } from "react";
 
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
@@ -101,6 +101,12 @@ interface PartyTableProps {
 
 function PartyTable({ partyPromise, onClickPagination }: PartyTableProps) {
   const result = use(partyPromise);
+  const [isPending, startTransition] = useTransition();
+  function changePageIndex(index: number) {
+    startTransition(() => {
+      onClickPagination(index);
+    });
+  }
   if (result.status === "error") {
     throw new Error("데이터를 가져오는데 실패했습니다.");
   }
@@ -113,7 +119,7 @@ function PartyTable({ partyPromise, onClickPagination }: PartyTableProps) {
         pageSize={result.data.pageSize}
         total={result.data.total}
         currentIndex={result.data.pageIndex}
-        onClick={onClickPagination}
+        onClick={changePageIndex}
       />
     </div>
   );
