@@ -83,7 +83,7 @@ function DataTable<TData extends TableData>({
             </TableRow>
           ))
         ) : (
-          <TableRow>
+          <TableRow className="h-40">
             <TableCell
               colSpan={table.getAllColumns().length}
               className="text-center">

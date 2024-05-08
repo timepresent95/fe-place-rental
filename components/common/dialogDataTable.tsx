@@ -94,10 +94,10 @@ function DialogDataTableBody<TData extends TableData>({
           </DialogTrigger>
         ))
       ) : (
-        <TableRow>
+        <TableRow className="h-40">
           <TableCell
             colSpan={table.getAllColumns().length}
-            className="h-24 text-center">
+            className="text-center">
             No results.
           </TableCell>
         </TableRow>
