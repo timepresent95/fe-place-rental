@@ -99,14 +99,16 @@ function PartyTable() {
   const [total, setTotal] = useState<number>(0);
   const [tableData, setTableData] = useState<PartyInfo[]>([]);
   useEffect(() => {
-    getAllListParty({ query: {} }).then((res) => {
-      if (res.status === "success") {
-        setCurrentIndex(res.data.pageIndex);
-        setTotal(res.data.total);
-        setTableData(res.data.data);
+    getAllListParty({ query: { pageSize, pageIndex: currentIndex } }).then(
+      (res) => {
+        if (res.status === "success") {
+          setCurrentIndex(res.data.pageIndex);
+          setTotal(res.data.total);
+          setTableData(res.data.data);
+        }
       }
-    });
-  }, []);
+    );
+  }, [pageSize, currentIndex]);
   return (
     <div>
       <DataTable columns={partyColumnDef} data={tableData} />
