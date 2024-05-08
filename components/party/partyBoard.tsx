@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, use, useState } from "react";
 
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
@@ -12,6 +12,7 @@ import { RequestState } from "@/mock/lib";
 
 import Pagination from "../common/client/pagination";
 import { DataTable } from "../common/dataTable";
+import TableSkeleton from "../common/tableSkeleton";
 
 const partyColumnDef: ColumnDef<PartyInfo>[] = [
   {
@@ -93,34 +94,49 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
   },
 ];
 
-function PartyBoard() {
-  const [pageSize, setPageSize] = useState<number>(10);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [total, setTotal] = useState<number>(0);
-  const [tableData, setTableData] = useState<PartyInfo[]>([]);
-  useEffect(() => {
-    getAllListParty({ query: { pageSize, pageIndex: currentIndex } }).then(
-      (res) => {
-        if (res.status === "success") {
-          setCurrentIndex(res.data.pageIndex);
-          setTotal(res.data.total);
-          setTableData(res.data.data);
-        }
-      }
-    );
-  }, [pageSize, currentIndex]);
+interface PartyTableProps {
+  partyPromise: ReturnType<typeof getAllListParty>;
+  onClickPagination: (index: number) => void;
+}
+
+function PartyTable({ partyPromise, onClickPagination }: PartyTableProps) {
+  const result = use(partyPromise);
+  if (result.status === "error") {
+    throw new Error("데이터를 가져오는데 실패했습니다.");
+  }
+
   return (
     <div>
-      <DataTable columns={partyColumnDef} data={tableData} />
+      <DataTable columns={partyColumnDef} data={result.data.data} />
       <Pagination
         className="mt-6"
-        pageSize={pageSize}
-        total={total}
-        currentIndex={currentIndex}
-        onClick={(index) => setCurrentIndex(index)}
+        pageSize={result.data.pageSize}
+        total={result.data.total}
+        currentIndex={result.data.pageIndex}
+        onClick={onClickPagination}
       />
     </div>
   );
 }
+
+//XXX: Cannot update a component while rendering a different component 에러 발생 원인 찾아내기
+function PartyBoard() {
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  return (
+    <div>
+      <Suspense fallback={<TableSkeleton />}>
+        <PartyTable
+          partyPromise={getAllListParty({
+            query: { pageSize, pageIndex: currentIndex },
+          })}
+          onClickPagination={setCurrentIndex}
+        />
+      </Suspense>
+    </div>
+  );
+}
+
 PartyBoard.displayName = "PartyBoard";
 export default PartyBoard;
