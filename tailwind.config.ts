@@ -3,18 +3,9 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config = {
   darkMode: ["class"],
-  content: [
-    "./**/*.{ts,tsx}",
-  ],
+  content: ["./**/*.{ts,tsx}"],
   prefix: "",
-  safelist: [
-    "max-w-64",
-    "text-green-600",
-    "text-red-500",
-    "font-medium",
-    "text-right",
-    "pr-6",
-  ],
+  safelist: ["max-w-64"],
   theme: {
     container: {
       center: true,
