@@ -94,7 +94,6 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
   const partyAt = faker.date.soon({ days: 31, refDate: createdAt });
   const openAt = createdAt;
   const closeAt = faker.date.between({ from: openAt, to: partyAt });
-
   const requestState = partyDates.has(partyAt.valueOf())
     ? "rejected"
     : getRandomRequestState();
@@ -115,4 +114,3 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
 
   return parties.get(id) as Party;
 }
-

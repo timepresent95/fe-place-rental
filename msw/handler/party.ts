@@ -40,40 +40,43 @@ function refineParties(
         : direction * -1;
     });
 
-  return data.slice(offset, offset + pageSize).map((v) => {
-    //TODO: 없는 placeId인 경우 에러 반환해야 함
-    const place = store.places.get(v.placeId)!;
-    const host = store.users.get(v.hostId)!;
-    const headcount = Array.from(
-      store.participants,
-      ([_, value]) => value
-    ).filter((value) => v.id === value.partyId).length;
+  return {
+    total: data.length,
+    data: data.slice(offset, offset + pageSize).map((v) => {
+      //TODO: 없는 placeId인 경우 에러 반환해야 함
+      const place = store.places.get(v.placeId)!;
+      const host = store.users.get(v.hostId)!;
+      const headcount = Array.from(
+        store.participants,
+        ([_, value]) => value
+      ).filter((value) => v.id === value.partyId).length;
 
-    return {
-      partyId: v.id,
-      host: {
-        id: host.id,
-        firstName: host.firstName,
-        lastName: host.lastName,
-        email: host.email,
-        mobileNumber: host.mobileNumber,
-      },
-      place: {
-        name: place.name,
-        address: place.address,
-        id: place.id,
-      },
-      description: v.description,
-      capacity: v.capacity,
-      headcount,
-      requestState: v.requestState,
-      openAt: v.openAt,
-      closeAt: v.closeAt,
-      partyAt: v.partyAt,
-      createdAt: v.createdAt,
-      updatedAt: v.updatedAt,
-    };
-  });
+      return {
+        partyId: v.id,
+        host: {
+          id: host.id,
+          firstName: host.firstName,
+          lastName: host.lastName,
+          email: host.email,
+          mobileNumber: host.mobileNumber,
+        },
+        place: {
+          name: place.name,
+          address: place.address,
+          id: place.id,
+        },
+        description: v.description,
+        capacity: v.capacity,
+        headcount,
+        requestState: v.requestState,
+        openAt: v.openAt,
+        closeAt: v.closeAt,
+        partyAt: v.partyAt,
+        createdAt: v.createdAt,
+        updatedAt: v.updatedAt,
+      };
+    }),
+  };
 }
 
 const allListApi = http.get(partyEndPoint.allList, ({ request }) => {
@@ -88,7 +91,7 @@ const allListApi = http.get(partyEndPoint.allList, ({ request }) => {
     "asc") as allList.SortDirection;
   const filter = url.searchParams.getAll("sort-direction") as allList.Filter[];
 
-  const parties = refineParties(
+  const { total, data } = refineParties(
     Array.from(store.parties, ([_, v]) => v),
     { pageSize, pageIndex, sort, sortDirection, filter }
   );
@@ -96,8 +99,8 @@ const allListApi = http.get(partyEndPoint.allList, ({ request }) => {
   return HttpResponse.json<allList.Response>({
     pageSize,
     pageIndex,
-    data: parties,
-    total: parties.length,
+    data,
+    total,
   });
 });
 
