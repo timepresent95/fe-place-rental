@@ -83,13 +83,13 @@ const allListApi = http.get(partyEndPoint.allList, ({ request }) => {
   const url = new URL(request.url);
 
   // query params
-  const pageSize = Number(url.searchParams.get("page-size") ?? 10);
-  const pageIndex = Number(url.searchParams.get("page-index") ?? 0);
+  const pageSize = Number(url.searchParams.get("page_size") ?? 10);
+  const pageIndex = Number(url.searchParams.get("page_index") ?? 0);
   const sort = (url.searchParams.get("sort") ??
-    "created-at") as allList.SortableKey;
-  const sortDirection = (url.searchParams.get("sort-direction") ??
+    "created_at") as allList.SortableKey;
+  const sortDirection = (url.searchParams.get("sort_direction") ??
     "asc") as allList.SortDirection;
-  const filter = url.searchParams.getAll("sort-direction") as allList.Filter[];
+  const filter = url.searchParams.getAll("sort_direction") as allList.Filter[];
 
   const { total, data } = refineParties(
     Array.from(store.parties, ([_, v]) => v),
