@@ -33,14 +33,15 @@ export function createUrl(path: string, options?: Options) {
           const snakeKey = convertCamelToSnake(key);
 
           return (
-            prefix +
-            (Array.isArray(value)
-              ? value
-                  .map(
-                    (v) => `${snakeKey}=${convertCamelToKebab(v.toString())}`
-                  )
-                  .join("&")
-              : `${snakeKey}=${convertCamelToKebab(value.toString())}`)
+            acc +
+            (prefix +
+              (Array.isArray(value)
+                ? value
+                    .map(
+                      (v) => `${snakeKey}=${convertCamelToKebab(v.toString())}`
+                    )
+                    .join("&")
+                : `${snakeKey}=${convertCamelToKebab(value.toString())}`))
           );
         }, "");
 
