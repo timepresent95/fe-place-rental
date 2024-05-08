@@ -88,7 +88,7 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
 
   const createdAt = faker.date.between({
     from: place.createdAt,
-    to: faker.date.recent({ days: 31 }),
+    to: faker.date.soon({ days: 31, refDate: place.createdAt }),
   });
 
   const partyAt = faker.date.soon({ days: 31, refDate: createdAt });
