@@ -1,6 +1,13 @@
 "use client";
 
-import { Suspense, use, useState, useTransition } from "react";
+import {
+  Suspense,
+  use,
+  useDeferredValue,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
@@ -9,6 +16,13 @@ import dayjs from "dayjs";
 import { getAllListParty } from "@/api";
 import { PartyInfo } from "@/api/party/common";
 import { RequestState } from "@/mock/lib";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/ui/select";
 
 import Pagination from "../common/client/pagination";
 import { DataTable } from "../common/dataTable";
@@ -101,12 +115,6 @@ interface PartyTableProps {
 
 function PartyTable({ partyPromise, onClickPagination }: PartyTableProps) {
   const result = use(partyPromise);
-  const [isPending, startTransition] = useTransition();
-  function changePageIndex(index: number) {
-    startTransition(() => {
-      onClickPagination(index);
-    });
-  }
   if (result.status === "error") {
     throw new Error("데이터를 가져오는데 실패했습니다.");
   }
@@ -119,7 +127,7 @@ function PartyTable({ partyPromise, onClickPagination }: PartyTableProps) {
         pageSize={result.data.pageSize}
         total={result.data.total}
         currentIndex={result.data.pageIndex}
-        onClick={changePageIndex}
+        onClick={onClickPagination}
       />
     </div>
   );
@@ -129,14 +137,36 @@ function PartyTable({ partyPromise, onClickPagination }: PartyTableProps) {
 function PartyBoard() {
   const [pageSize, setPageSize] = useState<number>(10);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const partyPromise = useMemo(() => {
+    return getAllListParty({
+      query: { pageSize, pageIndex: currentIndex },
+    });
+  }, [pageSize, currentIndex]);
+  const deferredPartyPromise = useDeferredValue(partyPromise);
 
   return (
     <div>
       <Suspense fallback={<TableSkeleton />}>
+        <div className="flex justify-end items-center">
+          <Select
+            value={pageSize.toString()}
+            onValueChange={(v) => {
+              console.log(v);
+              setCurrentIndex(0);
+              setPageSize(parseInt(v));
+            }}>
+            <SelectTrigger className="w-[80px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="10">10 개</SelectItem>
+              <SelectItem value="20">20 개</SelectItem>
+              <SelectItem value="30">30 개</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <PartyTable
-          partyPromise={getAllListParty({
-            query: { pageSize, pageIndex: currentIndex },
-          })}
+          partyPromise={deferredPartyPromise}
           onClickPagination={setCurrentIndex}
         />
       </Suspense>
