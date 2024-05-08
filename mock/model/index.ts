@@ -27,13 +27,13 @@ function setInit() {
     return createMockPlace(ownerId);
   });
 
-  let mockApprovedPartyNumber = 5;
-  const mockPartyNumber = getRandom({ min: 10, max: 20 });
+  let mockApprovedPartyNumber = 20;
+  const mockPartyNumber = getRandom({ min: 100, max: 200 });
   const mockParties: Party[] = [];
   const mockApprovedParty: Party[] = [];
 
   while (
-    mockApprovedPartyNumber > mockApprovedParty.length &&
+    mockApprovedPartyNumber > mockApprovedParty.length ||
     mockParties.length < mockPartyNumber
   ) {
     const hostId = mockMembers[getRandom({ max: mockMembers.length - 1 })].id;
