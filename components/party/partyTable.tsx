@@ -10,6 +10,7 @@ import { getAllListParty } from "@/api";
 import { PartyInfo } from "@/api/party/common";
 import { RequestState } from "@/mock/lib";
 
+import Pagination from "../common/client/pagination";
 import { DataTable } from "../common/dataTable";
 
 const partyColumnDef: ColumnDef<PartyInfo>[] = [
@@ -17,9 +18,10 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
     accessorKey: "partyAt",
     accessorFn: (row) => dayjs(row.partyAt).format("YY.MM.DD"),
     header: "행사일",
-    size: 100,
+    size: 80,
     meta: {
-      getCellContext: (context: CellContext<PartyInfo, unknown>) => {
+      headerClassName: "text-center",
+      getCellProps: (context: CellContext<PartyInfo, unknown>) => {
         return {
           className: clsx("text-center"),
         };
@@ -30,9 +32,10 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
     id: "hostName",
     accessorFn: (row) => row.host.lastName + " " + row.host.firstName,
     header: "주최자",
-    size: 100,
+    size: 120,
     meta: {
-      getCellContext: (context: CellContext<PartyInfo, unknown>) => {
+      headerClassName: "text-center",
+      getCellProps: (context: CellContext<PartyInfo, unknown>) => {
         return {
           className: clsx("text-center"),
         };
@@ -43,19 +46,21 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
     id: "placeAddress",
     accessorFn: (row) => row.place.address,
     header: "행사장 주소",
-    enableResizing: false,
-    size: 240,
+    size: 300,
+    meta: {
+      headerClassName: "text-center",
+    },
   },
   {
     id: "participantStatus",
     accessorFn: (row) => row.headcount + "/" + row.capacity,
     header: "참여 현황",
-    enableResizing: false,
-    size: 50,
+    size: 80,
     meta: {
-      getCellContext: (context: CellContext<PartyInfo, unknown>) => {
+      headerClassName: "text-right",
+      getCellProps: (context: CellContext<PartyInfo, unknown>) => {
         return {
-          className: clsx("text-right pr-6"),
+          className: clsx("text-right pr-5"),
         };
       },
     },
@@ -63,6 +68,7 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
   {
     accessorKey: "requestState",
     header: "승인 여부",
+    size: 80,
     accessorFn: (row) => {
       switch (row.requestState as RequestState) {
         case "approved":
@@ -73,10 +79,9 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
           return "심사중";
       }
     },
-    enableResizing: false,
-    size: 70,
     meta: {
-      getCellContext: (context: CellContext<PartyInfo, unknown>) => {
+      headerClassName: "text-center",
+      getCellProps: (context: CellContext<PartyInfo, unknown>) => {
         return {
           className: clsx("font-medium text-center", {
             "text-red-500": context.getValue() === "거절",
@@ -89,18 +94,31 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
 ];
 
 function PartyTable() {
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [total, setTotal] = useState<number>(0);
   const [tableData, setTableData] = useState<PartyInfo[]>([]);
   useEffect(() => {
     getAllListParty({ query: {} }).then((res) => {
       if (res.status === "success") {
-        console.log(res.data);
+        setCurrentIndex(res.data.pageIndex);
+        setTotal(res.data.total);
         setTableData(res.data.data);
       }
     });
   }, []);
-  return <DataTable columns={partyColumnDef} data={tableData} />;
+  return (
+    <div>
+      <DataTable columns={partyColumnDef} data={tableData} />
+      <Pagination
+        className="mt-6"
+        pageSize={pageSize}
+        total={total}
+        currentIndex={currentIndex}
+        onClick={(index) => setCurrentIndex(index)}
+      />
+    </div>
+  );
 }
-
-PartyTable.displayName = "PartyTable";
 
 export default PartyTable;
