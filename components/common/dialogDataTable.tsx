@@ -79,14 +79,13 @@ function DialogDataTableBody<TData extends TableData>({
             <TableRow data-state={row.getIsSelected() && "selected"}>
               {row.getVisibleCells().map((cell) => {
                 const cellContext = cell.getContext();
-                const hasMeta = cellContext.cell.column.columnDef.meta;
+                const meta = cellContext.cell.column.columnDef.meta;
+                const cellProps = meta?.getCellProps
+                  ? meta.getCellProps(cellContext)
+                  : {};
 
                 return (
-                  <TableCell
-                    key={cell.id}
-                    {...(hasMeta && {
-                      ...hasMeta.getCellContext(cellContext),
-                    })}>
+                  <TableCell key={cell.id} {...cellProps}>
                     {flexRender(cell.column.columnDef.cell, cellContext)}
                   </TableCell>
                 );
@@ -127,16 +126,24 @@ function DialogDataTable<TData extends TableData>({
       <TableHeader>
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <TableHead key={header.id}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-              </TableHead>
-            ))}
+            {headerGroup.headers.map((header) => {
+              const meta = header.column.columnDef.meta;
+              const headerClassName = meta?.headerClassName;
+
+              return (
+                <TableHead
+                  key={header.id}
+                  className={headerClassName}
+                  style={{ width: `${header.getSize()}px` }}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </TableHead>
+              );
+            })}
           </TableRow>
         ))}
       </TableHeader>

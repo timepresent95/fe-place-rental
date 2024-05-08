@@ -1,3 +1,5 @@
+import { HTMLAttributes } from "react";
+
 import {
   ColumnDef,
   flexRender,
@@ -16,7 +18,8 @@ import {
 
 type TableData = Record<string, any>;
 
-interface DataTableProps<TData extends TableData> {
+interface DataTableProps<TData extends TableData>
+  extends HTMLAttributes<HTMLTableElement> {
   columns: ColumnDef<TData>[];
   data: TData[];
 }
@@ -24,6 +27,7 @@ interface DataTableProps<TData extends TableData> {
 function DataTable<TData extends TableData>({
   columns,
   data,
+  ...props
 }: DataTableProps<TData>) {
   const table = useReactTable({
     data,
@@ -32,22 +36,28 @@ function DataTable<TData extends TableData>({
   });
 
   return (
-    <Table>
+    <Table {...props}>
       <TableHeader>
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <TableHead
-                key={header.id}
-                style={{ width: `${header.getSize()}px` }}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-              </TableHead>
-            ))}
+            {headerGroup.headers.map((header) => {
+              const meta = header.column.columnDef.meta;
+              const headerClassName = meta?.headerClassName;
+
+              return (
+                <TableHead
+                  key={header.id}
+                  className={headerClassName}
+                  style={{ width: `${header.getSize()}px` }}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </TableHead>
+              );
+            })}
           </TableRow>
         ))}
       </TableHeader>
@@ -59,14 +69,13 @@ function DataTable<TData extends TableData>({
               data-state={row.getIsSelected() && "selected"}>
               {row.getVisibleCells().map((cell) => {
                 const cellContext = cell.getContext();
-                const hasMeta = cellContext.cell.column.columnDef.meta;
+                const meta = cellContext.cell.column.columnDef.meta;
+                const cellProps = meta?.getCellProps
+                  ? meta.getCellProps(cellContext)
+                  : {};
 
                 return (
-                  <TableCell
-                    key={cell.id}
-                    {...(hasMeta && {
-                      ...hasMeta.getCellContext(cellContext),
-                    })}>
+                  <TableCell key={cell.id} {...cellProps}>
                     {flexRender(cell.column.columnDef.cell, cellContext)}
                   </TableCell>
                 );
@@ -86,6 +95,5 @@ function DataTable<TData extends TableData>({
     </Table>
   );
 }
-DataTable.displayName = "DataTable";
 
 export { DataTable };
