@@ -1,19 +1,18 @@
 "use client";
 
-import {
-  Suspense,
-  use,
-  useDeferredValue,
-  useMemo,
-  useState,
-  useTransition,
-} from "react";
+import { Suspense, use, useDeferredValue, useMemo, useState } from "react";
 
-import { CellContext, ColumnDef } from "@tanstack/react-table";
+import {
+  CellContext,
+  ColumnDef,
+  OnChangeFn,
+  SortingState,
+} from "@tanstack/react-table";
 import clsx from "clsx";
 import dayjs from "dayjs";
 
 import { getAllListParty } from "@/api";
+import { SortableKey } from "@/api/party/allList";
 import { PartyInfo } from "@/api/party/common";
 import { RequestState } from "@/mock/lib";
 import {
@@ -33,10 +32,11 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
     accessorKey: "partyAt",
     accessorFn: (row) => dayjs(row.partyAt).format("YY.MM.DD"),
     header: "행사일",
+    sortDescFirst: true,
     size: 80,
     meta: {
       headerClassName: "text-center",
-      getCellProps: (context: CellContext<PartyInfo, unknown>) => {
+      getCellProps: () => {
         return {
           className: clsx("text-center"),
         };
@@ -47,10 +47,11 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
     id: "hostName",
     accessorFn: (row) => row.host.lastName + " " + row.host.firstName,
     header: "주최자",
+    enableSorting: false,
     size: 120,
     meta: {
       headerClassName: "text-center",
-      getCellProps: (context: CellContext<PartyInfo, unknown>) => {
+      getCellProps: () => {
         return {
           className: clsx("text-center"),
         };
@@ -61,6 +62,7 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
     id: "placeAddress",
     accessorFn: (row) => row.place.address,
     header: "행사장 주소",
+    enableSorting: false,
     size: 300,
     meta: {
       headerClassName: "text-center",
@@ -70,10 +72,11 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
     id: "participantStatus",
     accessorFn: (row) => row.headcount + "/" + row.capacity,
     header: "참여 현황",
+    enableSorting: false,
     size: 80,
     meta: {
       headerClassName: "text-right",
-      getCellProps: (context: CellContext<PartyInfo, unknown>) => {
+      getCellProps: () => {
         return {
           className: clsx("text-right pr-5"),
         };
@@ -83,6 +86,7 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
   {
     accessorKey: "requestState",
     header: "승인 여부",
+    enableSorting: false,
     size: 80,
     accessorFn: (row) => {
       switch (row.requestState as RequestState) {
@@ -111,17 +115,30 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
 interface PartyTableProps {
   partyPromise: ReturnType<typeof getAllListParty>;
   onClickPagination: (index: number) => void;
+  sorting: SortingState;
+  onSortingChange: OnChangeFn<SortingState>;
 }
 
-function PartyTable({ partyPromise, onClickPagination }: PartyTableProps) {
+function PartyTable({
+  partyPromise,
+  onClickPagination,
+  sorting,
+  onSortingChange,
+}: PartyTableProps) {
   const result = use(partyPromise);
+
   if (result.status === "error") {
     throw new Error("데이터를 가져오는데 실패했습니다.");
   }
 
   return (
     <div>
-      <DataTable columns={partyColumnDef} data={result.data.data} />
+      <DataTable
+        sorting={sorting}
+        onSortingChange={onSortingChange}
+        columns={partyColumnDef}
+        data={result.data.data}
+      />
       <Pagination
         className="mt-6"
         pageSize={result.data.pageSize}
@@ -137,11 +154,19 @@ function PartyTable({ partyPromise, onClickPagination }: PartyTableProps) {
 function PartyBoard() {
   const [pageSize, setPageSize] = useState<number>(10);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [sorting, setSorting] = useState<SortingState>([]);
+
   const partyPromise = useMemo(() => {
+    const sort = sorting.length ? (sorting[0].id as SortableKey) : undefined;
+    const sortDirection = sorting.length
+      ? sorting[0].desc
+        ? "desc"
+        : "asc"
+      : undefined;
     return getAllListParty({
-      query: { pageSize, pageIndex: currentIndex },
+      query: { pageSize, pageIndex: currentIndex, sort, sortDirection },
     });
-  }, [pageSize, currentIndex]);
+  }, [pageSize, currentIndex, sorting]);
   const deferredPartyPromise = useDeferredValue(partyPromise);
 
   return (
@@ -168,6 +193,8 @@ function PartyBoard() {
         <PartyTable
           partyPromise={deferredPartyPromise}
           onClickPagination={setCurrentIndex}
+          sorting={sorting}
+          onSortingChange={setSorting}
         />
       </Suspense>
     </div>

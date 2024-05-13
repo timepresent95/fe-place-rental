@@ -2,10 +2,15 @@ import { HTMLAttributes } from "react";
 
 import {
   ColumnDef,
+  ColumnSort,
+  OnChangeFn,
+  SortingState,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import clsx from "clsx";
 
 import {
   Table,
@@ -22,17 +27,27 @@ interface DataTableProps<TData extends TableData>
   extends HTMLAttributes<HTMLTableElement> {
   columns: ColumnDef<TData>[];
   data: TData[];
+  sorting?: SortingState;
+  onSortingChange?: OnChangeFn<SortingState>;
 }
 
 function DataTable<TData extends TableData>({
   columns,
   data,
+  sorting,
+  onSortingChange,
   ...props
 }: DataTableProps<TData>) {
   const table = useReactTable({
     data,
     columns,
+    enableMultiSort: false,
     getCoreRowModel: getCoreRowModel(),
+    manualSorting: true,
+    state: {
+      sorting,
+    },
+    onSortingChange,
   });
 
   return (
@@ -43,11 +58,15 @@ function DataTable<TData extends TableData>({
             {headerGroup.headers.map((header) => {
               const meta = header.column.columnDef.meta;
               const headerClassName = meta?.headerClassName;
+              const isSortable = header.column.getCanSort();
 
               return (
                 <TableHead
                   key={header.id}
-                  className={headerClassName}
+                  className={clsx(headerClassName, {
+                    "cursor-pointer": isSortable,
+                  })}
+                  onClick={header.column.getToggleSortingHandler()}
                   style={{ width: `${header.getSize()}px` }}>
                   {header.isPlaceholder
                     ? null
@@ -55,6 +74,10 @@ function DataTable<TData extends TableData>({
                         header.column.columnDef.header,
                         header.getContext()
                       )}
+                  {{
+                    asc: " 🔼",
+                    desc: " 🔽",
+                  }[header.column.getIsSorted() as string] ?? null}
                 </TableHead>
               );
             })}

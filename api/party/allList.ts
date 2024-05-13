@@ -1,6 +1,6 @@
 import { PartyInfo } from "./common";
 
-export type SortableKey = "party-at" | "created-at" | "open-at" | "close-at";
+export type SortableKey = "partyAt" | "createdAt" | "openAt" | "closeAt";
 export type SortDirection = "asc" | "desc";
 export type Filter = "available";
 
