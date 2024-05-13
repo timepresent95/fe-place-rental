@@ -176,7 +176,6 @@ function PartyBoard() {
           <Select
             value={pageSize.toString()}
             onValueChange={(v) => {
-              console.log(v);
               setCurrentIndex(0);
               setPageSize(parseInt(v));
             }}>
