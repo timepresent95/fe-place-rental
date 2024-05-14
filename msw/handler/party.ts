@@ -20,12 +20,19 @@ function refineParties(
 ) {
   const offset = pageIndex * pageSize;
   const data = source
+    .sort((first, second) => {
+      if (dayjs(first.createdAt).isSame(second.createdAt)) {
+        return 0;
+      }
+      return dayjs(first.createdAt).isAfter(second.createdAt) ? 1 : -1;
+    })
     .filter((v) => {
       if (filter.includes("available")) {
         const isOpen = dayjs().isBefore(v.closeAt) && dayjs().isAfter(v.openAt);
+        const isApproved = v.requestState === "approved";
         // TODO: paricipant 구현 후 해당 조건도 확인해야 함
         // const isFull =
-        return isOpen;
+        return isOpen && isApproved;
       }
       return true;
     })
