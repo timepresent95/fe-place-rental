@@ -5,6 +5,7 @@ import { Suspense, useDeferredValue, useMemo, useState } from "react";
 import { CellContext, ColumnDef, SortingState } from "@tanstack/react-table";
 import clsx from "clsx";
 import dayjs from "dayjs";
+import { Grid2X2, List } from "lucide-react";
 
 import { getAllListParty } from "@/api";
 import { Filter, SortableKey } from "@/api/party/allList";
@@ -18,7 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/ui/select";
+import { ToggleGroup, ToggleGroupItem } from "@/ui/toggle-group";
 
+import PartyCard from "./partyCard";
 import PartyTable from "./partyTable";
 import TableSkeleton from "../common/tableSkeleton";
 
@@ -108,11 +111,19 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
 ];
 
 //XXX: Cannot update a component while rendering a different component 에러 발생 원인 찾아내기
+type ViewType = "list" | "card";
 function PartyBoard() {
+  const [viewType, setViewType] = useState<ViewType>("list");
   const [pageSize, setPageSize] = useState<number>(10);
+  const [pageSizeList, setPageSizeList] = useState<number[]>([10, 20, 30]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [availableFilter, setAvaliableFilter] = useState<boolean>(false);
+  function changeViewType(type: ViewType) {
+    setViewType(type);
+    setPageSizeList(type === "list" ? [10, 20, 30] : [12, 24, 36]);
+    setPageSize(type === "list" ? 10 : 12);
+  }
 
   const partyPromise = useMemo(() => {
     const sort = sorting.length ? (sorting[0].id as SortableKey) : undefined;
@@ -130,41 +141,66 @@ function PartyBoard() {
 
   return (
     <div>
-      <Suspense fallback={<TableSkeleton />}>
-        <div className="flex justify-between items-center px-4 mb-3">
-          <Select
-            value={pageSize.toString()}
-            onValueChange={(v) => {
-              setCurrentIndex(0);
-              setPageSize(parseInt(v));
-            }}>
-            <SelectTrigger className="w-[80px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="10">10 개</SelectItem>
-              <SelectItem value="20">20 개</SelectItem>
-              <SelectItem value="30">30 개</SelectItem>
-            </SelectContent>
-          </Select>
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="terms"
-              checked={availableFilter}
-              onClick={() => setAvaliableFilter((old) => !old)}
-            />
-            <label htmlFor="terms" className="font-medium leading-none">
-              참여 가능한 행사만 보기
-            </label>
-          </div>
+      <div className="flex items-center px-4 mb-3">
+        <Select
+          value={pageSize.toString()}
+          onValueChange={(v) => {
+            setCurrentIndex(0);
+            setPageSize(parseInt(v));
+          }}>
+          <SelectTrigger className="w-[80px] mr-4">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {pageSizeList.map((v) => (
+              <SelectItem value={v.toString()} key={v}>
+                {v} 개
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="terms"
+            checked={availableFilter}
+            onClick={() => setAvaliableFilter((old) => !old)}
+          />
+          <label htmlFor="terms" className="font-medium leading-none">
+            참여 가능한 행사만 보기
+          </label>
         </div>
-        <PartyTable
-          columns={partyColumnDef}
-          partyPromise={deferredPartyPromise}
-          onClickPagination={setCurrentIndex}
-          sorting={sorting}
-          onSortingChange={setSorting}
-        />
+        <ToggleGroup
+          type="single"
+          className="ml-auto"
+          value={viewType}
+          onValueChange={(v: ViewType) => {
+            if (v) {
+              changeViewType(v);
+            }
+          }}>
+          <ToggleGroupItem value="list">
+            <List className="w-4 h-4" />
+          </ToggleGroupItem>
+          <ToggleGroupItem value="card">
+            <Grid2X2 className="w-4 h-4" />
+          </ToggleGroupItem>
+        </ToggleGroup>
+      </div>
+      <Suspense fallback={<TableSkeleton />}>
+        {viewType === "list" ? (
+          <PartyTable
+            columns={partyColumnDef}
+            partyPromise={deferredPartyPromise}
+            onClickPagination={setCurrentIndex}
+            sorting={sorting}
+            onSortingChange={setSorting}
+          />
+        ) : (
+          <PartyCard
+            partyPromise={partyPromise}
+            onClickPagination={setCurrentIndex}
+          />
+        )}
       </Suspense>
     </div>
   );

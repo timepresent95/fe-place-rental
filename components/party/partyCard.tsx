@@ -16,8 +16,11 @@ import {
 } from "@/ui/card";
 import { cn } from "@/util/tailwind";
 
+import Pagination from "../common/client/pagination";
+
 interface Props extends ComponentProps<typeof Card> {
   partyPromise: ReturnType<typeof getAllListParty>;
+  onClickPagination: (index: number) => void;
 }
 
 function formatPartyCardData(info: PartyInfo) {
@@ -43,51 +46,65 @@ function formatPartyCardData(info: PartyInfo) {
   };
 }
 
-function PartyCard({ className, partyPromise, ...props }: Props) {
+function PartyCard({
+  className,
+  partyPromise,
+  onClickPagination,
+  ...props
+}: Props) {
   const result = use(partyPromise);
   if (result.status === "error") {
     throw new Error("데이터를 가져오는데 실패했습니다.");
   }
   return (
-    <div className="grid grid-cols-3 gap-4">
-      {result.data.data.map(formatPartyCardData).map((v) => {
-        return (
-          <Card key={v.id} className={cn(className)} {...props}>
-            <CardHeader className="pb-2 space-y-3">
-              <CardTitle className="flex justify-between">
-                <span>{v.title}</span>
-                <span
-                  className={clsx("w-16 text-right", {
-                    "text-red-500": v.requestState === "거절",
-                    "text-green-600": v.requestState === "승인",
-                  })}>
-                  {v.requestState}
-                </span>
-              </CardTitle>
-              <div className="flex justify-between text-slate-500">
-                <div className="flex items-center space-x-1">
-                  <Clock className="w-4 h-4" />
-                  <span className="text-xs">{v.partyAt}</span>
+    <div>
+      <div className="grid grid-cols-3 gap-4">
+        {result.data.data.map(formatPartyCardData).map((v) => {
+          return (
+            <Card key={v.id} className={cn(className)} {...props}>
+              <CardHeader className="pb-2 space-y-3">
+                <CardTitle className="flex justify-between">
+                  <span>{v.title}</span>
+                  <span
+                    className={clsx("w-16 text-right", {
+                      "text-red-500": v.requestState === "거절",
+                      "text-green-600": v.requestState === "승인",
+                    })}>
+                    {v.requestState}
+                  </span>
+                </CardTitle>
+                <div className="flex justify-between text-slate-500">
+                  <div className="flex items-center space-x-1">
+                    <Clock className="w-4 h-4" />
+                    <span className="text-xs">{v.partyAt}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <User className="w-4 h-4" />
+                    <span className="text-xs">{v.hostName}</span>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-1">
-                  <User className="w-4 h-4" />
-                  <span className="text-xs">{v.hostName}</span>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-sm line-clamp-3">{v.description}</p>
+                <div className="flex items-center space-x-3 rounded-md border py-2 px-4 mt-auto h-20">
+                  <MapPinned />
+                  <p className="text-xs">{v.placeAddress}</p>
                 </div>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <p className="text-sm line-clamp-3">{v.description}</p>
-              <div className="flex items-center space-x-3 rounded-md border py-2 px-4 mt-auto h-20">
-                <MapPinned />
-                <p className="text-xs">{v.placeAddress}</p>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button className="w-full">참가 신청</Button>
-            </CardFooter>
-          </Card>
-        );
-      })}
+              </CardContent>
+              <CardFooter>
+                <Button className="w-full">참가 신청</Button>
+              </CardFooter>
+            </Card>
+          );
+        })}
+      </div>
+      <Pagination
+        className="mt-6"
+        pageSize={result.data.pageSize}
+        total={result.data.total}
+        currentIndex={result.data.pageIndex}
+        onClick={onClickPagination}
+      />
     </div>
   );
 }
