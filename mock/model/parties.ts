@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import dayjs from "dayjs";
 
 import { Account, accounts } from "./accounts";
 import { Place, places } from "./places";
@@ -86,14 +87,24 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
     );
   }
 
+  //NOTE: 가짜 장소들은 오늘을 기점으로 2-3년 전 ~ 31일 전에 만들어진것으로 생성
   const createdAt = faker.date.between({
     from: place.createdAt,
-    to: faker.date.soon({ days: 31, refDate: place.createdAt }),
+    to: faker.date.recent({ days: 31 }),
   });
 
-  const partyAt = faker.date.soon({ days: 31, refDate: createdAt });
-  const openAt = createdAt;
-  const closeAt = faker.date.between({ from: openAt, to: partyAt });
+  const partyAt = faker.date.between({
+    from: dayjs(createdAt).add(30, "day").toDate(),
+    to: dayjs(createdAt).add(90, "day").toDate(),
+  });
+  const openAt = faker.date.between({
+    from: dayjs(createdAt).add(1, "day").toDate(),
+    to: dayjs(partyAt).subtract(10, "day").toDate(),
+  });
+  const closeAt = faker.date.between({
+    from: dayjs(openAt).add(3, "day").toDate(),
+    to: partyAt,
+  });
   const requestState = partyDates.has(partyAt.valueOf())
     ? "rejected"
     : getRandomRequestState();

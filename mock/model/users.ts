@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import dayjs from "dayjs";
 
 import { ConfictError } from "../errors";
 
@@ -35,8 +36,11 @@ export function createMockUser() {
       faker.string.numeric({ length: 4 }),
   };
 
+  //NOTE: 가짜 유저들은 오늘을 기점으로 3-4년 전에 만들어진것으로 생성
   const user = createUser(payload);
-  user.createdAt = faker.date.past({ years: 1 });
+  user.createdAt = faker.date.past({
+    refDate: dayjs().subtract(3, "year").toDate(),
+  });
 
   return user;
 }

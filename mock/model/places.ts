@@ -48,9 +48,10 @@ export function createMockPlace(ownerId: Account["id"]) {
     );
   }
 
+  //NOTE: 가짜 장소들은 오늘을 기점으로 2-3년 전에 만들어진것으로 생성
   const createdAt = faker.date.between({
-    from: faker.date.past({ years: 1, refDate: owner.createdAt }),
-    to: owner.createdAt,
+    from: owner.createdAt,
+    to: faker.date.future({ refDate: owner.createdAt }),
   });
 
   const address = [
