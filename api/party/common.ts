@@ -12,6 +12,7 @@ export type PartyInfo = {
     address: string;
     name: string;
   };
+  title: string;
   description: string;
   capacity: number;
   headcount: number;

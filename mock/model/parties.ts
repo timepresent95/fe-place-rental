@@ -9,6 +9,7 @@ import { RequestState, getRandomRequestState } from "../lib";
 export interface Party {
   id: string;
   hostId: Account["id"];
+  title: string;
   placeId: Place["id"];
   description: string;
   capacity: number;
@@ -27,7 +28,7 @@ export const partyDates = new Set<number>();
 export function createParty(
   hostId: Account["id"],
   placeId: Place["id"],
-  payload: Pick<Party, "description" | "capacity" | "partyAt">
+  payload: Pick<Party, "description" | "capacity" | "partyAt" | "title">
 ) {
   const host = accounts.get(hostId);
   if (host === undefined) {
@@ -114,6 +115,7 @@ export function createMockParty(hostId: Account["id"], placeId: Place["id"]) {
     hostId: host.id,
     placeId: place.id,
     description: faker.lorem.paragraphs(),
+    title: faker.lorem.sentence({ min: 3, max: 5 }),
     capacity: faker.number.int({ min: 2, max: place.capacity - 1 }),
     partyAt,
     requestState,

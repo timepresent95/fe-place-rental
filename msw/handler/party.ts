@@ -72,6 +72,7 @@ function refineParties(
           address: place.address,
           id: place.id,
         },
+        title: v.title,
         description: v.description,
         capacity: v.capacity,
         headcount,
