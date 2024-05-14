@@ -133,6 +133,7 @@ function PartyBoard() {
         : "asc"
       : undefined;
     const filter: Filter[] = availableFilter ? ["available"] : [];
+    window.scrollTo({ top: 0 });
     return getAllListParty({
       query: { pageSize, pageIndex: currentIndex, sort, sortDirection, filter },
     });
