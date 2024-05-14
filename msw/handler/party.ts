@@ -89,7 +89,7 @@ const allListApi = http.get(partyEndPoint.allList, ({ request }) => {
     "created_at") as allList.SortableKey;
   const sortDirection = (url.searchParams.get("sort_direction") ??
     "asc") as allList.SortDirection;
-  const filter = url.searchParams.getAll("sort_direction") as allList.Filter[];
+  const filter = url.searchParams.getAll("filter") as allList.Filter[];
 
   const { total, data } = refineParties(
     Array.from(store.parties, ([_, v]) => v),
