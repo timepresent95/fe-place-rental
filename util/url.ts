@@ -25,7 +25,10 @@ export function createUrl(path: string, options?: Options) {
     options?.query === undefined
       ? ""
       : Object.entries(options.query).reduce((acc, [key, value]) => {
-          if (value === undefined) {
+          if (
+            value === undefined ||
+            (Array.isArray(value) && value.length === 0)
+          ) {
             return acc;
           }
 
