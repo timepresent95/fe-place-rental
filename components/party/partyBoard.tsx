@@ -1,13 +1,8 @@
 "use client";
 
-import { Suspense, use, useDeferredValue, useMemo, useState } from "react";
+import { Suspense, useDeferredValue, useMemo, useState } from "react";
 
-import {
-  CellContext,
-  ColumnDef,
-  OnChangeFn,
-  SortingState,
-} from "@tanstack/react-table";
+import { CellContext, ColumnDef, SortingState } from "@tanstack/react-table";
 import clsx from "clsx";
 import dayjs from "dayjs";
 
@@ -24,8 +19,7 @@ import {
   SelectValue,
 } from "@/ui/select";
 
-import Pagination from "../common/client/pagination";
-import { DataTable } from "../common/dataTable";
+import PartyTable from "./partyTable";
 import TableSkeleton from "../common/tableSkeleton";
 
 const partyColumnDef: ColumnDef<PartyInfo>[] = [
@@ -113,43 +107,6 @@ const partyColumnDef: ColumnDef<PartyInfo>[] = [
   },
 ];
 
-interface PartyTableProps {
-  partyPromise: ReturnType<typeof getAllListParty>;
-  onClickPagination: (index: number) => void;
-  sorting: SortingState;
-  onSortingChange: OnChangeFn<SortingState>;
-}
-
-function PartyTable({
-  partyPromise,
-  onClickPagination,
-  sorting,
-  onSortingChange,
-}: PartyTableProps) {
-  const result = use(partyPromise);
-
-  if (result.status === "error") {
-    throw new Error("데이터를 가져오는데 실패했습니다.");
-  }
-  return (
-    <div>
-      <DataTable
-        sorting={sorting}
-        onSortingChange={onSortingChange}
-        columns={partyColumnDef}
-        data={result.data.data}
-      />
-      <Pagination
-        className="mt-6"
-        pageSize={result.data.pageSize}
-        total={result.data.total}
-        currentIndex={result.data.pageIndex}
-        onClick={onClickPagination}
-      />
-    </div>
-  );
-}
-
 //XXX: Cannot update a component while rendering a different component 에러 발생 원인 찾아내기
 function PartyBoard() {
   const [pageSize, setPageSize] = useState<number>(10);
@@ -202,6 +159,7 @@ function PartyBoard() {
           </div>
         </div>
         <PartyTable
+          columns={partyColumnDef}
           partyPromise={deferredPartyPromise}
           onClickPagination={setCurrentIndex}
           sorting={sorting}
