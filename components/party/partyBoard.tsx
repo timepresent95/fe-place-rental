@@ -12,9 +12,10 @@ import clsx from "clsx";
 import dayjs from "dayjs";
 
 import { getAllListParty } from "@/api";
-import { SortableKey } from "@/api/party/allList";
+import { Filter, SortableKey } from "@/api/party/allList";
 import { PartyInfo } from "@/api/party/common";
 import { RequestState } from "@/mock/lib";
+import { Checkbox } from "@/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -130,7 +131,6 @@ function PartyTable({
   if (result.status === "error") {
     throw new Error("데이터를 가져오는데 실패했습니다.");
   }
-
   return (
     <div>
       <DataTable
@@ -155,6 +155,7 @@ function PartyBoard() {
   const [pageSize, setPageSize] = useState<number>(10);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [availableFilter, setAvaliableFilter] = useState<boolean>(false);
 
   const partyPromise = useMemo(() => {
     const sort = sorting.length ? (sorting[0].id as SortableKey) : undefined;
@@ -163,16 +164,17 @@ function PartyBoard() {
         ? "desc"
         : "asc"
       : undefined;
+    const filter: Filter[] = availableFilter ? ["available"] : [];
     return getAllListParty({
-      query: { pageSize, pageIndex: currentIndex, sort, sortDirection },
+      query: { pageSize, pageIndex: currentIndex, sort, sortDirection, filter },
     });
-  }, [pageSize, currentIndex, sorting]);
+  }, [pageSize, currentIndex, sorting, availableFilter]);
   const deferredPartyPromise = useDeferredValue(partyPromise);
 
   return (
     <div>
       <Suspense fallback={<TableSkeleton />}>
-        <div className="flex justify-end items-center">
+        <div className="flex justify-between items-center px-4 mb-3">
           <Select
             value={pageSize.toString()}
             onValueChange={(v) => {
@@ -188,6 +190,16 @@ function PartyBoard() {
               <SelectItem value="30">30 개</SelectItem>
             </SelectContent>
           </Select>
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="terms"
+              checked={availableFilter}
+              onClick={() => setAvaliableFilter((old) => !old)}
+            />
+            <label htmlFor="terms" className="font-medium leading-none">
+              참여 가능한 행사만 보기
+            </label>
+          </div>
         </div>
         <PartyTable
           partyPromise={deferredPartyPromise}
