@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
 
 import { Button } from "@/6.shared/ui/shardcn/ui/button";
@@ -10,6 +11,7 @@ import loginAction from "../api/loginAction";
 
 function LoginPage() {
   const [errorMessage, dispatch] = useFormState(loginAction, undefined);
+  const router = useRouter();
 
   return (
     <form className="w-80 mx-auto mt-4" action={dispatch}>
@@ -34,6 +36,14 @@ function LoginPage() {
       </div>
       {errorMessage && <p className="mt-2 text-red-500">{errorMessage}</p>}
       <LoginButton />
+      <a
+        className="mt-4 text-slate-400 underline block cursor-pointer"
+        onClick={(e) => {
+          e.preventDefault();
+          router.push("/signup");
+        }}>
+        혹시 아직 회원이 아니시라면? 무료로 가입해보세요
+      </a>
     </form>
   );
 }
