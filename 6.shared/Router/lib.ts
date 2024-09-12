@@ -1,4 +1,4 @@
-import { routeGroups, type RouteAuthority } from "./model";
+import { Route, routeGroups, type RouteAuthority } from "./model";
 
 export function filterRouteGroup(authority: RouteAuthority) {
   return routeGroups
@@ -47,5 +47,8 @@ export function findRouteByPath(path: string) {
       }
     }
   }
-  throw new Error("page not found");
+  return {
+    name: "Not Found",
+    path: "/404",
+  } as Route;
 }
